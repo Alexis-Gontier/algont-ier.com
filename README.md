@@ -1,5 +1,7 @@
 # Portfolio
 
+[![CI](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml/badge.svg)](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml)
+
 Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed on **Vercel**.
 
 ## Stack
