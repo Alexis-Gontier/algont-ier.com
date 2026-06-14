@@ -15,12 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("Projects");
 
-  return (
-    <section>
-      <h1>{t("title")}</h1>
-      <p>{t("subtitle")}</p>
-    </section>
-  );
+  return <section></section>;
 }

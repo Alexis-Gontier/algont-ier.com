@@ -7,10 +7,12 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Header />
-      <main className="flex flex-1 flex-col">{children}</main>
-      <Footer />
-    </>
+    <div className="px-4">
+      <div className="mx-auto flex min-h-dvh max-w-7xl flex-col border-x">
+        <Header />
+        <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
+      </div>
+    </div>
   );
 }

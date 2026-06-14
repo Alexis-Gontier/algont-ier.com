@@ -1,17 +1,7 @@
-import { useTranslations } from "next-intl";
-import { siteConfig } from "@/config/site";
-import { Link } from "@/i18n/navigation";
-
 export function Header() {
-  const t = useTranslations("Nav");
-
   return (
-    <header>
-      <Link href="/">{siteConfig.name}</Link>
-      <nav>
-        <Link href="/">{t("home")}</Link>
-        <Link href="/projets">{t("projects")}</Link>
-      </nav>
+    <header className="sticky top-0 z-50 flex h-20 items-center border-b bg-background/80 backdrop-blur-sm">
+      <nav className="flex w-full items-center justify-between px-8"></nav>
     </header>
   );
 }
