@@ -15,8 +15,11 @@ jobs:
     name: Lint, typecheck & unit tests
     runs-on: ubuntu-latest
     env:
-      # Skip t3-env validation in CI (no real env vars needed to lint/build).
+      # Skip t3-env validation in CI (no real secrets needed to lint/build).
+      # NOTE: skipping bypasses Zod entirely, so `.default()` values are NOT
+      # applied — public vars read at runtime must be provided explicitly.
       SKIP_ENV_VALIDATION: "true"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
     steps:
       - uses: actions/checkout@v4
 
@@ -47,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SKIP_ENV_VALIDATION: "true"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
     steps:
       - uses: actions/checkout@v4
 
