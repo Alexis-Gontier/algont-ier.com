@@ -1,0 +1,34 @@
+{
+  "Metadata": {
+    "title": "Alexis Gontier",
+    "description": "Mon portfolio personnel."
+  },
+  "Nav": {
+    "home": "Accueil",
+    "projects": "Projets"
+  },
+  "Home": {
+    "hero": {
+      "title": "Un portfolio nouvelle génération",
+      "subtitle": "Construit avec Next.js, shadcn/ui et un thème inspiré de Vite."
+    },
+    "cta": {
+      "projects": "Voir les projets",
+      "github": "GitHub"
+    }
+  },
+  "Projects": {
+    "title": "Projets",
+    "subtitle": "Une sélection de mes projets."
+  },
+  "NotFound": {
+    "title": "404 — Page introuvable",
+    "description": "Cette page n'existe pas.",
+    "backHome": "Retour à l'accueil"
+  },
+  "Error": {
+    "title": "Une erreur est survenue",
+    "description": "Une erreur inattendue s'est produite.",
+    "retry": "Réessayer"
+  }
+}

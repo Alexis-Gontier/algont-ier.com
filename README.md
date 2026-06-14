@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed on **Vercel**.
 
-First, run the development server:
+## Stack
+
+- [Next.js 16](https://nextjs.org) + [React 19](https://react.dev) (React Compiler enabled)
+- [TypeScript](https://www.typescriptlang.org) (strict)
+- [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) (Radix primitives)
+- [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
+- [next-intl](https://next-intl.dev) — i18n (FR default + EN, routes under `app/[locale]`)
+- [Zustand](https://zustand.docs.pmnd.rs) — client state · [nuqs](https://nuqs.47ng.com) — URL state · [sonner](https://sonner.emilkowal.ski) — toasts
+- [Biome](https://biomejs.dev) — lint & format (replaces ESLint + Prettier)
+- [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com) — unit/component tests
+- [Playwright](https://playwright.dev) — end-to-end tests
+- [Lefthook](https://lefthook.dev) — git hooks
+- [@t3-oss/env-nextjs](https://env.t3.gg) — type-safe environment variables
+
+## Requirements
+
+- [Node.js](https://nodejs.org) 22+
+- [pnpm](https://pnpm.io) 10+
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # then fill in the values
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the dev server |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Biome check (lint + format) |
+| `pnpm format` | Auto-format with Biome |
+| `pnpm typecheck` | Type-check with `tsc` |
+| `pnpm test` | Run unit tests (Vitest) |
+| `pnpm test:watch` | Vitest in watch mode |
+| `pnpm test:e2e` | Run E2E tests (Playwright) |
 
-## Learn More
+> First time running E2E tests: `pnpm exec playwright install chromium`.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Environment variables are validated at build & runtime in [`src/env.ts`](src/env.ts).
+Add new variables there **and** to [`.env.example`](.env.example). Browser-exposed
+variables must be prefixed with `NEXT_PUBLIC_`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
+```
+src/
+  app/
+    [locale]/     localized routes (layout, page, …)
+    sitemap.ts, robots.ts (non-localized)
+  components/
+    shadcn-ui/    shadcn/ui primitives
+    …             shared composed components
+  features/       per-domain modules (added as sections are built)
+  providers/      React context providers (composed in providers/index.tsx)
+  i18n/           next-intl config (routing, navigation, request)
+  messages/       translations (fr.json, en.json)
+  stores/         Zustand stores
+  styles/         global CSS (globals.css) + fonts (fonts.ts)
+  config/         static site config / metadata (site.ts)
+  lib/            framework-agnostic helpers (utils/cn.ts)
+  proxy.ts        next-intl middleware (locale routing)
+  env.ts          type-safe environment variables
+tests/e2e/        Playwright end-to-end tests
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A component lives in `components/` only when it's used in two or more places; otherwise it
+is colocated with its route. `app/` stays routing-only.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Internationalization
+
+Powered by [next-intl](https://next-intl.dev). Supported locales: **`fr`** (default) and
+**`en`**, with the locale in the URL (`/fr`, `/en`). Visiting `/` redirects to the detected
+or default locale.
+
+- UI strings live in [`src/messages/fr.json`](src/messages/fr.json) and
+  [`src/messages/en.json`](src/messages/en.json) — add a key to **both** to add a string.
+- To add a locale: extend `locales` in [`src/i18n/routing.ts`](src/i18n/routing.ts) and add a
+  matching `messages/<locale>.json`.
+- Locale routing/detection lives in [`src/proxy.ts`](src/proxy.ts) (Next.js 16 renamed
+  `middleware` → `proxy`).
+
+## Deployment
+
+Deployed on Vercel — pushes to `main` deploy to production, pull requests get
+preview deployments automatically. CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml))
+runs lint, type-check, unit and E2E tests on every push and PR.
+
+Remember to set `NEXT_PUBLIC_SITE_URL` to your production domain in the Vercel project settings.

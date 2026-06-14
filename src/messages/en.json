@@ -1,0 +1,34 @@
+{
+  "Metadata": {
+    "title": "Alexis Gontier",
+    "description": "My personal portfolio."
+  },
+  "Nav": {
+    "home": "Home",
+    "projects": "Projects"
+  },
+  "Home": {
+    "hero": {
+      "title": "Next generation portfolio",
+      "subtitle": "Built with Next.js, shadcn/ui and a Vite-inspired theme."
+    },
+    "cta": {
+      "projects": "View projects",
+      "github": "GitHub"
+    }
+  },
+  "Projects": {
+    "title": "Projects",
+    "subtitle": "A selection of my work."
+  },
+  "NotFound": {
+    "title": "404 — Page not found",
+    "description": "This page doesn't exist.",
+    "backHome": "Back home"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred.",
+    "retry": "Try again"
+  }
+}
