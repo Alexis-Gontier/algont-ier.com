@@ -9,6 +9,25 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /**
+ * Primary navigation. `labelKey` resolves against the `Nav` namespace in
+ * `src/messages/*` so links stay translatable; `href` points at a home anchor
+ * (e.g. `/#about`) or a dedicated route (`/projets`).
+ */
+export const navLinks = [
+  { labelKey: "home", href: "/" },
+  { labelKey: "projects", href: "/projets" },
+  { labelKey: "graph", href: "/graph" },
+] as const;
+
+export type NavLinkKey = (typeof navLinks)[number]["labelKey"];
+
+/** External profiles — rendered as icon links in the footer (and contact). */
+export const socialLinks = {
+  github: "https://github.com/Alexis-Gontier",
+  linkedin: "https://www.linkedin.com/in/alexis-gontier/",
+} as const;
+
+/**
  * Static site metadata — single source of truth for branding, navigation and
  * links. Grow this as the portfolio (and admin) need it: nav, social links,
  * default OG image, etc.
@@ -21,4 +40,8 @@ export const siteConfig = {
     name: "Alexis Gontier",
     email: "alexis.gontier03@gmail.com",
   },
+  /** CV served from `public/` — drop the file at `public/cv.pdf`. */
+  cvUrl: "/cv.pdf",
+  nav: navLinks,
+  socials: socialLinks,
 } as const;
