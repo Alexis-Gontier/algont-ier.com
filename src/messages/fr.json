@@ -6,6 +6,27 @@
   "Projects": {
     "title": "Projets"
   },
+  "Nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "graph": "Graph",
+    "contact": "Contact",
+    "cv": "CV",
+    "openMenu": "Ouvrir le menu",
+    "menu": "Menu",
+    "toggleTheme": "Changer de thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système",
+    "switchLanguage": "Changer de langue"
+  },
+  "Footer": {
+    "rights": "Tous droits réservés.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
   "NotFound": {
     "title": "404 — Page introuvable",
     "description": "Cette page n'existe pas.",

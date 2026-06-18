@@ -6,6 +6,27 @@
   "Projects": {
     "title": "Projects"
   },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "graph": "Graph",
+    "contact": "Contact",
+    "cv": "Resume",
+    "openMenu": "Open menu",
+    "menu": "Menu",
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "switchLanguage": "Switch language"
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
   "NotFound": {
     "title": "404 — Page not found",
     "description": "This page doesn't exist.",
