@@ -5,11 +5,13 @@
   },
   "Projects": {
     "title": "Projets",
+    "subtitle": "L'ensemble de mes projets, du plus récent au plus ancien.",
     "featuredTitle": "Projets en vedette",
     "featuredSubtitle": "Une sélection de projets sur lesquels j'ai travaillé.",
     "viewAll": "Tous les projets",
     "viewDemo": "Voir la démo",
-    "viewCode": "Voir le code"
+    "viewCode": "Voir le code",
+    "back": "Retour aux projets"
   },
   "About": {
     "title": "À propos",
