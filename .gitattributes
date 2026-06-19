@@ -1,0 +1,14 @@
+# Normalize line endings: store as LF in the repo and check out as LF on every
+# platform. Fixes Windows CRLF checkouts making Biome's formatter fail locally
+# while CI (Linux/LF) passes.
+* text=auto eol=lf
+
+# Binary assets — never touch line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
