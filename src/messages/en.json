@@ -4,7 +4,48 @@
     "description": "My personal portfolio."
   },
   "Projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "featuredTitle": "Featured projects",
+    "featuredSubtitle": "A selection of projects I've worked on.",
+    "viewAll": "All projects",
+    "viewDemo": "View demo",
+    "viewCode": "View code"
+  },
+  "About": {
+    "title": "About",
+    "fileName": "about.md",
+    "blockquote": "Full-Stack Developer — Web Bachelor student at HETIC.",
+    "p1": "I turn ideas into real web products, from the first pixel to deployment. Apprentice at Plume and winner of a HETIC × Publicis hackathon.",
+    "p2": "What drives me: polished interfaces, readable code, and projects that genuinely matter.",
+    "stackLabel": "current stack",
+    "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
+    "formationLabel": "education",
+    "formation": "HETIC Bachelor (2023–2026)",
+    "dispoLabel": "availability",
+    "dispo": "2-year apprenticeship · 3 weeks company / 1 week school"
+  },
+  "Skills": {
+    "title": "Technologies I use.",
+    "subtitle": "Over the years, I've worked with a variety of technologies.",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Database",
+    "devops": "DevOps & Cloud",
+    "tools": "Quality & Tools"
+  },
+  "Trust": {
+    "title": "These companies trusted me."
+  },
+  "Contact": {
+    "title": "Let's work together",
+    "subtitle": "A question, a project, or just want to chat? Feel free to reach out.",
+    "cta": "Send me an email"
+  },
+  "Hero": {
+    "greeting": "Hi, I'm —",
+    "tagline": "Full-stack developer passionate about crafting modern, high-performance digital experiences.",
+    "viewProjects": "View my projects",
+    "downloadCv": "Download CV"
   },
   "Nav": {
     "home": "Home",

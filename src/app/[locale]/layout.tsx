@@ -61,7 +61,11 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      className={cn(fontVariables, "h-full antialiased")}
+      data-scroll-behavior="smooth"
+      className={cn(
+        fontVariables,
+        "h-full scroll-pt-20 scroll-smooth antialiased",
+      )}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
