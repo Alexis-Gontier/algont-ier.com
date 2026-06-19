@@ -5,11 +5,13 @@
   },
   "Projects": {
     "title": "Projects",
+    "subtitle": "All my projects, from the most recent to the oldest.",
     "featuredTitle": "Featured projects",
     "featuredSubtitle": "A selection of projects I've worked on.",
     "viewAll": "All projects",
     "viewDemo": "View demo",
-    "viewCode": "View code"
+    "viewCode": "View code",
+    "back": "Back to projects"
   },
   "About": {
     "title": "About",

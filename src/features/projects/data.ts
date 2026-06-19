@@ -32,28 +32,66 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "projet-2",
-    title: "Projet 2",
+    slug: "taskflow",
+    title: "TaskFlow",
     description: {
-      fr: "Description courte du projet — à compléter.",
-      en: "Short project description — to be completed.",
+      fr: "Gestionnaire de tâches collaboratif en temps réel avec tableaux Kanban, étiquettes et notifications.",
+      en: "Real-time collaborative task manager with Kanban boards, labels and notifications.",
     },
-    tags: ["React", "Node.js", "PostgreSQL"],
+    tags: ["Next.js", "tRPC", "Prisma", "PostgreSQL"],
     demoUrl: "https://example.com",
     repoUrl: "https://github.com",
     featured: true,
   },
   {
-    slug: "projet-3",
-    title: "Projet 3",
+    slug: "shopwave",
+    title: "ShopWave",
     description: {
-      fr: "Description courte du projet — à compléter.",
-      en: "Short project description — to be completed.",
+      fr: "Boutique e-commerce avec panier, paiement Stripe et back-office de gestion des produits.",
+      en: "E-commerce store with cart, Stripe checkout and a product management back-office.",
     },
-    tags: ["Next.js", "Prisma", "tRPC"],
+    tags: ["Next.js", "Stripe", "Tailwind CSS", "Zustand"],
     demoUrl: "https://example.com",
+    repoUrl: "https://github.com",
     featured: true,
+  },
+  {
+    slug: "devconnect",
+    title: "DevConnect",
+    description: {
+      fr: "Réseau social pour développeurs : profils, fil d'actualité et messagerie instantanée.",
+      en: "Social network for developers: profiles, activity feed and instant messaging.",
+    },
+    tags: ["React", "Node.js", "Socket.io", "MongoDB"],
+    demoUrl: "https://example.com",
+    repoUrl: "https://github.com",
+  },
+  {
+    slug: "weather-now",
+    title: "Weather Now",
+    description: {
+      fr: "Application météo avec géolocalisation, prévisions sur 7 jours et cartes interactives.",
+      en: "Weather app with geolocation, 7-day forecasts and interactive maps.",
+    },
+    tags: ["React", "TypeScript", "REST API"],
+    demoUrl: "https://example.com",
+    repoUrl: "https://github.com",
+  },
+  {
+    slug: "markdown-notes",
+    title: "Markdown Notes",
+    description: {
+      fr: "Éditeur de notes en Markdown avec prévisualisation live, recherche et synchronisation locale.",
+      en: "Markdown notes editor with live preview, search and local sync.",
+    },
+    tags: ["Next.js", "TypeScript", "Zustand"],
+    repoUrl: "https://github.com",
   },
 ];
 
 export const featuredProjects = projects.filter((project) => project.featured);
+
+/** Find a project by its `slug`, or `undefined` if none matches. */
+export function getProjectBySlug(slug: string): Project | undefined {
+  return projects.find((project) => project.slug === slug);
+}
