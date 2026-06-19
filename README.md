@@ -12,6 +12,7 @@ Personal portfolio built with **Next.js 16** (App Router) and **React 19**, depl
 - [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
 - [next-intl](https://next-intl.dev) — i18n (FR default + EN, routes under `app/[locale]`)
 - [Zustand](https://zustand.docs.pmnd.rs) — client state · [nuqs](https://nuqs.47ng.com) — URL state · [sonner](https://sonner.emilkowal.ski) — toasts
+- [React Flow](https://reactflow.dev) + [d3-force](https://d3js.org/d3-force) — interactive skills graph
 - [Biome](https://biomejs.dev) — lint & format (replaces ESLint + Prettier)
 - [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com) — unit/component tests
 - [Playwright](https://playwright.dev) — end-to-end tests
@@ -61,11 +62,15 @@ variables must be prefixed with `NEXT_PUBLIC_`.
 src/
   app/
     [locale]/     localized routes (layout, page, …)
-    sitemap.ts, robots.ts (non-localized)
+      (site)/     public pages — (home), projets/[id], graph
+    sitemap.ts, robots.ts, [locale]/opengraph-image.tsx (non-localized / generated)
   components/
-    shadcn-ui/    shadcn/ui primitives
-    …             shared composed components
-  features/       per-domain modules (added as sections are built)
+    shadcn-ui/    shadcn/ui primitives (via the CLI)
+    magic-ui/     Magic UI components (e.g. marquee)
+    controls/     reusable controls (theme-toggle, locale-switcher)
+    layout/       global site chrome (header/, footer/)
+    shared/       shared composed components (section, social-icons)
+  features/       per-domain modules: hero, about, skills, projects, trust, contact, graph
   providers/      React context providers (composed in providers/index.tsx)
   i18n/           next-intl config (routing, navigation, request)
   messages/       translations (fr.json, en.json)
@@ -78,8 +83,16 @@ src/
 tests/e2e/        Playwright end-to-end tests
 ```
 
-A component lives in `components/` only when it's used in two or more places; otherwise it
-is colocated with its route. `app/` stays routing-only.
+A component is promoted to `components/shared/` only when used in two or more places;
+otherwise it is colocated with its route or owning feature. `app/` stays routing-only.
+
+## Pages
+
+- **`/`** — home: hero (with a skills-graph preview), about, skills, featured projects,
+  a "trusted by" marquee, and contact.
+- **`/projets`** + **`/projets/[id]`** — project list and detail (shared `features/projects` data).
+- **`/graph`** — interactive skills graph (projects linked to the technologies they use),
+  built with React Flow + d3-force.
 
 ## Internationalization
 

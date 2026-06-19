@@ -5,9 +5,9 @@ import {
   MailIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Section } from "@/components/section";
 import { Button } from "@/components/shadcn-ui/button";
-import { GithubIcon, LinkedinIcon } from "@/components/social-icons";
+import { Section } from "@/components/shared/section";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/config/site";
 import { SkillsGraph } from "@/features/graph";
 import { Link } from "@/i18n/navigation";

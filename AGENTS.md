@@ -35,16 +35,20 @@ src/
   app/
     [locale]/     localized routes — routing only (root layout = html/body/<Providers>)
       (site)/     public-facing pages route group: its layout wraps Header + Footer
-        (home)/   home page route group (page.tsx + its _components) — keeps "/" tidy
+        (home)/   home page route group (page.tsx composes the section features)
         projets/  projets/page.tsx, projets/[id]/page.tsx
+        graph/    graph/page.tsx (interactive skills graph)
       (admin)/    future back-office route group with its own layout + auth
       error/loading/not-found.tsx (apply to every locale route)
-    sitemap.ts, robots.ts, favicon.ico (non-localized, stay at root)
+    [locale]/opengraph-image.tsx (generated OG image), sitemap.ts, robots.ts
   components/
     shadcn-ui/    shadcn/ui primitives (added via the CLI)
-    layout/       global site chrome (header.tsx, footer.tsx) — not a domain feature
-    *             shared composed components (used in ≥2 places)
-  features/       per-domain modules (components, data, types) — added as sections are built
+    magic-ui/     Magic UI components (e.g. marquee) — added via its registry
+    controls/     reusable composed controls (theme-toggle, locale-switcher)
+    layout/       global site chrome — header/ and footer/ subfolders (not a feature)
+    shared/       shared composed components (section.tsx, social-icons.tsx, …)
+  features/       per-domain modules — hero, about, skills, projects, trust, contact,
+                  graph (see features/README.md for the anatomy)
   providers/      React context providers; composed in providers/index.tsx (<Providers>)
   i18n/           next-intl config (routing, navigation, request)
   messages/       translations (fr.json, en.json)
@@ -62,15 +66,18 @@ tests/e2e/        Playwright end-to-end tests
   `(site)/`; its `layout.tsx` mounts the Header/Footer. The home page sits in its own
   `(home)/` group so `/` stays visually separate from sibling sections — colocate
   page-only parts in that group's `_components/`.
-- **Where a component goes:** put it in `components/` only when used in ≥2 places; otherwise
-  colocate it in the route (`app/.../_components/`). Keep `app/` routing-only. Global chrome
-  (header, footer) goes in `components/layout/`; per-domain UI goes in `features/`.
+- **Where a component goes:** promote to `components/shared/` only when used in ≥2 places;
+  otherwise colocate it (in the route's `_components/`, or the owning
+  `features/<name>/components/`). Keep `app/` routing-only. Global chrome (header, footer)
+  goes in `components/layout/`; reusable theme/locale-style controls in `components/controls/`;
+  per-domain UI in `features/`.
 - **React types:** `@types/react` exposes the `React` namespace globally — use
   `React.ReactNode` etc. without importing React.
 - **Route types stale after structure changes:** adding/moving/deleting a route makes
   `.next/types` stale and `pnpm typecheck` fail; regenerate with `pnpm exec next typegen`.
 - **shadcn:** new components land in `@/components/shadcn-ui` and `cn` lives in
   `@/lib/utils/cn` (set in `components.json`). Don't hand-tweak those import paths.
+  Components from other registries (e.g. Magic UI) go in `@/components/magic-ui`.
 - **Styling:** global CSS is `src/styles/globals.css`; use `cn()` (`@/lib/utils/cn`) for
   conditional/merged class names.
 - **Future admin:** a back-office will live under an `app/(admin)/` route group with its own

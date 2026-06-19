@@ -2,7 +2,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn-ui/button";
-import { GithubIcon } from "@/components/social-icons";
+import { GithubIcon } from "@/components/shared/social-icons";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { Project } from "../data";

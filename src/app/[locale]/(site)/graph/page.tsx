@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Section } from "@/components/section";
+import { Section } from "@/components/shared/section";
 import { SkillsGraph } from "@/features/graph";
 
 type Props = {
