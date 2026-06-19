@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/magic-ui/marquee";
-import { Section } from "@/components/section";
+import { Section } from "@/components/shared/section";
 import { trustedCompanies } from "../data";
 
 export function Trust() {

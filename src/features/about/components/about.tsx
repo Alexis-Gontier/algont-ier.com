@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { Section } from "@/components/section";
+import { Section } from "@/components/shared/section";
 
 export function About() {
   const t = useTranslations("About");

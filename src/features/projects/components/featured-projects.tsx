@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Section } from "@/components/section";
 import { Button } from "@/components/shadcn-ui/button";
+import { Section } from "@/components/shared/section";
 import { Link } from "@/i18n/navigation";
 import { featuredProjects } from "../data";
 import { ProjectCard } from "./project-card";
