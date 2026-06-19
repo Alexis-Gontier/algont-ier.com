@@ -13,6 +13,12 @@
     "viewCode": "View code",
     "back": "Back to projects"
   },
+  "Graph": {
+    "title": "Skills graph",
+    "subtitle": "Each project is linked to the technologies it uses. Hover a node to reveal its connections, drag them, zoom.",
+    "legendProject": "Project",
+    "legendTech": "Technology"
+  },
   "About": {
     "title": "About",
     "fileName": "about.md",
@@ -47,7 +53,8 @@
     "greeting": "Hi, I'm —",
     "tagline": "Full-stack developer passionate about crafting modern, high-performance digital experiences.",
     "viewProjects": "View my projects",
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "viewGraph": "View the skills graph"
   },
   "Nav": {
     "home": "Home",
