@@ -1,9 +1,15 @@
-import { ArrowRightIcon, DownloadIcon, MailIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  DownloadIcon,
+  MailIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/section";
 import { Button } from "@/components/shadcn-ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/social-icons";
 import { siteConfig } from "@/config/site";
+import { SkillsGraph } from "@/features/graph";
 import { Link } from "@/i18n/navigation";
 
 const socials = [
@@ -70,11 +76,20 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right column — graph placeholder, to be built later. */}
-        <div
-          className="hidden aspect-square w-full rounded-xl border border-dashed md:block"
-          aria-hidden="true"
-        />
+        {/* Right column — non-interactive preview, links to the full graph. */}
+        <div className="group relative hidden aspect-square w-full md:block">
+          <SkillsGraph
+            interactive={false}
+            className="transition-colors group-hover:border-foreground/30"
+          />
+          <Link
+            href="/graph"
+            aria-label={t("viewGraph")}
+            className="absolute top-3 right-3 z-10 inline-flex size-8 items-center justify-center rounded-md border bg-card/80 text-muted-foreground backdrop-blur-sm transition-colors hover:bg-card hover:text-foreground"
+          >
+            <ArrowUpRightIcon className="size-4" />
+          </Link>
+        </div>
       </div>
     </Section>
   );

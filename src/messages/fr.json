@@ -13,6 +13,12 @@
     "viewCode": "Voir le code",
     "back": "Retour aux projets"
   },
+  "Graph": {
+    "title": "Graphe de compétences",
+    "subtitle": "Chaque projet est relié aux technologies qu'il utilise. Survole un nœud pour voir ses connexions, glisse-les, zoome.",
+    "legendProject": "Projet",
+    "legendTech": "Technologie"
+  },
   "About": {
     "title": "À propos",
     "fileName": "about.md",
@@ -47,7 +53,8 @@
     "greeting": "Salut, je suis —",
     "tagline": "Développeur full-stack passionné par la création d'expériences numériques modernes et performantes.",
     "viewProjects": "Voir mes projets",
-    "downloadCv": "Télécharger le CV"
+    "downloadCv": "Télécharger le CV",
+    "viewGraph": "Voir le graphe de compétences"
   },
   "Nav": {
     "home": "Accueil",
