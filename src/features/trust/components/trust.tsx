@@ -7,13 +7,13 @@ export function Trust() {
   const t = useTranslations("Trust");
 
   return (
-    <Section id="trust">
-      <div className="grid items-center gap-8 md:grid-cols-[35%_65%]">
-        <h2 className="max-w-xs text-xl font-bold tracking-tight sm:text-2xl">
+    <Section id="trust" padded={false}>
+      <div className="grid items-stretch gap-8 py-12 md:grid-cols-[35%_65%]">
+        <h2 className="flex max-w-xs items-center text-xl font-bold tracking-tight sm:text-2xl">
           {t("title")}
         </h2>
 
-        <div className="relative">
+        <div className="relative flex flex-col justify-center border-border border-t pt-8 md:-my-12 md:border-t-0 md:border-l md:py-12 md:pl-8">
           {/* Decorative, duplicated marquee — hidden from assistive tech. */}
           <div aria-hidden="true">
             <Marquee pauseOnHover className="[--duration:15s]">

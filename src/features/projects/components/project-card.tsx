@@ -7,10 +7,18 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { Project } from "../data";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  /** Eagerly load the preview image — set on above-the-fold cards for LCP. */
+  priority?: boolean;
+}) {
   const t = useTranslations("Projects");
   const locale = useLocale() as Locale;
   const { slug, title, description, tags, image, demoUrl, repoUrl } = project;
+  const inDevelopment = project.inDevelopment;
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border bg-card outline-2 outline-transparent transition-colors hover:outline-ring">
@@ -23,11 +31,17 @@ export function ProjectCard({ project }: { project: Project }) {
             src={image}
             alt={title}
             fill
+            priority={priority}
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
           <div className="size-full bg-linear-to-br from-primary/20 via-muted to-muted" />
+        )}
+        {inDevelopment && (
+          <span className="absolute top-2 left-2 rounded-md bg-background/90 px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
+            {t("inDevelopment")}
+          </span>
         )}
       </Link>
 
@@ -70,13 +84,15 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground">{description[locale]}</p>
+        <p className="line-clamp-2 text-sm text-muted-foreground">
+          {description[locale]}
+        </p>
 
-        <ul className="mt-1 flex flex-wrap gap-1.5">
+        <ul className="mt-1 flex gap-1.5 overflow-hidden">
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-md border px-2 py-0.5 text-muted-foreground text-xs"
+              className="shrink-0 whitespace-nowrap rounded-md border px-2 py-0.5 text-muted-foreground text-xs"
             >
               {tag}
             </li>
