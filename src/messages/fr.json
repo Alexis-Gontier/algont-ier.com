@@ -11,7 +11,8 @@
     "viewAll": "Tous les projets",
     "viewDemo": "Voir la démo",
     "viewCode": "Voir le code",
-    "back": "Retour aux projets"
+    "back": "Retour aux projets",
+    "inDevelopment": "En développement"
   },
   "Graph": {
     "title": "Graphe de compétences",

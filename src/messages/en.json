@@ -11,7 +11,8 @@
     "viewAll": "All projects",
     "viewDemo": "View demo",
     "viewCode": "View code",
-    "back": "Back to projects"
+    "back": "Back to projects",
+    "inDevelopment": "In development"
   },
   "Graph": {
     "title": "Skills graph",

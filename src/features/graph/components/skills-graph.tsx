@@ -20,6 +20,8 @@ import {
   forceLink,
   forceManyBody,
   forceSimulation,
+  forceX,
+  forceY,
 } from "d3-force";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
@@ -43,6 +45,25 @@ function techSizeClass(degree: number): string {
   if (degree >= 4) return "px-4 py-1.5 text-lg font-semibold";
   if (degree >= 2) return "px-3.5 py-1 text-base font-medium";
   return "px-3 py-1 text-sm";
+}
+
+/**
+ * Estimate a node's collision radius from its rendered width so labels never
+ * overlap. Pill widths track the same size tiers as `techSizeClass`/the project
+ * style: roughly (chars × per-char px) + horizontal padding.
+ */
+function collideRadius(kind: Kind, label: string, degree: number): number {
+  // [perChar, horizontalPadding] mirroring the Tailwind size classes above.
+  let perChar = 8;
+  let padding = 32;
+  if (kind === "tech") {
+    if (degree >= 4) [perChar, padding] = [10, 32];
+    else if (degree >= 2) [perChar, padding] = [9, 28];
+    else [perChar, padding] = [7.5, 24];
+  }
+  const width = label.length * perChar + padding;
+  // Half-width as the radius, plus breathing room between neighbours.
+  return width / 2 + 14;
 }
 
 function GraphNode({ data }: { data: GraphNodeData }) {
@@ -110,6 +131,8 @@ function buildLayout() {
 
   // d3-force mutates the link objects it receives (replacing source/target
   // with node refs), so feed it copies and keep `linkPairs` as plain strings.
+  const degreeOf = (id: string) => adjacency.get(id)?.size ?? 0;
+
   forceSimulation(simNodes as never)
     .force("charge", forceManyBody().strength(-600))
     .force(
@@ -119,7 +142,16 @@ function buildLayout() {
         .distance(110),
     )
     .force("center", forceCenter(0, 0))
-    .force("collide", forceCollide(48))
+    // Pull every node gently toward the origin so disconnected projects/clusters
+    // stay grouped instead of drifting far apart under charge repulsion.
+    .force("x", forceX(0).strength(0.08))
+    .force("y", forceY(0).strength(0.08))
+    .force(
+      "collide",
+      forceCollide<SimNode>((node) =>
+        collideRadius(node.kind, node.label, degreeOf(node.id)),
+      ),
+    )
     .stop()
     .tick(400);
 

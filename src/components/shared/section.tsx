@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils/cn";
 type SectionProps = React.ComponentProps<"section"> & {
   /** Inner container size — defaults to the readable content width. */
   container?: boolean;
+  /** Vertical padding inside the container. Disable to let children own the full height. */
+  padded?: boolean;
 };
 
 /**
@@ -13,6 +15,7 @@ type SectionProps = React.ComponentProps<"section"> & {
 export function Section({
   className,
   container = true,
+  padded = true,
   children,
   ...props
 }: SectionProps) {
@@ -20,7 +23,8 @@ export function Section({
     <section className={className} {...props}>
       <div
         className={cn(
-          "mx-auto w-full px-4 py-20 sm:px-8",
+          "mx-auto w-full px-4 sm:px-8",
+          padded && "py-20",
           container && "max-w-6xl",
         )}
       >

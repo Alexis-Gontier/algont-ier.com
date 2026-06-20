@@ -38,7 +38,18 @@ export default async function ProjectPage({ params }: Props) {
   const project = getProjectBySlug(id);
   if (!project) notFound();
 
-  const { title, description, tags, image, demoUrl, repoUrl } = project;
+  const {
+    title,
+    description,
+    longDescription,
+    tags,
+    image,
+    year,
+    demoUrl,
+    repoUrl,
+    inDevelopment,
+  } = project;
+  const body = (longDescription ?? description)[locale as Locale];
 
   return (
     <Section>
@@ -51,9 +62,19 @@ export default async function ProjectPage({ params }: Props) {
         </Button>
 
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              {title}
+            </h1>
+            {year && (
+              <span className="text-muted-foreground text-sm">{year}</span>
+            )}
+            {inDevelopment && (
+              <span className="rounded-md border px-2 py-0.5 text-muted-foreground text-xs">
+                {t("inDevelopment")}
+              </span>
+            )}
+          </div>
 
           <ul className="flex flex-wrap gap-1.5">
             {tags.map((tag) => (
@@ -81,9 +102,7 @@ export default async function ProjectPage({ params }: Props) {
           )}
         </div>
 
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          {description[locale as Locale]}
-        </p>
+        <p className="max-w-2xl text-lg text-muted-foreground">{body}</p>
 
         <div className="flex flex-wrap gap-3">
           {demoUrl && (

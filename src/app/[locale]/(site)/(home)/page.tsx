@@ -17,10 +17,10 @@ export default async function Home({ params }: Props) {
   return (
     <div className="divide-y divide-border">
       <Hero />
+      <Trust />
       <About />
       <Skills />
       <FeaturedProjects />
-      <Trust />
       <Contact />
     </div>
   );
