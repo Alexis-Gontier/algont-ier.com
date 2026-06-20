@@ -42,7 +42,6 @@ export const projects: Project[] = [
     year: 2025,
     demoUrl: "https://algont-ier.com",
     repoUrl: "https://github.com/Alexis-Gontier/algont-ier.com",
-    featured: true,
   },
   {
     slug: "station-meteo-iot",
@@ -72,6 +71,7 @@ export const projects: Project[] = [
     },
     tags: ["Rust", "CLI", "TUI", "Ratatui", "Clap"],
     year: 2025,
+    featured: true,
   },
   {
     slug: "3nc-normandie-nucleaire",
@@ -144,7 +144,6 @@ export const projects: Project[] = [
     year: 2025,
     demoUrl: "https://among-legends-seven.vercel.app",
     repoUrl: "https://github.com/Alexis-Gontier/among-legends",
-    featured: true,
   },
   {
     slug: "run-together",
@@ -196,6 +195,7 @@ export const projects: Project[] = [
     demoUrl: "https://better-save.vercel.app",
     repoUrl: "https://github.com/Alexis-Gontier/better-save",
     inDevelopment: true,
+    featured: true,
   },
 ];
 
