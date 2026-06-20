@@ -6,5 +6,7 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: "/((?!api|_next|_vercel|.*\\..*).*)",
+  // `icon` is the root metadata route (`app/icon.tsx`); without this exclusion the
+  // locale proxy redirects `/icon` into `[locale]`, breaking the favicon.
+  matcher: "/((?!api|_next|_vercel|icon|.*\\..*).*)",
 };
