@@ -1,0 +1,42 @@
+# Apache config for the static export (uploaded to the web root via WinSCP).
+# Nginx ignores this file — for Nginx, replicate these headers/redirects in the
+# server block. The security headers mirror what next.config.ts serves on Vercel.
+
+# --- Default document & locale redirect ---------------------------------------
+DirectoryIndex index.html
+# Send "/" straight to the default locale (index.html also does this as fallback).
+RewriteEngine On
+RewriteRule ^$ /fr/ [R=302,L]
+
+# --- Custom error page --------------------------------------------------------
+# `output: export` emits 404.html at the site root.
+ErrorDocument 404 /404.html
+
+# --- Extensionless generated images -------------------------------------------
+# Next emits the favicon / OG images without a file extension (out/icon,
+# out/<locale>/opengraph-image). Force the correct MIME type so browsers and
+# crawlers don't receive application/octet-stream.
+<FilesMatch "^(icon|apple-icon|opengraph-image|twitter-image)$">
+  ForceType image/png
+</FilesMatch>
+
+# --- Security headers ---------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  # Only meaningful once the site is served over HTTPS.
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# --- Caching ------------------------------------------------------------------
+# Next emits content-hashed assets under /_next/static — cache them aggressively.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|png|jpe?g|gif|svg|webp|avif|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

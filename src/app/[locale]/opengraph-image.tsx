@@ -1,6 +1,15 @@
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
+import { routing } from "@/i18n/routing";
+
+// Required for `output: export` — pre-render this generated image at build time.
+export const dynamic = "force-static";
+
+// One OG image per locale (the `[locale]` segment needs its params enumerated).
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const alt = siteConfig.name;
 export const size = { width: 1200, height: 630 };

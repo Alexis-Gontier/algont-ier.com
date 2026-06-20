@@ -1,0 +1,21 @@
+<!doctype html>
+<!--
+  Root redirect to the default locale (/fr/). The static export has no
+  middleware to negotiate locales, so this file — copied verbatim to out/ —
+  sends visitors landing on "/" to the French homepage on any static host
+  (Apache, Nginx, …). Apache also gets a faster redirect via public/.htaccess.
+-->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0; url=/fr/" />
+    <link rel="canonical" href="/fr/" />
+    <title>Alexis Gontier</title>
+  </head>
+  <body>
+    <p>Redirection vers <a href="/fr/">/fr/</a>…</p>
+    <script>
+      window.location.replace("/fr/");
+    </script>
+  </body>
+</html>
