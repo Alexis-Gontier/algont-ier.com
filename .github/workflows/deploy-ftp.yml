@@ -1,0 +1,49 @@
+name: Deploy (FTP OVH)
+
+# Déploie l'export statique sur l'hébergement mutualisé OVH à chaque push
+# sur la branche dédiée. Déclenchable aussi manuellement.
+on:
+  push:
+    branches: [static-export-ftp]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ftp
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & upload static export
+    runs-on: ubuntu-latest
+    env:
+      SKIP_ENV_VALIDATION: "true"
+      # Domaine final — fige les URLs absolues (sitemap, robots, OG) au build.
+      NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static export
+        run: pnpm build
+
+      - name: Deploy to OVH via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # FTPS explicite (TLS sur le port 21) — supporté par OVH mutualisé.
+          protocol: ftps
+          # Contenu de out/ (slash final obligatoire).
+          local-dir: ./out/
+          # Racine web OVH mutualisé (confirmée : dossier www/ présent).
+          server-dir: ./www/
