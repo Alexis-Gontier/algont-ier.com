@@ -41,8 +41,9 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # FTPS explicite (TLS sur le port 21) — supporté par OVH mutualisé.
-          protocol: ftps
+          # FTP simple : ce cluster OVH mutualisé n'accepte pas le FTPS
+          # explicite (réponse "500 security scheme not implemented").
+          protocol: ftp
           # Contenu de out/ (slash final obligatoire).
           local-dir: ./out/
           # Racine web OVH mutualisé (confirmée : dossier www/ présent).
