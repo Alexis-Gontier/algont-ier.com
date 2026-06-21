@@ -9,6 +9,7 @@ import { Button } from "@/components/shadcn-ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -35,6 +36,9 @@ export function MobileNav() {
       <SheetContent side="right">
         <SheetHeader>
           <SheetTitle>{t("menu")}</SheetTitle>
+          <SheetDescription className="sr-only">
+            {t("menuDescription")}
+          </SheetDescription>
         </SheetHeader>
         <div className="px-2">
           <MainNav orientation="vertical" onNavigate={() => setOpen(false)} />

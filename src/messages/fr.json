@@ -66,6 +66,7 @@
     "cv": "CV",
     "openMenu": "Ouvrir le menu",
     "menu": "Menu",
+    "menuDescription": "Navigation principale du site",
     "toggleTheme": "Changer de thème",
     "light": "Clair",
     "dark": "Sombre",

@@ -66,6 +66,7 @@
     "cv": "Resume",
     "openMenu": "Open menu",
     "menu": "Menu",
+    "menuDescription": "Main site navigation",
     "toggleTheme": "Toggle theme",
     "light": "Light",
     "dark": "Dark",

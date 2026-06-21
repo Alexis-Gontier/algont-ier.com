@@ -9,8 +9,8 @@ import { Button } from "@/components/shadcn-ui/button";
 import { Section } from "@/components/shared/section";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/config/site";
-import { SkillsGraph } from "@/features/graph";
 import { Link } from "@/i18n/navigation";
+import { HeroSkillsPreview } from "./hero-skills-preview";
 
 const socials = [
   { label: "GitHub", href: siteConfig.socials.github, icon: GithubIcon },
@@ -78,10 +78,7 @@ export function Hero() {
 
         {/* Right column — non-interactive preview, links to the full graph. */}
         <div className="group relative hidden aspect-square w-full md:block">
-          <SkillsGraph
-            interactive={false}
-            className="transition-colors group-hover:border-foreground/30"
-          />
+          <HeroSkillsPreview className="transition-colors group-hover:border-foreground/30" />
           <Link
             href="/graph"
             aria-label={t("viewGraph")}

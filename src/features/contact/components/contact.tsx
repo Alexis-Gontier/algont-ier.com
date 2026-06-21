@@ -24,6 +24,11 @@ export function Contact() {
           sizes="100vw"
           className="object-cover object-center"
         />
+        {/* Scrim: a solid dark floor keeps white text above AA over any region of
+            the image; the centered radial vignette deepens contrast behind the
+            text block toward AAA without flattening the whole photo. */}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-radial from-black/45 to-transparent" />
       </div>
 
       <div className="relative flex flex-col items-center gap-6 text-center">
@@ -31,7 +36,7 @@ export function Contact() {
           {t("title")}
         </h2>
 
-        <p className="max-w-xl text-lg text-white/70">{t("subtitle")}</p>
+        <p className="max-w-xl text-lg text-white/80">{t("subtitle")}</p>
 
         <Button
           asChild

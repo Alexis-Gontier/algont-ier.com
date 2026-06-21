@@ -212,7 +212,9 @@ export function SkillsGraph({
     return {
       ...edge,
       style: {
-        stroke: active ? "rgb(148 163 184 / 0.7)" : "rgb(148 163 184 / 0.12)",
+        stroke: active
+          ? "color-mix(in oklch, var(--color-muted-foreground) 70%, transparent)"
+          : "color-mix(in oklch, var(--color-muted-foreground) 12%, transparent)",
       },
     };
   });
