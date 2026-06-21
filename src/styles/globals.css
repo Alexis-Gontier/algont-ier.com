@@ -75,26 +75,12 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Vite signature gradient text: cyan -> purple. Use as className. */
-@utility text-gradient-vite {
-  background-image: var(--gradient-vite);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/* The Vite hero gradient as a background. */
-@utility bg-gradient-vite {
-  background-image: var(--gradient-vite);
-}
-
 :root {
   /* Vite brand colors (#41d1ff, #646cff, #bd34fe, #ffea83) */
   --vite-cyan: oklch(0.8 0.13 222);
   --vite-indigo: oklch(0.585 0.228 277);
   --vite-purple: oklch(0.62 0.29 314);
   --vite-yellow: oklch(0.93 0.11 100);
-  --gradient-vite: linear-gradient(120deg, var(--vite-cyan), var(--vite-purple));
 
   color-scheme: light;
   --background: oklch(1 0 0);

@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <Section>
       <article className="flex flex-col gap-8">
-        <Button asChild variant="ghost" size="sm" className="self-start">
+        <Button asChild variant="ghost" className="self-start">
           <Link href="/projets">
             <ArrowLeftIcon />
             {t("back")}
@@ -94,6 +94,7 @@ export default async function ProjectPage({ params }: Props) {
               src={image}
               alt={title}
               fill
+              priority
               sizes="(min-width: 1024px) 64rem, 100vw"
               className="object-cover"
             />

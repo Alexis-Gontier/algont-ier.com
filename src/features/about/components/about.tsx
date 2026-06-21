@@ -8,6 +8,7 @@ export function About() {
 
   return (
     <Section id="about" container={false} padded={false}>
+      <h2 className="sr-only">{t("title")}</h2>
       <div className="-mx-4 grid items-stretch gap-10 sm:-mx-8 md:grid-cols-2">
         {/* Portrait */}
         <div className="relative aspect-square w-full overflow-hidden md:aspect-auto md:h-full">

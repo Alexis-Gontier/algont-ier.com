@@ -6,6 +6,7 @@ import { GithubIcon } from "@/components/shared/social-icons";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { Project } from "../data";
+import { ProjectTags } from "./project-tags";
 
 export function ProjectCard({
   project,
@@ -88,16 +89,7 @@ export function ProjectCard({
           {description[locale]}
         </p>
 
-        <ul className="mt-1 flex gap-1.5 overflow-hidden">
-          {tags.map((tag) => (
-            <li
-              key={tag}
-              className="shrink-0 whitespace-nowrap rounded-md border px-2 py-0.5 text-muted-foreground text-xs"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
+        <ProjectTags tags={tags} />
       </div>
     </article>
   );
