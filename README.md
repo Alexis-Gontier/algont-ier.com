@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml/badge.svg)](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml)
 
-Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed on **Vercel**.
+Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed as a
+**static export** over **FTP** to OVH shared hosting.
 
 ## Stack
 
@@ -22,7 +23,7 @@ Personal portfolio built with **Next.js 16** (App Router) and **React 19**, depl
 ## Requirements
 
 - [Node.js](https://nodejs.org) 22+
-- [pnpm](https://pnpm.io) 10+
+- [pnpm](https://pnpm.io) 11+ (pinned via `packageManager` in [`package.json`](package.json))
 
 ## Getting started
 
@@ -44,6 +45,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm lint` | Biome check (lint + format) |
 | `pnpm format` | Auto-format with Biome |
 | `pnpm typecheck` | Type-check with `tsc` |
+| `pnpm knip` | Find unused files, dependencies and exports |
 | `pnpm test` | Run unit tests (Vitest) |
 | `pnpm test:watch` | Vitest in watch mode |
 | `pnpm test:e2e` | Run E2E tests (Playwright) |
@@ -109,8 +111,21 @@ or default locale.
 
 ## Deployment
 
-Deployed on Vercel — pushes to `main` deploy to production, pull requests get
-preview deployments automatically. CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml))
-runs lint, type-check, unit and E2E tests on every push and PR.
+Production is a **static export** hosted on **OVH shared hosting**, served over FTP — there is
+no Node server in production. The build and upload live on the dedicated
+[`static-export-ftp`](https://github.com/Alexis-Gontier/algont-ier.com/tree/static-export-ftp)
+branch, which sets `output: "export"` in [`next.config.ts`](next.config.ts) so `pnpm build`
+emits a fully static `out/` directory. See [`DEPLOY-FTP.md`](DEPLOY-FTP.md) on that branch for
+the full procedure (WinSCP/FTP upload, `.htaccess` headers, root locale redirect).
 
-Remember to set `NEXT_PUBLIC_SITE_URL` to your production domain in the Vercel project settings.
+- **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs lint, type-check, unit
+  and E2E tests on every push and PR.
+- **Deploy** ([`.github/workflows/deploy-ftp.yml`](.github/workflows/deploy-ftp.yml) on the
+  `static-export-ftp` branch) builds the static export and uploads `out/` to OVH via FTP on
+  every push to that branch.
+
+Because the export is static, the i18n middleware ([`src/proxy.ts`](src/proxy.ts)) is dropped
+in favour of static `[locale]` segments plus a root redirect, and security headers move from
+`next.config.ts` to `.htaccess`. Set `NEXT_PUBLIC_SITE_URL` (build-time) to your production
+domain so absolute URLs in the sitemap, robots and Open Graph tags are correct — it is read
+from the `SITE_URL` repository secret in the deploy workflow.
