@@ -3,7 +3,8 @@
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Full-stack developer seeking an apprenticeship",
     "description": "Portfolio of Alexis Gontier, full-stack developer and Web Bachelor student at HETIC, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
-    "ogTagline": "Full-stack developer · Seeking an apprenticeship"
+    "ogTagline": "Full-stack developer · Seeking an apprenticeship",
+    "jobTitle": "Full-stack developer"
   },
   "Projects": {
     "title": "Projects",
@@ -20,10 +21,12 @@
     "title": "Skills graph",
     "subtitle": "Each project is linked to the technologies it uses. Hover a node to reveal its connections, drag them, zoom.",
     "legendProject": "Project",
-    "legendTech": "Technology"
+    "legendTech": "Technology",
+    "srListTitle": "Projects and their technologies"
   },
   "About": {
     "title": "About",
+    "portraitAlt": "Portrait of Alexis Gontier",
     "fileName": "about.md",
     "blockquote": "Full-Stack Developer — Web Bachelor student at HETIC.",
     "p1": "I turn ideas into real web products, from the first pixel to deployment. One year as an apprentice at Plume and winner of a HETIC × Publicis hackathon.",
@@ -79,13 +82,32 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
-    "switchLanguage": "Switch language"
+    "switchLanguage": "Switch language",
+    "skipToContent": "Skip to content",
+    "mainNavLabel": "Main navigation"
   },
   "Footer": {
     "rights": "All rights reserved.",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "email": "Email"
+    "email": "Email",
+    "legal": "Legal notice"
+  },
+  "Legal": {
+    "title": "Legal notice",
+    "metaDescription": "Legal notice and privacy policy of Alexis Gontier's portfolio: publisher, hosting provider, personal data and your rights.",
+    "editorTitle": "Site publisher",
+    "editorText": "This site is published personally by {name}. Contact: {email}.",
+    "hostTitle": "Hosting",
+    "hostText": "The site is hosted by OVH SAS — 2 rue Kellermann, 59100 Roubaix, France (ovhcloud.com).",
+    "privacyTitle": "Personal data",
+    "privacyIntro": "This site sets no tracking cookies, shows no ads and has no data collection forms.",
+    "privacyAnalytics": "Any audience measurement is performed without cookies, from aggregated, anonymised data, with no cross-site tracking.",
+    "privacyTheme": "Your theme preference (light/dark) is stored only in your browser's local storage and is never transmitted.",
+    "privacyLogs": "The hosting provider keeps technical logs (IP address, pages visited) for security purposes, for a limited time.",
+    "privacyContact": "If you contact me by email, your address and message are used only to reply to you and are never shared with third parties.",
+    "rightsTitle": "Your rights",
+    "rightsText": "Under the GDPR, you have the right to access, rectify and erase data concerning you. To exercise it, write to {email}. You may also lodge a complaint with the French supervisory authority, the CNIL (cnil.fr)."
   },
   "NotFound": {
     "title": "404 — Page not found",

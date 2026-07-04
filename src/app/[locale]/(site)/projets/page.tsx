@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Separator } from "@/components/shadcn-ui/separator";
 import { Section } from "@/components/shared/section";
 import { ProjectCard, projects } from "@/features/projects";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -12,7 +13,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Projects" });
 
-  return { title: t("title"), description: t("subtitle") };
+  return pageMetadata({
+    locale,
+    path: "/projets",
+    title: t("title"),
+    description: t("subtitle"),
+  });
 }
 
 export default async function ProjectsPage({ params }: Props) {

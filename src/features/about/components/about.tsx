@@ -13,7 +13,7 @@ export function About() {
         {/* Portrait */}
         <div className="relative aspect-square w-full overflow-hidden md:aspect-auto md:h-full">
           <Image
-            alt={t("title")}
+            alt={t("portraitAlt")}
             className="object-cover"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

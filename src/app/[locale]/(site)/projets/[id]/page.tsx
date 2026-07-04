@@ -9,6 +9,7 @@ import { GithubIcon } from "@/components/shared/social-icons";
 import { getProjectBySlug, projects } from "@/features/projects";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -24,10 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!project) return {};
 
-  return {
+  return pageMetadata({
+    locale,
+    path: `/projets/${project.slug}`,
     title: project.title,
     description: project.description[locale as Locale],
-  };
+  });
 }
 
 export default async function ProjectPage({ params }: Props) {

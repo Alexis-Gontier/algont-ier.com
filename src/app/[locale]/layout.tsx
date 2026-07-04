@@ -5,6 +5,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { siteUrl } from "@/config/site";
 import { routing } from "@/i18n/routing";
+import { localeAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils/cn";
 import { Providers } from "@/providers";
 import { fontVariables } from "@/styles/fonts";
@@ -32,13 +33,10 @@ export async function generateMetadata({
       template: `%s | ${t("title")}`,
     },
     description: t("description"),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
-    },
+    alternates: localeAlternates(locale),
     openGraph: {
       type: "website",
-      url: siteUrl,
+      url: `/${locale}`,
       title: t("titleDefault"),
       description: t("description"),
     },
