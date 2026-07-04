@@ -18,7 +18,7 @@ export function Contact() {
     <Section id="contact" className="relative overflow-hidden text-white">
       <div className="absolute inset-0">
         <Image
-          src="/contact-background.jpg"
+          src="/contact-background.webp"
           alt=""
           fill
           sizes="100vw"
