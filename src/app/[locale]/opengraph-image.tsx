@@ -47,7 +47,7 @@ export default async function OpengraphImage({ params }: Props) {
           color: "rgba(255,255,255,0.7)",
         }}
       >
-        {t("description")}
+        {t("ogTagline")}
       </div>
     </div>,
     size,

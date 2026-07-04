@@ -34,7 +34,8 @@ export const socialLinks = {
  */
 export const siteConfig = {
   name: "Alexis Gontier",
-  description: "My personal portfolio.",
+  description:
+    "Portfolio of Alexis Gontier — full-stack developer seeking a 2-year apprenticeship.",
   url: siteUrl,
   author: {
     name: "Alexis Gontier",
