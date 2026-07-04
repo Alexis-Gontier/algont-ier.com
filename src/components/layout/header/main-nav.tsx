@@ -28,6 +28,7 @@ export function MainNav({
 
   return (
     <nav
+      aria-label={t("mainNavLabel")}
       className={cn(
         "flex gap-1 text-sm font-medium",
         orientation === "vertical" && "flex-col",
@@ -46,7 +47,11 @@ export function MainNav({
               orientation === "vertical" && "w-full justify-start",
             )}
           >
-            <Link href={href} onClick={onNavigate}>
+            <Link
+              href={href}
+              onClick={onNavigate}
+              aria-current={active ? "page" : undefined}
+            >
               {t(labelKey)}
             </Link>
           </Button>
