@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "Alexis Gontier",
-    "description": "Mon portfolio personnel."
+    "titleDefault": "Alexis Gontier · Développeur full-stack en recherche d'alternance",
+    "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Bachelor Web à HETIC, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
+    "ogTagline": "Développeur full-stack · En recherche d'alternance"
   },
   "Projects": {
     "title": "Projets",
@@ -24,14 +26,16 @@
     "title": "À propos",
     "fileName": "about.md",
     "blockquote": "Développeur Full-Stack — étudiant en Bachelor Web à HETIC.",
-    "p1": "Je transforme des idées en produits web concrets, du premier pixel jusqu'au déploiement. Alternant chez Plume et lauréat d'un hackathon HETIC × Publicis.",
+    "p1": "Je transforme des idées en produits web concrets, du premier pixel jusqu'au déploiement. Un an d'alternance chez Plume et lauréat d'un hackathon HETIC × Publicis.",
     "p2": "Ce qui me motive : des interfaces soignées, un code lisible et des projets qui ont vraiment du sens.",
     "stackLabel": "stack du moment",
     "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
     "formationLabel": "formation",
     "formation": "Bachelor HETIC (2023–2026)",
+    "rechercheLabel": "recherche",
+    "recherche": "alternance développeur full-stack · 2 ans (fin de Bachelor + Master)",
     "dispoLabel": "dispo",
-    "dispo": "alternance 2 ans · 3 sem entreprise / 1 sem école"
+    "dispo": "dès maintenant · 3 sem entreprise / 1 sem école"
   },
   "Skills": {
     "title": "Technologies que j'utilise.",
@@ -50,9 +54,13 @@
     "subtitle": "Une question, un projet ou simplement envie d'échanger ? N'hésitez pas à me contacter.",
     "cta": "M'envoyer un email"
   },
+  "AvailabilityBanner": {
+    "text": "Disponible en alternance · dès maintenant",
+    "cta": "Me contacter"
+  },
   "Hero": {
     "greeting": "Salut, je suis —",
-    "tagline": "Développeur full-stack passionné par la création d'expériences numériques modernes et performantes.",
+    "tagline": "Étudiant en Bachelor Web à HETIC, je recherche une alternance de 2 ans en développement full-stack — rythme 3 semaines entreprise / 1 semaine école.",
     "viewProjects": "Voir mes projets",
     "downloadCv": "Télécharger le CV",
     "viewGraph": "Voir le graphe de compétences"

@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "Alexis Gontier",
-    "description": "My personal portfolio."
+    "titleDefault": "Alexis Gontier · Full-stack developer seeking an apprenticeship",
+    "description": "Portfolio of Alexis Gontier, full-stack developer and Web Bachelor student at HETIC, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
+    "ogTagline": "Full-stack developer · Seeking an apprenticeship"
   },
   "Projects": {
     "title": "Projects",
@@ -24,14 +26,16 @@
     "title": "About",
     "fileName": "about.md",
     "blockquote": "Full-Stack Developer — Web Bachelor student at HETIC.",
-    "p1": "I turn ideas into real web products, from the first pixel to deployment. Apprentice at Plume and winner of a HETIC × Publicis hackathon.",
+    "p1": "I turn ideas into real web products, from the first pixel to deployment. One year as an apprentice at Plume and winner of a HETIC × Publicis hackathon.",
     "p2": "What drives me: polished interfaces, readable code, and projects that genuinely matter.",
     "stackLabel": "current stack",
     "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
     "formationLabel": "education",
     "formation": "HETIC Bachelor (2023–2026)",
+    "rechercheLabel": "seeking",
+    "recherche": "full-stack developer apprenticeship · 2 years (end of Bachelor + Master)",
     "dispoLabel": "availability",
-    "dispo": "2-year apprenticeship · 3 weeks company / 1 week school"
+    "dispo": "available now · 3 weeks company / 1 week school"
   },
   "Skills": {
     "title": "Technologies I use.",
@@ -50,9 +54,13 @@
     "subtitle": "A question, a project, or just want to chat? Feel free to reach out.",
     "cta": "Send me an email"
   },
+  "AvailabilityBanner": {
+    "text": "Open to apprenticeship · available now",
+    "cta": "Contact me"
+  },
   "Hero": {
     "greeting": "Hi, I'm —",
-    "tagline": "Full-stack developer passionate about crafting modern, high-performance digital experiences.",
+    "tagline": "Web Bachelor student at HETIC, looking for a 2-year full-stack apprenticeship — 3 weeks in the company / 1 week at school.",
     "viewProjects": "View my projects",
     "downloadCv": "Download CV",
     "viewGraph": "View the skills graph"

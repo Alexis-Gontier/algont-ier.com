@@ -70,10 +70,14 @@ export function About() {
               <span className="text-muted-foreground">{t("formation")}</span>
             </Line>
             <Line n={9}>
+              <span className="text-primary">{t("rechercheLabel")}: </span>
+              <span className="text-muted-foreground">{t("recherche")}</span>
+            </Line>
+            <Line n={10}>
               <span className="text-primary">{t("dispoLabel")}: </span>
               <span className="text-muted-foreground">{t("dispo")}</span>
             </Line>
-            <Line n={10}>
+            <Line n={11}>
               <span className="text-muted-foreground/40">```</span>
             </Line>
           </div>

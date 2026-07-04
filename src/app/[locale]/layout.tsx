@@ -28,7 +28,7 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: t("title"),
+      default: t("titleDefault"),
       template: `%s | ${t("title")}`,
     },
     description: t("description"),
@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       url: siteUrl,
-      title: t("title"),
+      title: t("titleDefault"),
       description: t("description"),
     },
     twitter: {

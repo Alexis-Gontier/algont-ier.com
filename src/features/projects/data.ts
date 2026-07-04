@@ -14,7 +14,7 @@ export type Project = {
   /** Localized long description shown on the detail page (falls back to `description`). */
   longDescription?: Record<Locale, string>;
   tags: string[];
-  /** Preview image, e.g. `/projets/portfolio.png` (file in `public/`). */
+  /** Preview image, e.g. `/projets/portfolio.webp` (file in `public/`). */
   image?: string;
   /** Year the project was built/shipped. */
   year?: number;
@@ -37,7 +37,7 @@ export const projects: Project[] = [
       fr: "Un portfolio conçu pour présenter mes projets et compétences de manière claire et élégante. Construit avec Next.js 16 App Router, Tailwind CSS v4 et shadcn/ui, il intègre des animations fluides, un mode sombre par défaut et une génération d'images OG dynamiques.",
       en: "A portfolio designed to showcase my projects and skills in a clear, elegant way. Built with Next.js 16 App Router, Tailwind CSS v4 and shadcn/ui, it features smooth animations, a default dark mode and dynamic OG image generation.",
     },
-    image: "/projets/portfolio.png",
+    image: "/projets/portfolio.webp",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
     year: 2025,
     demoUrl: "https://algont-ier.com",
@@ -71,6 +71,7 @@ export const projects: Project[] = [
     },
     tags: ["Rust", "CLI", "TUI", "Ratatui", "Clap"],
     year: 2025,
+    repoUrl: "https://github.com/Jeck0v/Guts",
     featured: true,
   },
   {
@@ -84,7 +85,7 @@ export const projects: Project[] = [
       fr: "Site vitrine pour l'initiative régionale 3NC (Normandie Nucléaire, Nouvelles Compétences), qui promeut les formations et métiers du secteur nucléaire en Normandie. Réalisé en alternance chez Plume SAS.",
       en: "Showcase site for the regional 3NC initiative (Normandie Nucléaire, Nouvelles Compétences), which promotes training and careers in the nuclear sector across Normandy. Built during my apprenticeship at Plume SAS.",
     },
-    image: "/projets/metiersdavenir-nucleaire-normandie.png",
+    image: "/projets/metiersdavenir-nucleaire-normandie.webp",
     tags: ["Drupal", "Twig", "PHP", "Sass", "JavaScript"],
     year: 2025,
     demoUrl: "https://www.metiersdavenir-nucleaire-normandie.fr",
@@ -100,7 +101,7 @@ export const projects: Project[] = [
       fr: "Site institutionnel du Centre Emilie Mottet, centre régional de Bourgogne-Franche-Comté dédié à l'égalité femmes-hommes et à la lutte contre les discriminations de genre. Réalisé en alternance chez Plume SAS.",
       en: "Institutional site for the Centre Emilie Mottet, a Bourgogne-Franche-Comté regional centre dedicated to gender equality and the fight against gender-based discrimination. Built during my apprenticeship at Plume SAS.",
     },
-    image: "/projets/centre-emilie-mottet.png",
+    image: "/projets/centre-emilie-mottet.webp",
     tags: ["Drupal", "Twig", "PHP", "Sass", "JavaScript"],
     year: 2025,
     demoUrl: "https://www.centre-emilie-mottet.fr",
@@ -116,7 +117,7 @@ export const projects: Project[] = [
       fr: "Site du Réseau Français en Rythmologie Interventionnelle, fédérant des centres cliniques experts qui accompagnent les entreprises de dispositifs médicaux en cardiologie, du développement pré-clinique au suivi post-marché. Réalisé en alternance chez Plume SAS.",
       en: "Website for the French Interventional Rhythmology Network, bringing together expert clinical centres that support medical-device companies in cardiology, from pre-clinical development to post-market follow-up. Built during my apprenticeship at Plume SAS.",
     },
-    image: "/projets/refer-rythmo.png",
+    image: "/projets/refer-rythmo.webp",
     tags: ["Drupal", "Twig", "PHP", "Sass", "JavaScript"],
     year: 2025,
     demoUrl: "https://www.refer-rythmo.fr",
@@ -132,7 +133,7 @@ export const projects: Project[] = [
       fr: "Jeu de déduction sociale multijoueur en temps réel, inspiré d'Among Us. Les joueurs rejoignent une room via un code d'invitation, les rôles (innocent / imposteur) sont distribués aléatoirement et chaque phase de jeu se synchronise instantanément grâce à Convex.",
       en: "Real-time multiplayer social-deduction game inspired by Among Us. Players join a room with an invite code, roles (crewmate / impostor) are assigned at random and every game phase syncs instantly thanks to Convex.",
     },
-    image: "/projets/among-legends.png",
+    image: "/projets/among-legends.webp",
     tags: [
       "Next.js",
       "TypeScript",
@@ -156,7 +157,7 @@ export const projects: Project[] = [
       fr: "Application de suivi de course à pied pour un groupe privé. Chaque membre enregistre ses sorties, suit son IMC, se fixe des objectifs mensuels et participe à un classement commun. Des pages de comparaison et de défis renforcent la dynamique de groupe.",
       en: "Running tracker for a private group. Each member logs their runs, tracks their BMI, sets monthly goals and competes on a shared leaderboard. Comparison and challenge pages strengthen the group dynamic.",
     },
-    image: "/projets/run-together.png",
+    image: "/projets/run-together.webp",
     tags: [
       "Next.js",
       "TypeScript",
@@ -179,7 +180,7 @@ export const projects: Project[] = [
       fr: "Sauvegardez, organisez et retrouvez vos liens et contenus web. Dashboard Next.js et extension Chrome.",
       en: "Save, organize and find your links and web content again. Next.js dashboard and Chrome extension.",
     },
-    image: "/projets/better-save.png",
+    image: "/projets/better-save.webp",
     tags: [
       "Chrome Extension",
       "TypeScript",
