@@ -46,7 +46,10 @@ export function Footer() {
             </span>
           </div>
 
-          <nav className="flex flex-col gap-3 text-sm">
+          <nav
+            aria-label={tNav("menu")}
+            className="flex flex-col gap-3 text-sm"
+          >
             <span className="font-semibold text-foreground/90 text-xs uppercase tracking-wider">
               {tNav("menu")}
             </span>
@@ -61,7 +64,10 @@ export function Footer() {
             ))}
           </nav>
 
-          <nav className="flex flex-col gap-3 text-sm">
+          <nav
+            aria-label={tNav("contact")}
+            className="flex flex-col gap-3 text-sm"
+          >
             <span className="font-semibold text-foreground/90 text-xs uppercase tracking-wider">
               {tNav("contact")}
             </span>
@@ -87,6 +93,12 @@ export function Footer() {
           <p>
             © {year} Algont-ier. {tFooter("rights")}
           </p>
+          <Link
+            href="/mentions-legales"
+            className="transition-colors hover:text-foreground"
+          >
+            {tFooter("legal")}
+          </Link>
         </div>
       </div>
     </footer>

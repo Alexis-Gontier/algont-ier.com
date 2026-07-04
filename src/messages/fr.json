@@ -3,7 +3,8 @@
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Développeur full-stack en recherche d'alternance",
     "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Bachelor Web à HETIC, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
-    "ogTagline": "Développeur full-stack · En recherche d'alternance"
+    "ogTagline": "Développeur full-stack · En recherche d'alternance",
+    "jobTitle": "Développeur full-stack"
   },
   "Projects": {
     "title": "Projets",
@@ -20,10 +21,12 @@
     "title": "Graphe de compétences",
     "subtitle": "Chaque projet est relié aux technologies qu'il utilise. Survole un nœud pour voir ses connexions, glisse-les, zoome.",
     "legendProject": "Projet",
-    "legendTech": "Technologie"
+    "legendTech": "Technologie",
+    "srListTitle": "Projets et technologies associées"
   },
   "About": {
     "title": "À propos",
+    "portraitAlt": "Portrait d'Alexis Gontier",
     "fileName": "about.md",
     "blockquote": "Développeur Full-Stack — étudiant en Bachelor Web à HETIC.",
     "p1": "Je transforme des idées en produits web concrets, du premier pixel jusqu'au déploiement. Un an d'alternance chez Plume et lauréat d'un hackathon HETIC × Publicis.",
@@ -79,13 +82,32 @@
     "light": "Clair",
     "dark": "Sombre",
     "system": "Système",
-    "switchLanguage": "Changer de langue"
+    "switchLanguage": "Changer de langue",
+    "skipToContent": "Aller au contenu",
+    "mainNavLabel": "Navigation principale"
   },
   "Footer": {
     "rights": "Tous droits réservés.",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "email": "Email"
+    "email": "Email",
+    "legal": "Mentions légales"
+  },
+  "Legal": {
+    "title": "Mentions légales",
+    "metaDescription": "Mentions légales et politique de confidentialité du portfolio d'Alexis Gontier : éditeur, hébergeur, données personnelles et vos droits.",
+    "editorTitle": "Éditeur du site",
+    "editorText": "Ce site est édité à titre personnel par {name}. Contact : {email}.",
+    "hostTitle": "Hébergement",
+    "hostText": "Le site est hébergé par OVH SAS — 2 rue Kellermann, 59100 Roubaix, France (ovhcloud.com).",
+    "privacyTitle": "Données personnelles",
+    "privacyIntro": "Ce site ne dépose aucun cookie de suivi, n'affiche aucune publicité et ne comporte aucun formulaire de collecte de données.",
+    "privacyAnalytics": "La mesure d'audience éventuelle est réalisée sans cookies, à partir de données agrégées et anonymisées, sans suivi entre sites.",
+    "privacyTheme": "Votre préférence de thème (clair/sombre) est enregistrée uniquement dans le stockage local de votre navigateur et n'est jamais transmise.",
+    "privacyLogs": "L'hébergeur conserve des journaux techniques (adresse IP, pages consultées) à des fins de sécurité, pour une durée limitée.",
+    "privacyContact": "Si vous me contactez par email, votre adresse et votre message ne sont utilisés que pour vous répondre et ne sont transmis à aucun tiers.",
+    "rightsTitle": "Vos droits",
+    "rightsText": "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et d'effacement des données vous concernant. Pour l'exercer, écrivez à {email}. Vous pouvez également adresser une réclamation à la CNIL (cnil.fr)."
   },
   "NotFound": {
     "title": "404 — Page introuvable",
