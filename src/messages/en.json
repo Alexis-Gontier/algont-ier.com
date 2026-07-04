@@ -2,7 +2,7 @@
   "Metadata": {
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Full-stack developer seeking an apprenticeship",
-    "description": "Portfolio of Alexis Gontier, full-stack developer and Web Bachelor student at HETIC, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
+    "description": "Portfolio of Alexis Gontier, full-stack developer and Web Engineering Master's student at IIM, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
     "ogTagline": "Full-stack developer · Seeking an apprenticeship",
     "jobTitle": "Full-stack developer"
   },
@@ -28,15 +28,15 @@
     "title": "About",
     "portraitAlt": "Portrait of Alexis Gontier",
     "fileName": "about.md",
-    "blockquote": "Full-Stack Developer — Web Bachelor student at HETIC.",
+    "blockquote": "Full-Stack Developer — Web Engineering Master's student at IIM.",
     "p1": "I turn ideas into real web products, from the first pixel to deployment. One year as an apprentice at Plume and winner of a HETIC × Publicis hackathon.",
     "p2": "What drives me: polished interfaces, readable code, and projects that genuinely matter.",
     "stackLabel": "current stack",
     "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
     "formationLabel": "education",
-    "formation": "HETIC Bachelor (2023–2026)",
+    "formation": "HETIC Bachelor (2023–2026) · IIM Web Engineering Master (2026–2028)",
     "rechercheLabel": "seeking",
-    "recherche": "full-stack developer apprenticeship · 2 years (end of Bachelor + Master)",
+    "recherche": "full-stack developer apprenticeship · 2 years (Master's)",
     "dispoLabel": "availability",
     "dispo": "available now · 3 weeks company / 1 week school"
   },
@@ -63,7 +63,7 @@
   },
   "Hero": {
     "greeting": "Hi, I'm —",
-    "tagline": "Web Bachelor student at HETIC, looking for a 2-year full-stack apprenticeship — 3 weeks in the company / 1 week at school.",
+    "tagline": "Web Engineering & Digital Innovation Master's student at IIM, looking for an apprenticeship building performant, scalable web applications. Solid full-stack experience gained in agency work, an internship and personal projects.",
     "viewProjects": "View my projects",
     "downloadCv": "Download CV",
     "viewGraph": "View the skills graph"

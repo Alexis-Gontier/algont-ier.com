@@ -2,7 +2,7 @@
   "Metadata": {
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Développeur full-stack en recherche d'alternance",
-    "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Bachelor Web à HETIC, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
+    "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Mastère Ingénierie Web à l'IIM, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
     "ogTagline": "Développeur full-stack · En recherche d'alternance",
     "jobTitle": "Développeur full-stack"
   },
@@ -28,15 +28,15 @@
     "title": "À propos",
     "portraitAlt": "Portrait d'Alexis Gontier",
     "fileName": "about.md",
-    "blockquote": "Développeur Full-Stack — étudiant en Bachelor Web à HETIC.",
+    "blockquote": "Développeur Full-Stack — étudiant en Mastère Ingénierie Web à l'IIM.",
     "p1": "Je transforme des idées en produits web concrets, du premier pixel jusqu'au déploiement. Un an d'alternance chez Plume et lauréat d'un hackathon HETIC × Publicis.",
     "p2": "Ce qui me motive : des interfaces soignées, un code lisible et des projets qui ont vraiment du sens.",
     "stackLabel": "stack du moment",
     "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
     "formationLabel": "formation",
-    "formation": "Bachelor HETIC (2023–2026)",
+    "formation": "Bachelor HETIC (2023–2026) · Mastère Ingénierie Web IIM (2026–2028)",
     "rechercheLabel": "recherche",
-    "recherche": "alternance développeur full-stack · 2 ans (fin de Bachelor + Master)",
+    "recherche": "alternance développeur full-stack · 2 ans (Mastère)",
     "dispoLabel": "dispo",
     "dispo": "dès maintenant · 3 sem entreprise / 1 sem école"
   },
@@ -63,7 +63,7 @@
   },
   "Hero": {
     "greeting": "Salut, je suis —",
-    "tagline": "Étudiant en Bachelor Web à HETIC, je recherche une alternance de 2 ans en développement full-stack — rythme 3 semaines entreprise / 1 semaine école.",
+    "tagline": "Étudiant en Mastère Ingénierie Web & Innovations Digitales à l'IIM, je recherche une alternance pour concevoir des applications web performantes et évolutives. Une pratique solide du full-stack, acquise en agence, en stage et sur mes projets personnels.",
     "viewProjects": "Voir mes projets",
     "downloadCv": "Télécharger le CV",
     "viewGraph": "Voir le graphe de compétences"

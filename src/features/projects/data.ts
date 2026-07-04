@@ -44,6 +44,29 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Alexis-Gontier/algont-ier.com",
   },
   {
+    slug: "flipgame",
+    title: "FlipGame — Flipper 3D",
+    description: {
+      fr: "Jeu de flipper multijoueur en 3D pensé pour une installation physique à deux écrans. React Three Fiber, physique Rapier et synchronisation temps réel en WebSocket.",
+      en: "Multiplayer 3D pinball game designed for a two-screen physical setup. React Three Fiber, Rapier physics and real-time WebSocket sync.",
+    },
+    longDescription: {
+      fr: "Jeu de flipper multijoueur en 3D conçu pour une installation physique à deux écrans : un plateau 3D face au joueur et un écran secondaire pour le score. Deux apps React/Three.js indépendantes partagent design system, types et utilitaires dans un monorepo pnpm. La physique est gérée par Rapier et la synchronisation temps réel passe par WebSocket. Projet d'équipe réalisé à HETIC.",
+      en: "Multiplayer 3D pinball game built for a two-screen physical setup: a player-facing 3D playfield and a secondary scoreboard screen. Two independent React/Three.js apps share a design system, type definitions and utilities in a pnpm monorepo. Physics is handled by Rapier and real-time sync runs over WebSocket. Team project built at HETIC.",
+    },
+    tags: [
+      "React",
+      "TypeScript",
+      "React Three Fiber",
+      "Three.js",
+      "WebSocket",
+      "Vite.js",
+      "Tailwind CSS",
+    ],
+    year: 2026,
+    repoUrl: "https://github.com/FlipGame-Hetic/frontend",
+  },
+  {
     slug: "station-meteo-iot",
     title: "Station Météo IoT",
     description: {
