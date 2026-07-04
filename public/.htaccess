@@ -4,9 +4,20 @@
 
 # --- Default document & locale redirect ---------------------------------------
 DirectoryIndex index.html
-# Send "/" straight to the default locale (index.html also does this as fallback).
 RewriteEngine On
-RewriteRule ^$ /fr/ [R=302,L]
+
+# Canonical host: permanently redirect www → apex so search engines index a
+# single host (the canonical URLs all point at the apex).
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Send "/" straight to the default locale (index.html also does this as fallback).
+# 301: permanent, so search engines index /fr/ instead of keeping "/".
+RewriteRule ^$ /fr/ [R=301,L]
+
+# --- Legacy URLs from the previous site ----------------------------------------
+# Old CV path still indexed by Google — point it at the current file.
+RewriteRule ^cv_alexis_gontier\.pdf$ /cv.pdf [R=301,L]
 
 # --- Custom error page --------------------------------------------------------
 # `output: export` emits 404.html at the site root.
