@@ -1,4 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
+import { SmoothScrollProvider } from "@/providers/smooth-scroll-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 /**
@@ -17,7 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

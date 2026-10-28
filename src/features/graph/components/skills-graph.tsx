@@ -27,8 +27,8 @@ import {
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { projects } from "@/features/projects";
 import { cn } from "@/lib/utils/cn";
+import { buildGraphData, type GraphKind } from "../lib/graph-data";
 
 /*
  * Edges carry no information a screen reader needs: React Flow labels each one
@@ -47,7 +47,7 @@ const silentEdges = {
   ariaLabel: null,
 } as unknown as DefaultEdgeOptions;
 
-type Kind = "project" | "tech";
+type Kind = GraphKind;
 type GraphNodeData = {
   label: string;
   kind: Kind;
@@ -113,44 +113,18 @@ type SimNode = {
   id: string;
   label: string;
   kind: Kind;
+  degree: number;
   x?: number;
   y?: number;
 };
-type LinkPair = { source: string; target: string };
 
-/** Build a project↔technology graph and run a force layout (Obsidian-style). */
+/** Run a force layout (Obsidian-style) over the shared project↔tech graph. */
 function buildLayout() {
-  const simNodes: SimNode[] = [];
-  const linkPairs: LinkPair[] = [];
-  const techSeen = new Set<string>();
-  const adjacency = new Map<string, Set<string>>();
-
-  const connect = (a: string, b: string) => {
-    if (!adjacency.has(a)) adjacency.set(a, new Set());
-    if (!adjacency.has(b)) adjacency.set(b, new Set());
-    adjacency.get(a)?.add(b);
-    adjacency.get(b)?.add(a);
-  };
-
-  for (const project of projects) {
-    const projectId = `p:${project.slug}`;
-    simNodes.push({ id: projectId, label: project.title, kind: "project" });
-
-    for (const tag of project.tags) {
-      const techId = `t:${tag}`;
-      if (!techSeen.has(tag)) {
-        techSeen.add(tag);
-        simNodes.push({ id: techId, label: tag, kind: "tech" });
-      }
-      linkPairs.push({ source: projectId, target: techId });
-      connect(projectId, techId);
-    }
-  }
+  const { nodes: graphNodes, links: linkPairs, adjacency } = buildGraphData();
+  const simNodes: SimNode[] = graphNodes.map((node) => ({ ...node }));
 
   // d3-force mutates the link objects it receives (replacing source/target
   // with node refs), so feed it copies and keep `linkPairs` as plain strings.
-  const degreeOf = (id: string) => adjacency.get(id)?.size ?? 0;
-
   forceSimulation(simNodes as never)
     .force("charge", forceManyBody().strength(-600))
     .force(
@@ -167,7 +141,7 @@ function buildLayout() {
     .force(
       "collide",
       forceCollide<SimNode>((node) =>
-        collideRadius(node.kind, node.label, degreeOf(node.id)),
+        collideRadius(node.kind, node.label, node.degree),
       ),
     )
     .stop()
@@ -180,7 +154,7 @@ function buildLayout() {
     data: {
       label: node.label,
       kind: node.kind,
-      degree: adjacency.get(node.id)?.size ?? 0,
+      degree: node.degree,
       faded: false,
     },
   }));

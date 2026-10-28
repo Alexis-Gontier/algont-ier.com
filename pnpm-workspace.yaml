@@ -3,3 +3,9 @@ allowBuilds:
   '@swc/core': true
   lefthook: true
   sharp: true
+
+overrides:
+  # @playwright/cli ships an alpha playwright-core; without this, axe's peer
+  # resolves to it and its Page type stops matching @playwright/test's.
+  # Keep in step with the @playwright/test version.
+  '@axe-core/playwright>playwright-core': 1.62.0

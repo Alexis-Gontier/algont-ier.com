@@ -59,12 +59,21 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      className={cn(
-        fontVariables,
-        "h-full scroll-pt-20 scroll-smooth antialiased",
-      )}
+      className={cn(fontVariables, "h-full scroll-pt-20 antialiased")}
     >
+      <head>
+        {/*
+         * Flags that scripts run, before first paint, so entrance animations
+         * can hide their targets without a flash — and content stays visible
+         * when JavaScript doesn't run at all (see `[data-reveal]` in globals.css).
+         */}
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static one-liner, no user input
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
       </body>
