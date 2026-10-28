@@ -1,9 +1,9 @@
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { siteUrl } from "@/config/site";
+import { toLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
 import { localeAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils/cn";
@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: Omit<Props, "children">): Promise<Metadata> {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
@@ -67,7 +67,6 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
-        <Analytics />
       </body>
     </html>
   );

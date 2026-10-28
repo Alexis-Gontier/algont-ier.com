@@ -9,10 +9,9 @@ Personal portfolio built with **Next.js 16** (App Router) and **React 19**, depl
 
 - [Next.js 16](https://nextjs.org) + [React 19](https://react.dev) (React Compiler enabled)
 - [TypeScript](https://www.typescriptlang.org) (strict)
-- [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) (Radix primitives)
+- [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) (Radix primitives — the CLI is a dev dependency only)
 - [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
 - [next-intl](https://next-intl.dev) — i18n (FR default + EN, routes under `app/[locale]`)
-- [Zustand](https://zustand.docs.pmnd.rs) — client state · [nuqs](https://nuqs.47ng.com) — URL state · [sonner](https://sonner.emilkowal.ski) — toasts
 - [React Flow](https://reactflow.dev) + [d3-force](https://d3js.org/d3-force) — interactive skills graph
 - [Biome](https://biomejs.dev) — lint & format (replaces ESLint + Prettier)
 - [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com) — unit/component tests
@@ -76,7 +75,6 @@ src/
   providers/      React context providers (composed in providers/index.tsx)
   i18n/           next-intl config (routing, navigation, request)
   messages/       translations (fr.json, en.json)
-  stores/         Zustand stores
   styles/         global CSS (globals.css) + fonts (fonts.ts)
   config/         static site config / metadata (site.ts)
   lib/            framework-agnostic helpers (utils/cn.ts)

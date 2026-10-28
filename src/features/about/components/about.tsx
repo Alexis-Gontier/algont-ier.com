@@ -90,7 +90,11 @@ export function About() {
 function Line({ n, children }: { n: number; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
-      <span className="w-5 shrink-0 select-none text-right text-muted-foreground/40 tabular-nums">
+      {/* Editor gutter: pure decoration, and never read out with the prose. */}
+      <span
+        aria-hidden
+        className="w-5 shrink-0 select-none text-right text-muted-foreground tabular-nums"
+      >
         {n}
       </span>
       <p className="min-w-0 flex-1">{children}</p>

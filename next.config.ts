@@ -28,6 +28,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Don't advertise the framework/version in every response.
+  poweredByHeader: false,
   async headers() {
     return [
       {

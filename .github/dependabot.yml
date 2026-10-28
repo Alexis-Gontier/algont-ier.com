@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # Grouped so the weekly noise is a few PRs, not twenty. CI runs Biome,
+    # tsc, knip, unit tests, the build and the full Playwright suite (including
+    # axe and the mobile project), so a green grouped PR can be merged on sight.
+    groups:
+      patch-and-minor:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - react
+          - react-dom
+          - "@types/react*"
+          - next
+          - next-intl
+          - "@next/*"
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react*"
+      next:
+        patterns:
+          - next
+          - next-intl
+          - "@next/*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

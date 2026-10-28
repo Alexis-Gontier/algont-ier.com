@@ -78,7 +78,18 @@ export function Hero() {
 
         {/* Right column — non-interactive preview, links to the full graph. */}
         <div className="group relative hidden aspect-square w-full md:block">
-          <HeroSkillsPreview className="transition-colors group-hover:border-foreground/30" />
+          {/*
+           * `aria-hidden` + `inert`: the preview is decoration that duplicates
+           * what /graph already exposes. Left exposed, React Flow contributes a
+           * `role="application"` container, ~41 focusable `role="group"` nodes
+           * with no accessible name, and ~60 edges announced as images labelled
+           * with internal ids ("Edge from p:portfolio to t:Next.js"). Tabbing
+           * out of the hero meant crossing 41 silent stops.
+           */}
+          <div aria-hidden inert className="contents">
+            <HeroSkillsPreview className="transition-colors group-hover:border-foreground/30" />
+          </div>
+          {/* Sibling, not child: inside the inert subtree it would be unreachable. */}
           <Link
             href="/graph"
             aria-label={t("viewGraph")}

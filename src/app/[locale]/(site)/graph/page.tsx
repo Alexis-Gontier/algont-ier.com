@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section } from "@/components/shared/section";
 import { SkillsGraph } from "@/features/graph";
 import { projects } from "@/features/projects";
+import { toLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "Graph" });
 
   return pageMetadata({
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function GraphPage({ params }: Props) {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Graph" });
 
@@ -36,7 +37,9 @@ export default async function GraphPage({ params }: Props) {
           <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
 
-        <div className="h-[70vh] min-h-120">
+        {/* Shorter on phones: at 70vh the canvas left only a thin strip of page
+            to scroll past it. */}
+        <div className="h-[50vh] min-h-80 md:h-[70vh] md:min-h-120">
           <SkillsGraph />
         </div>
 

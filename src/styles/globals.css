@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "./shadcn-variants.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -83,13 +83,19 @@ body {
   --vite-yellow: oklch(0.93 0.11 100);
 
   color-scheme: light;
+  /*
+   * `--primary` is deliberately a shade darker than `--vite-indigo` (the brand
+   * colour, kept authentic above). At the brand's own lightness, white text on
+   * a primary button measures 4.36:1 — under the 4.5:1 of WCAG 1.4.3. The brand
+   * palette stays exact for decorative use; the UI token is the accessible one.
+   */
   --background: oklch(1 0 0);
   --foreground: oklch(0.32 0.024 256);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.32 0.024 256);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.32 0.024 256);
-  --primary: oklch(0.585 0.228 277);
+  --primary: oklch(0.545 0.228 277);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0.005 270);
   --secondary-foreground: oklch(0.32 0.024 256);
@@ -125,8 +131,16 @@ body {
   --card-foreground: oklch(0.93 0.005 270);
   --popover: oklch(0.23 0.007 285);
   --popover-foreground: oklch(0.93 0.005 270);
+  /*
+   * Dark mode flips the pairing. `--primary` serves two roles that pull apart:
+   * a button background (wants to be dark enough for its foreground) and a text
+   * colour via `text-primary` (wants to be light enough against `--background`).
+   * On a dark background the text role wins — so primary stays bright and
+   * `--primary-foreground` becomes near-black. Light text on this indigo only
+   * reaches 3.4:1; dark text on it clears 4.5:1 comfortably.
+   */
   --primary: oklch(0.64 0.196 277);
-  --primary-foreground: oklch(0.98 0 0);
+  --primary-foreground: oklch(0.19 0.006 285);
   --secondary: oklch(0.27 0.006 285);
   --secondary-foreground: oklch(0.93 0.005 270);
   --muted: oklch(0.27 0.006 285);
@@ -134,8 +148,10 @@ body {
   --accent: oklch(0.29 0.03 277);
   --accent-foreground: oklch(0.9 0.04 277);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
+  /* 18%, not 10%: below ~15% the card/header borders that carry the layout's
+     structure measure ~1.3:1 against the dark background and read as invisible. */
+  --border: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 20%);
   --ring: oklch(0.64 0.196 277);
   --chart-1: var(--vite-cyan);
   --chart-2: var(--vite-indigo);
@@ -174,8 +190,8 @@ body {
     --accent: oklch(0.29 0.03 277);
     --accent-foreground: oklch(0.9 0.04 277);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 12%);
+    --border: oklch(1 0 0 / 18%);
+    --input: oklch(1 0 0 / 20%);
     --ring: oklch(0.64 0.196 277);
     --sidebar: oklch(0.23 0.007 285);
     --sidebar-foreground: oklch(0.93 0.005 270);
@@ -198,4 +214,31 @@ body {
   html {
     @apply font-sans;
   }
+  /*
+   * Safety net against horizontal overflow: `clip` (not `hidden`) because it
+   * doesn't create a scroll container, so `position: sticky` and scroll anchors
+   * keep working. Individual leaks are still fixed at their source.
+   */
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/*
+ * React Flow's attribution link ships at 4.3:1 on our dark surface, just under
+ * WCAG 1.4.3. We can't touch its markup — and hiding it needs a Pro licence —
+ * but restyling it is fair game, and our own tokens pass in both themes.
+ *
+ * Deliberately outside `@layer base`: React Flow's stylesheet is unlayered, and
+ * unlayered rules beat every layered one regardless of specificity. The extra
+ * `.react-flow` in the selector then wins on specificity within that same
+ * unlayered origin.
+ */
+.react-flow .react-flow__attribution {
+  background-color: var(--background);
+}
+
+.react-flow .react-flow__attribution a {
+  color: var(--muted-foreground);
 }

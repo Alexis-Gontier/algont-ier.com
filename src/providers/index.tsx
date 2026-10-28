@@ -1,6 +1,4 @@
 import { NextIntlClientProvider } from "next-intl";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Toaster } from "@/components/shadcn-ui/sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 /**
@@ -13,17 +11,14 @@ import { ThemeProvider } from "@/providers/theme-provider";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextIntlClientProvider>
-      <NuqsAdapter>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
-      </NuqsAdapter>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
     </NextIntlClientProvider>
   );
 }

@@ -1,6 +1,6 @@
 /**
  * Skills grouped by category. `labelKey` resolves against the `Skills`
- * namespace in `src/messages/*`. Edit the lists to match your real stack.
+ * namespace in `src/messages/*`.
  */
 export type SkillCategory = {
   labelKey: "frontend" | "backend" | "database" | "devops" | "tools";

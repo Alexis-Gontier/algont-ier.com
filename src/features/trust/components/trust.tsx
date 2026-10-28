@@ -13,7 +13,10 @@ export function Trust() {
           {t("title")}
         </h2>
 
-        <div className="relative flex flex-col justify-center border-border border-t pt-8 md:-my-12 md:border-t-0 md:border-l md:py-12 md:pl-8">
+        {/* `min-w-0` + `overflow-hidden`: a grid item defaults to `min-width: auto`,
+            so it refuses to shrink below the marquee's duplicated content and pushes
+            the whole document wider than the viewport on mobile. */}
+        <div className="relative flex min-w-0 flex-col justify-center overflow-hidden border-border border-t pt-8 md:-my-12 md:border-t-0 md:border-l md:py-12 md:pl-8">
           {/* Decorative, duplicated marquee — hidden from assistive tech. */}
           <div aria-hidden="true">
             <Marquee pauseOnHover className="[--duration:15s]">
@@ -24,7 +27,7 @@ export function Trust() {
                   target="_blank"
                   rel="noopener noreferrer"
                   tabIndex={-1}
-                  className="px-6 font-semibold text-xl text-muted-foreground/60 transition-colors hover:text-foreground"
+                  className="px-6 font-semibold text-xl text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {company.name}
                 </a>

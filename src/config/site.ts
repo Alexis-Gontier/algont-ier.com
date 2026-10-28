@@ -19,10 +19,8 @@ export const navLinks = [
   { labelKey: "graph", href: "/graph" },
 ] as const;
 
-export type NavLinkKey = (typeof navLinks)[number]["labelKey"];
-
 /** External profiles — rendered as icon links in the footer (and contact). */
-export const socialLinks = {
+const socialLinks = {
   github: "https://github.com/Alexis-Gontier",
   linkedin: "https://www.linkedin.com/in/alexis-gontier/",
 } as const;
@@ -41,7 +39,7 @@ export const siteConfig = {
     name: "Alexis Gontier",
     email: "alexis.gontier03@gmail.com",
   },
-  /** CV served from `public/` — drop the file at `public/cv.pdf`. */
+  /** CV served statically from `public/cv.pdf`. */
   cvUrl: "/cv.pdf",
   nav: navLinks,
   socials: socialLinks,

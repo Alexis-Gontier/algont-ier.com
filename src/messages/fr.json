@@ -22,7 +22,12 @@
     "subtitle": "Chaque projet est relié aux technologies qu'il utilise. Survole un nœud pour voir ses connexions, glisse-les, zoome.",
     "legendProject": "Projet",
     "legendTech": "Technologie",
-    "srListTitle": "Projets et technologies associées"
+    "srListTitle": "Projets et technologies associées",
+    "canvasLabel": "Graphe interactif",
+    "zoomIn": "Zoom avant",
+    "zoomOut": "Zoom arrière",
+    "fitView": "Ajuster la vue",
+    "minimapLabel": "Vue d'ensemble du graphe"
   },
   "About": {
     "title": "À propos",
@@ -70,18 +75,13 @@
   },
   "Nav": {
     "home": "Accueil",
-    "about": "À propos",
     "projects": "Projets",
     "graph": "Graph",
     "contact": "Contact",
-    "cv": "CV",
     "openMenu": "Ouvrir le menu",
     "menu": "Menu",
     "menuDescription": "Navigation principale du site",
     "toggleTheme": "Changer de thème",
-    "light": "Clair",
-    "dark": "Sombre",
-    "system": "Système",
     "switchLanguage": "Changer de langue",
     "skipToContent": "Aller au contenu",
     "mainNavLabel": "Navigation principale"
@@ -102,7 +102,7 @@
     "hostText": "Le site est hébergé par OVH SAS — 2 rue Kellermann, 59100 Roubaix, France (ovhcloud.com).",
     "privacyTitle": "Données personnelles",
     "privacyIntro": "Ce site ne dépose aucun cookie de suivi, n'affiche aucune publicité et ne comporte aucun formulaire de collecte de données.",
-    "privacyAnalytics": "La mesure d'audience éventuelle est réalisée sans cookies, à partir de données agrégées et anonymisées, sans suivi entre sites.",
+    "privacyAnalytics": "Ce site n'utilise aucun outil de mesure d'audience : aucune statistique de navigation n'est collectée.",
     "privacyTheme": "Votre préférence de thème (clair/sombre) est enregistrée uniquement dans le stockage local de votre navigateur et n'est jamais transmise.",
     "privacyLogs": "L'hébergeur conserve des journaux techniques (adresse IP, pages consultées) à des fins de sécurité, pour une durée limitée.",
     "privacyContact": "Si vous me contactez par email, votre adresse et votre message ne sont utilisés que pour vous répondre et ne sont transmis à aucun tiers.",

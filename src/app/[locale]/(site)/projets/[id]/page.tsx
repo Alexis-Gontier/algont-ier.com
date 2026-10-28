@@ -7,8 +7,8 @@ import { Button } from "@/components/shadcn-ui/button";
 import { Section } from "@/components/shared/section";
 import { GithubIcon } from "@/components/shared/social-icons";
 import { getProjectBySlug, projects } from "@/features/projects";
+import { toLocale } from "@/i18n/locale";
 import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = {
@@ -19,8 +19,18 @@ export function generateStaticParams() {
   return projects.map((project) => ({ id: project.slug }));
 }
 
+/*
+ * Every project is known at build time, so an id outside `generateStaticParams`
+ * is a 404 — not something to render on demand. Without this, Next renders the
+ * segment, caches the `notFound()` output and serves it with HTTP 200: a soft
+ * 404 that search engines index as a real page. Also required by
+ * `output: "export"`, which cannot render unknown params at all.
+ */
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale: rawLocale, id } = await params;
+  const locale = toLocale(rawLocale);
   const project = getProjectBySlug(id);
 
   if (!project) return {};
@@ -29,12 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     locale,
     path: `/projets/${project.slug}`,
     title: project.title,
-    description: project.description[locale as Locale],
+    description: project.description[locale],
   });
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const { locale, id } = await params;
+  const { locale: rawLocale, id } = await params;
+  const locale = toLocale(rawLocale);
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Projects" });
 
@@ -52,7 +63,7 @@ export default async function ProjectPage({ params }: Props) {
     repoUrl,
     inDevelopment,
   } = project;
-  const body = (longDescription ?? description)[locale as Locale];
+  const body = (longDescription ?? description)[locale];
 
   return (
     <Section>

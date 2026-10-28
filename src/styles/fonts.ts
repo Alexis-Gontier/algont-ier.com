@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 /** All app fonts. Add one here and it's wired everywhere automatically. */
-export const fonts = [inter, geistMono];
+const fonts = [inter, geistMono];
 
 /** Every font's CSS variable class, ready to drop on `<html>`. */
 export const fontVariables = fonts.map((font) => font.variable);

@@ -1,7 +1,6 @@
 /**
- * Companies shown in the "trusted by" marquee. Placeholder list — replace the
- * names with real clients/employers, and (later) add a `logo` field pointing
- * to an SVG/image in `public/` or an icon component.
+ * Companies shown in the "trusted by" marquee. Add a `logo` field here when
+ * logos become available (SVG in `public/` or an icon component).
  */
 export type TrustedCompany = {
   name: string;

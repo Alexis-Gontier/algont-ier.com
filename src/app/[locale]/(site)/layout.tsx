@@ -1,14 +1,27 @@
-import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AvailabilityBanner } from "@/components/layout/availability-banner";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { toLocale } from "@/i18n/locale";
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  const t = useTranslations("Nav");
+  const locale = toLocale((await params).locale);
+
+  /*
+   * Required, not optional: without it next-intl resolves the locale through
+   * dynamic APIs (`headers()`), which opts this layout — and therefore every
+   * page nested under it — out of static rendering, even for pages that call
+   * `setRequestLocale` themselves.
+   */
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "Nav" });
 
   return (
     <>

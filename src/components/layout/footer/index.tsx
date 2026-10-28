@@ -53,11 +53,18 @@ export function Footer() {
             <span className="font-semibold text-foreground/90 text-xs uppercase tracking-wider">
               {tNav("menu")}
             </span>
+            {/*
+             * `-my-1 py-1` grows the hit area to 28px for WCAG 2.5.8 without
+             * changing the rhythm: the negative margin cancels the padding, so
+             * the box gets taller while the gap looks identical. These are
+             * standalone navigation links, so the criterion's inline-text
+             * exception doesn't cover them.
+             */}
             {navLinks.map(({ labelKey, href }) => (
               <Link
                 key={href}
                 href={href}
-                className="w-fit text-muted-foreground transition-colors hover:text-foreground"
+                className="-my-1 flex min-h-6 w-fit items-center py-1 text-muted-foreground transition-colors hover:text-foreground"
               >
                 {tNav(labelKey)}
               </Link>
@@ -77,7 +84,7 @@ export function Footer() {
                 href={href}
                 target={key === "email" ? undefined : "_blank"}
                 rel={key === "email" ? undefined : "noreferrer"}
-                className="flex w-fit items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                className="-my-1 flex min-h-6 w-fit items-center gap-2 py-1 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Icon className="size-4" />
                 {label}
@@ -95,7 +102,7 @@ export function Footer() {
           </p>
           <Link
             href="/mentions-legales"
-            className="transition-colors hover:text-foreground"
+            className="-my-1 flex min-h-6 items-center py-1 transition-colors hover:text-foreground"
           >
             {tFooter("legal")}
           </Link>

@@ -3,6 +3,7 @@
 import {
   Background,
   Controls,
+  type DefaultEdgeOptions,
   type Edge,
   Handle,
   MiniMap,
@@ -25,9 +26,26 @@ import {
 } from "d3-force";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { projects } from "@/features/projects";
 import { cn } from "@/lib/utils/cn";
+
+/*
+ * Edges carry no information a screen reader needs: React Flow labels each one
+ * "Edge from p:portfolio to t:Next.js" from internal ids, and the same
+ * relationships are listed in plain text in the page's `sr-only` list.
+ *
+ * `presentation` alone isn't enough — React Flow still emits the `aria-label`,
+ * and a label on a presentational element is a prohibited attribute. Its
+ * runtime reads `ariaLabel === null` as "emit nothing", but `DefaultEdgeOptions`
+ * types the field `string | undefined`, so the intent can't be expressed
+ * without this cast. Drop it if upstream widens the type.
+ */
+const silentEdges = {
+  type: "straight",
+  ariaRole: "presentation",
+  ariaLabel: null,
+} as unknown as DefaultEdgeOptions;
 
 type Kind = "project" | "tech";
 type GraphNodeData = {
@@ -186,7 +204,13 @@ export function SkillsGraph({
   className,
   interactive = true,
 }: SkillsGraphProps) {
-  const layout = useMemo(buildLayout, []);
+  /*
+   * Lazy initial state, not `useMemo`: `buildLayout` runs a 400-tick d3-force
+   * simulation, so it must run exactly once. `useState(initializer)` guarantees
+   * that; `useMemo` is only a hint the runtime may discard — and CLAUDE.md bans
+   * manual memoization anyway, since the React Compiler handles it.
+   */
+  const [layout] = useState(buildLayout);
   const [nodes, , onNodesChange] = useNodesState(layout.nodes);
   const [edges, , onEdgesChange] = useEdgesState(layout.edges);
   const { adjacency } = layout;
@@ -197,6 +221,24 @@ export function SkillsGraph({
   // React Flow measures the DOM, so render it only on the client.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  /*
+   * Touch devices: the canvas is a scroll trap. It fills most of the viewport,
+   * so a finger swiping to scroll the page lands on it and pans the graph
+   * instead — the visitor has to aim at a thin strip to get past the section.
+   * On a coarse pointer, drag-to-pan is off and the page keeps the gesture;
+   * pinch-to-zoom still works, and the sr-only list carries the same content.
+   */
+  const [coarsePointer, setCoarsePointer] = useState(false);
+  useEffect(() => {
+    const query = window.matchMedia("(pointer: coarse)");
+    const sync = () => setCoarsePointer(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  const panEnabled = interactive && !coarsePointer;
 
   const isActive = (id: string) =>
     !hovered || id === hovered || !!adjacency.get(hovered)?.has(id);
@@ -238,16 +280,41 @@ export function SkillsGraph({
           fitViewOptions={{ padding: 0.2 }}
           minZoom={0.2}
           nodesConnectable={false}
+          /*
+           * The canvas is a visual restatement of the `sr-only` list rendered
+           * next to it, so it shouldn't compete with it: without this React Flow
+           * exposes every node as a focusable `role="group"` with no accessible
+           * name (41 silent tab stops) and every edge as an image labelled with
+           * internal ids. `disableKeyboardA11y` also drops the `role`
+           * `application` wrapper, which tells screen readers to stop
+           * interpreting structure.
+           */
+          nodesFocusable={false}
           edgesFocusable={false}
-          panOnDrag
+          disableKeyboardA11y
+          ariaLabelConfig={{
+            "controls.ariaLabel": t("canvasLabel"),
+            "controls.zoomIn.ariaLabel": t("zoomIn"),
+            "controls.zoomOut.ariaLabel": t("zoomOut"),
+            "controls.fitView.ariaLabel": t("fitView"),
+            "minimap.ariaLabel": t("minimapLabel"),
+          }}
+          panOnDrag={panEnabled}
           zoomOnPinch
           zoomOnDoubleClick
           // Move nodes only on the full page; the preview is pan/zoom only.
-          nodesDraggable={interactive}
+          nodesDraggable={panEnabled}
           // Wheel zoom only on the full page; elsewhere the wheel scrolls the page.
           zoomOnScroll={interactive}
-          preventScrolling={interactive}
-          defaultEdgeOptions={{ type: "straight" }}
+          preventScrolling={panEnabled}
+          defaultEdgeOptions={silentEdges}
+          /*
+           * React Flow hardcodes `role="application"` on its wrapper (its
+           * `...rest` spread sits before it, so a `role` prop can't win). At
+           * least name the region: an unnamed application role gives screen
+           * readers nothing to orient with.
+           */
+          aria-label={t("canvasLabel")}
           onNodeMouseEnter={(_, node) => setHovered(node.id)}
           onNodeMouseLeave={() => setHovered(null)}
         >
@@ -258,6 +325,7 @@ export function SkillsGraph({
               <MiniMap
                 pannable
                 zoomable
+                ariaLabel={t("minimapLabel")}
                 nodeColor={(node) =>
                   (node.data as GraphNodeData).kind === "project"
                     ? "var(--color-primary)"
