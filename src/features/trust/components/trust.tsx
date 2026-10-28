@@ -9,7 +9,7 @@ export function Trust() {
   return (
     <Section id="trust" padded={false}>
       <div className="grid items-stretch gap-8 py-12 md:grid-cols-[35%_65%]">
-        <h2 className="flex max-w-xs items-center text-xl font-bold tracking-tight sm:text-2xl">
+        <h2 className="flex max-w-xs items-center font-bold text-2xl tracking-[-0.02em] sm:text-3xl">
           {t("title")}
         </h2>
 
@@ -19,7 +19,7 @@ export function Trust() {
         <div className="relative flex min-w-0 flex-col justify-center overflow-hidden border-border border-t pt-8 md:-my-12 md:border-t-0 md:border-l md:py-12 md:pl-8">
           {/* Decorative, duplicated marquee — hidden from assistive tech. */}
           <div aria-hidden="true">
-            <Marquee pauseOnHover className="[--duration:15s]">
+            <Marquee pauseOnHover className="[--duration:20s]">
               {trustedCompanies.map((company) => (
                 <a
                   key={company.name}
@@ -27,7 +27,7 @@ export function Trust() {
                   target="_blank"
                   rel="noopener noreferrer"
                   tabIndex={-1}
-                  className="px-6 font-semibold text-xl text-muted-foreground transition-colors hover:text-foreground"
+                  className="px-8 font-bold text-2xl text-muted-foreground tracking-tight transition-colors hover:text-primary"
                 >
                   {company.name}
                 </a>

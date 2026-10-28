@@ -12,7 +12,12 @@ test("projects page lists projects and opens a detail", async ({ page }) => {
     page.getByRole("heading", { level: 1, name: "Portfolio" }),
   ).toBeVisible();
 
-  await page.getByRole("link", { name: "Retour aux projets" }).click();
+  // While a view transition plays, its pseudo-element overlay takes the
+  // pointer: let the page's arrival animation finish before clicking.
+  await page.waitForFunction(
+    () => !document.documentElement.matches(":active-view-transition"),
+  );
+  await page.getByRole("link", { name: "Tous les projets" }).click();
   await expect(page).toHaveURL(/\/fr\/projets$/);
 });
 

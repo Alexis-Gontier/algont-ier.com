@@ -9,19 +9,24 @@ test.skip(
   "Desktop header chrome; mobile uses the drawer",
 );
 
+// Client navigations commit the URL once the target page has loaded (view
+// transitions wait for it). Under `pnpm dev` with parallel workers, a first
+// on-demand compile can exceed the default 5s; production builds don't compile.
+const navTimeout = { timeout: 15_000 };
+
 test("header nav moves between pages", async ({ page }) => {
   await page.goto("/fr");
   const nav = page.getByRole("navigation").first();
 
   await nav.getByRole("link", { name: "Projets" }).click();
-  await expect(page).toHaveURL(/\/fr\/projets$/);
+  await expect(page).toHaveURL(/\/fr\/projets$/, navTimeout);
 
   await page
     .getByRole("navigation")
     .first()
     .getByRole("link", { name: "Graph" })
     .click();
-  await expect(page).toHaveURL(/\/fr\/graph$/);
+  await expect(page).toHaveURL(/\/fr\/graph$/, navTimeout);
 });
 
 // The starting state is `defaultTheme="system"`, so the first assertion below
@@ -44,6 +49,6 @@ test("locale switcher changes the language", async ({ page }) => {
   await page.getByRole("button", { name: "Changer de langue" }).click();
   await page.getByRole("menuitem", { name: "English" }).click();
 
-  await expect(page).toHaveURL(/\/en$/);
+  await expect(page).toHaveURL(/\/en$/, navTimeout);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });

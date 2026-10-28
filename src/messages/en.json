@@ -8,18 +8,28 @@
   },
   "Projects": {
     "title": "Projects",
-    "subtitle": "All my projects, from the most recent to the oldest.",
+    "subtitle": "Apps, client websites and school projects, newest first.",
     "featuredTitle": "Featured projects",
-    "featuredSubtitle": "A selection of projects I've worked on.",
-    "viewAll": "All projects",
-    "viewDemo": "View demo",
-    "viewCode": "View code",
-    "back": "Back to projects",
-    "inDevelopment": "In development"
+    "featuredSubtitle": "Three projects that show how I work, from product to code.",
+    "viewAll": "View all projects",
+    "viewDemo": "Visit the site",
+    "viewCode": "View the code",
+    "back": "All projects",
+    "inDevelopment": "In development",
+    "viewProject": "View project",
+    "count": "{count, plural, one {# project} other {# projects}}",
+    "year": "Year",
+    "stack": "Stack",
+    "links": "Links",
+    "overview": "The project",
+    "next": "Next project",
+    "previous": "Previous project",
+    "inGraph": "See this project in the graph",
+    "label": "~/projets"
   },
   "Graph": {
     "title": "Skills graph",
-    "subtitle": "Each project is linked to the technologies it uses. Hover a node to reveal its connections, drag them, zoom.",
+    "subtitle": "Each project is linked to the technologies it uses. Hover a node to reveal its connections, drag it, zoom.",
     "legendProject": "Project",
     "legendTech": "Technology",
     "canvasLabel": "Interactive graph",
@@ -27,40 +37,47 @@
     "zoomOut": "Zoom out",
     "fitView": "Fit view",
     "minimapLabel": "Graph overview",
-    "srListTitle": "Projects and their technologies"
+    "srListTitle": "Projects and their technologies",
+    "label": "~/graph"
   },
   "About": {
     "title": "About",
-    "portraitAlt": "Portrait of Alexis Gontier",
+    "portraitAlt": "ASCII-art portrait of Alexis Gontier",
     "fileName": "about.md",
-    "blockquote": "Full-Stack Developer — Web Engineering Master's student at IIM.",
-    "p1": "I turn ideas into real web products, from the first pixel to deployment. One year as an apprentice at Plume and winner of a HETIC × Publicis hackathon.",
-    "p2": "What drives me: polished interfaces, readable code, and projects that genuinely matter.",
-    "stackLabel": "current stack",
+    "blockquote": "Full-stack developer — Web Engineering Master's student at IIM.",
+    "p1": "I turn ideas into real web products, from mock-up to deployment. One year as an agency apprentice at Plume, and winner of the HETIC × Publicis hackathon.",
+    "p2": "What drives me: polished interfaces, readable code and projects that are actually useful.",
+    "stackLabel": "stack",
     "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
     "formationLabel": "education",
     "formation": "HETIC Bachelor (2023–2026) · IIM Web Engineering Master (2026–2028)",
     "rechercheLabel": "seeking",
-    "recherche": "full-stack developer apprenticeship · 2 years (Master's)",
+    "recherche": "full-stack developer apprenticeship · 2 years",
     "dispoLabel": "availability",
-    "dispo": "available now · 3 weeks company / 1 week school"
+    "dispo": "now · 3 weeks at work / 1 week at school"
   },
   "Skills": {
-    "title": "Technologies I use.",
-    "subtitle": "Over the years, I've worked with a variety of technologies.",
+    "title": "My toolbox",
+    "subtitle": "The technologies I use day to day. The number shows how many of the projects featured here I used each one in.",
     "frontend": "Frontend",
     "backend": "Backend",
     "database": "Database",
     "devops": "DevOps & Cloud",
-    "tools": "Quality & Tools"
+    "tools": "Quality & Tools",
+    "usedIn": "{count, plural, one {used in # project} other {used in # projects}}",
+    "viewGraph": "See the links in the graph",
+    "label": "~/stack"
   },
   "Trust": {
-    "title": "These companies trusted me."
+    "title": "They trusted me"
   },
   "Contact": {
     "title": "Let's work together",
-    "subtitle": "A question, a project, or just want to chat? Feel free to reach out.",
-    "cta": "Send me an email"
+    "subtitle": "Hiring a full-stack developer apprentice, or just have a question? Write to me, I'd be glad to talk.",
+    "cta": "Send me an email",
+    "copy": "Copy email address",
+    "copied": "Address copied",
+    "label": "~/contact"
   },
   "AvailabilityBanner": {
     "text": "Open to apprenticeship · available now",
@@ -68,10 +85,14 @@
   },
   "Hero": {
     "greeting": "Hi, I'm —",
-    "tagline": "Web Engineering & Digital Innovation Master's student at IIM, looking for an apprenticeship building performant, scalable web applications. Solid full-stack experience gained in agency work, an internship and personal projects.",
+    "tagline": "Full-stack developer studying for a Web Engineering Master's at IIM. I build fast, reliable web apps with Next.js and TypeScript, and I'm looking for a 2-year apprenticeship to do it on your team.",
     "viewProjects": "View my projects",
-    "downloadCv": "Download CV",
-    "viewGraph": "View the skills graph"
+    "downloadCv": "Download my CV",
+    "viewGraph": "Explore the skills graph",
+    "graphHint": "My projects, linked to the technologies they use.",
+    "graphOpen": "View project",
+    "graphPause": "Pause the graph animation",
+    "graphPlay": "Resume the graph animation"
   },
   "Nav": {
     "home": "Home",

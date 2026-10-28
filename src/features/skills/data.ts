@@ -1,3 +1,5 @@
+import { projects } from "@/features/projects";
+
 /**
  * Skills grouped by category. `labelKey` resolves against the `Skills`
  * namespace in `src/messages/*`.
@@ -90,3 +92,19 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
 ];
+
+/** Skills listed under another name in project tags. */
+const tagAliases: Record<string, string> = { Vite: "Vite.js" };
+
+/**
+ * How many of the site's projects use each skill — derived from the project
+ * tags, so the toolbox and the skills graph never disagree.
+ */
+export const projectCountBySkill = new Map(
+  skillCategories
+    .flatMap((category) => category.skills)
+    .map((skill) => {
+      const tag = tagAliases[skill] ?? skill;
+      return [skill, projects.filter((p) => p.tags.includes(tag)).length];
+    }),
+);

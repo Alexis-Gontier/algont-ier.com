@@ -189,6 +189,14 @@ export function SkillsGraph({
   const [edges, , onEdgesChange] = useEdgesState(layout.edges);
   const { adjacency } = layout;
   const [hovered, setHovered] = useState<string | null>(null);
+  /*
+   * Deep link: `/graph#p:<slug>` (from a project page) opens the graph with
+   * that project lit, until the pointer lights something else.
+   */
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (layout.nodes.some((node) => node.id === id)) setHovered(id);
+  }, [layout]);
   const { resolvedTheme } = useTheme();
   const t = useTranslations("Graph");
   const legend = { project: t("legendProject"), tech: t("legendTech") };
@@ -236,12 +244,7 @@ export function SkillsGraph({
   });
 
   return (
-    <div
-      className={cn(
-        "size-full overflow-hidden rounded-xl border bg-muted/20",
-        className,
-      )}
-    >
+    <div className={cn("size-full overflow-hidden", className)}>
       {mounted && (
         <ReactFlow
           nodes={displayNodes}
@@ -305,14 +308,15 @@ export function SkillsGraph({
                     ? "var(--color-primary)"
                     : "var(--color-muted-foreground)"
                 }
-                className="bg-card!"
+                // On phones the minimap covered half the canvas.
+                className="bg-card! max-md:hidden!"
               />
             </>
           )}
           {interactive && (
             <Panel
               position="top-left"
-              className="flex gap-4 rounded-lg border bg-card/80 px-3 py-2 text-xs backdrop-blur-sm"
+              className="flex gap-4 rounded-lg border bg-background/85 px-3 py-2 text-muted-foreground text-xs backdrop-blur-sm"
             >
               <span className="flex items-center gap-1.5">
                 <span className="size-2.5 rounded-full bg-primary" />

@@ -17,6 +17,6 @@ test("home renders the hero and featured projects", async ({ page }) => {
     page.getByRole("heading", { level: 1, name: "Alexis Gontier" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Projets en vedette" }),
+    page.getByRole("heading", { name: "Projets à la une" }),
   ).toBeVisible();
 });

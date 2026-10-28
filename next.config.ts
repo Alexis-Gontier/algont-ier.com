@@ -28,6 +28,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // React <ViewTransition> on route navigations (page fades, project morph).
+  experimental: {
+    viewTransition: true,
+  },
   // Don't advertise the framework/version in every response.
   poweredByHeader: false,
   async headers() {

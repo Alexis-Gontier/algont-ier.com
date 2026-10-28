@@ -265,3 +265,45 @@ body {
 .react-flow .react-flow__attribution a {
   color: var(--muted-foreground);
 }
+
+/*
+ * Page transitions (React <ViewTransition>, see (site)/template.tsx): the old
+ * page leaves fast so it doesn't compete, the new one rises in gently. The
+ * project visual morphs between card and page (`.morph`).
+ */
+::view-transition-old(.page-exit) {
+  animation: 160ms ease-in both vt-fade reverse;
+}
+
+::view-transition-new(.page-enter) {
+  animation:
+    260ms ease-out 120ms both vt-fade,
+    600ms var(--ease-out-expo) 120ms both vt-rise;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 500ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    transform: translateY(24px);
+  }
+}
+
+/* The calm version: a short cross-fade, nothing travels or morphs slowly. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(.page-enter) {
+    animation: 160ms ease-out both vt-fade;
+  }
+  ::view-transition-group(.morph) {
+    animation-duration: 1ms;
+  }
+}

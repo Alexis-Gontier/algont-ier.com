@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Reveal } from "@/components/shared/reveal";
 import { Section } from "@/components/shared/section";
-import { SkillsGraph } from "@/features/graph";
+import { SectionHeader } from "@/components/shared/section-header";
+import { GraphCard, SkillsGraph } from "@/features/graph";
 import { projects } from "@/features/projects";
 import { toLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
@@ -29,19 +31,21 @@ export default async function GraphPage({ params }: Props) {
 
   return (
     <Section>
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t("title")}
-          </h1>
-          <p className="text-muted-foreground">{t("subtitle")}</p>
-        </div>
+      <div className="flex flex-col gap-10">
+        <Reveal>
+          <SectionHeader
+            as="h1"
+            label={t("label")}
+            title={t("title")}
+            subtitle={t("subtitle")}
+          />
+        </Reveal>
 
         {/* Shorter on phones: at 70vh the canvas left only a thin strip of page
             to scroll past it. */}
-        <div className="h-[50vh] min-h-80 md:h-[70vh] md:min-h-120">
+        <GraphCard className="h-[60vh] min-h-80 md:h-[72vh] md:min-h-120">
           <SkillsGraph />
-        </div>
+        </GraphCard>
 
         {/* Text alternative to the visual graph — read once by screen readers. */}
         <div className="sr-only">

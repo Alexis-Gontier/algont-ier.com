@@ -10,8 +10,9 @@ import { RollText } from "@/components/shared/roll-text";
 import { Section } from "@/components/shared/section";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/config/site";
-import { LiveGraph } from "@/features/graph";
+import { GraphCard } from "@/features/graph";
 import { Link } from "@/i18n/navigation";
+import { HeroGraph } from "./hero-graph";
 import { HeroScene } from "./hero-scene";
 
 const socials = [
@@ -31,7 +32,6 @@ const socials = [
  */
 export function Hero() {
   const t = useTranslations("Hero");
-  const tGraph = useTranslations("Graph");
 
   return (
     <HeroScene>
@@ -114,38 +114,16 @@ export function Hero() {
           </div>
 
           {/* The live skills graph, in the original framed card. */}
-          <div data-reveal data-hero-graph className="relative">
-            {/* Violet halo behind the card — the identity's one glow. */}
-            <div
-              aria-hidden
-              className="-inset-10 pointer-events-none absolute rounded-full bg-primary/15 blur-3xl dark:bg-primary/20"
-            />
-            <div className="group relative aspect-square overflow-hidden rounded-xl border bg-card/60 bg-[radial-gradient(var(--border)_1px,transparent_1px)] bg-size-[22px_22px] transition-colors duration-500 hover:border-primary/40">
-              {/* Kept clear of the graph link (top) and the legend (bottom). */}
-              <div className="absolute inset-x-3 top-14 bottom-14">
-                <LiveGraph />
-              </div>
-
-              <div className="pointer-events-none absolute bottom-3 left-3 flex gap-4 rounded-lg border bg-background/80 px-3 py-1.5 text-muted-foreground text-xs backdrop-blur-sm">
-                <span className="flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-primary" />
-                  {tGraph("legendProject")}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-muted-foreground" />
-                  {tGraph("legendTech")}
-                </span>
-              </div>
-
-              <Link
-                href="/graph"
-                aria-label={t("viewGraph")}
-                className="absolute top-3 right-3 z-10 inline-flex size-9 items-center justify-center rounded-md border bg-background/80 text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary focus-visible:text-primary"
-              >
-                <ArrowUpRightIcon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-          </div>
+          <GraphCard data-reveal data-hero-graph className="aspect-square">
+            <HeroGraph />
+            <Link
+              href="/graph"
+              className="group absolute top-3 right-3 z-10 inline-flex h-9 items-center gap-1.5 rounded-md border bg-background/80 px-3 font-medium text-sm backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary focus-visible:text-primary"
+            >
+              <RollText>{t("viewGraph")}</RollText>
+              <ArrowUpRightIcon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </GraphCard>
         </div>
       </Section>
     </HeroScene>

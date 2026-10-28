@@ -100,14 +100,42 @@ function labelCollide(nodes: SimNode[], padding: number, compact: boolean) {
  * Decorative: it's `aria-hidden` and not focusable. The same relationships are
  * reachable as real links (project pages, /graph and its text list).
  *
+ * Technologies used by a single project stay hidden until that project is
+ * lit, so the resting graph shows only projects and shared technologies.
+ *
  * - Phone: fewer nodes (no one-off technologies), tighter forces; a tap lights
  *   up the nearest project instead of hovering.
  * - Reduced motion: the layout is computed up front and stays still; pointing
  *   still lights up connections, with no travel.
+ *
+ * Controlled mode: pass `onHoverChange` and the parent decides what is lit
+ * through `activeId` (e.g. an autoplay tour that pointing interrupts).
  */
-export function LiveGraph({ className }: { className?: string }) {
+export function LiveGraph({
+  className,
+  activeId,
+  onHoverChange,
+  paused = false,
+}: {
+  className?: string;
+  /** Project node id (`p:<slug>`) to light up, in controlled mode. */
+  activeId?: string | null;
+  /** Reports the project under the pointer (or `null`); enables controlled mode. */
+  onHoverChange?: (id: string | null) => void;
+  /** Freeze the motion (WCAG 2.2.2 pause control). Pointing still works. */
+  paused?: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  // Latest props for the long-lived simulation effect, without restarting it.
+  const activeIdRef = useRef(activeId);
+  const onHoverRef = useRef(onHoverChange);
+  const pausedRef = useRef(paused);
+  const setLitRef = useRef<(id: string | null) => void>(() => {});
+  const syncRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    onHoverRef.current = onHoverChange;
+  });
   const router = useRouter();
   const [graph] = useState(buildGraphData);
   const [size, setSize] = useState<{ width: number; height: number } | null>(
@@ -292,18 +320,25 @@ export function LiveGraph({ className }: { className?: string }) {
       return best;
     };
 
+    // Uncontrolled: light what the pointer is on. Controlled: report it and
+    // let the parent's `activeId` decide.
+    const pointAt = (id: string | null) => {
+      if (onHoverRef.current) onHoverRef.current(id);
+      else setLit(id);
+    };
+
     const onMove = (event: PointerEvent) => {
       const p = toGraph(event);
       pointer.x = p.x;
       pointer.y = p.y;
-      pointer.active = finePointer && !reduced;
+      pointer.active = finePointer && !reduced && !pausedRef.current;
       const hit = nearestProject(p);
-      setLit(hit?.id ?? null);
+      pointAt(hit?.id ?? null);
       svg.style.cursor = hit ? "pointer" : "";
     };
     const onLeave = () => {
       pointer.active = false;
-      if (finePointer) setLit(null);
+      if (finePointer) pointAt(null);
     };
     const onClick = (event: PointerEvent) => {
       const hit = nearestProject(toGraph(event));
@@ -311,7 +346,7 @@ export function LiveGraph({ className }: { className?: string }) {
       if (hit?.slug && (finePointer || lit === hit.id)) {
         router.push(`/projets/${hit.slug}`);
       } else {
-        setLit(hit?.id ?? null);
+        pointAt(hit?.id ?? null);
       }
     };
 
@@ -323,9 +358,12 @@ export function LiveGraph({ className }: { className?: string }) {
     let onScreen = true;
     const sync = () => {
       if (reduced) return;
-      if (onScreen && !document.hidden) sim.restart();
+      if (onScreen && !document.hidden && !pausedRef.current) sim.restart();
       else sim.stop();
     };
+    syncRef.current = sync;
+    setLitRef.current = setLit;
+    setLit(activeIdRef.current ?? null);
     const io = new IntersectionObserver(([entry]) => {
       onScreen = entry.isIntersecting;
       sync();
@@ -344,6 +382,21 @@ export function LiveGraph({ className }: { className?: string }) {
     // `nodes`/`links` are memoized by the React Compiler on `graph` + `compact`.
   }, [size, router, graph, nodes, links, compact]);
 
+  useEffect(() => {
+    activeIdRef.current = activeId;
+    setLitRef.current(activeId ?? null);
+  }, [activeId]);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    syncRef.current();
+  }, [paused]);
+
+  /** Technologies only one project uses: shown when that project is lit. */
+  const minorIds = new Set(
+    nodes.filter((n) => n.kind === "tech" && n.degree < 2).map((n) => n.id),
+  );
+
   return (
     <div ref={containerRef} className={cn("relative size-full", className)}>
       {size && (
@@ -361,7 +414,12 @@ export function LiveGraph({ className }: { className?: string }) {
               <line
                 key={`${link.source}->${link.target}`}
                 data-link={`${link.source}->${link.target}`}
-                className="stroke-foreground/15 transition-[stroke,opacity] duration-300 group-data-active/graph:opacity-30 data-lit:stroke-primary data-lit:opacity-100!"
+                className={cn(
+                  "stroke-foreground/15 transition-[stroke,opacity] duration-300 data-lit:stroke-primary data-lit:opacity-100!",
+                  minorIds.has(link.target)
+                    ? "opacity-0"
+                    : "group-data-active/graph:opacity-30",
+                )}
                 strokeWidth={1}
               />
             ))}
@@ -371,7 +429,12 @@ export function LiveGraph({ className }: { className?: string }) {
               <g
                 key={node.id}
                 data-node={node.id}
-                className="group/node transition-opacity duration-300 group-data-active/graph:opacity-25 data-lit:opacity-100!"
+                className={cn(
+                  "group/node transition-opacity duration-300 data-lit:opacity-100!",
+                  minorIds.has(node.id)
+                    ? "opacity-0"
+                    : "group-data-active/graph:opacity-25",
+                )}
               >
                 <circle
                   r={dotRadius(node)}
@@ -395,10 +458,6 @@ export function LiveGraph({ className }: { className?: string }) {
                           "fill-muted-foreground",
                           compact ? "text-[12px]" : "text-[13px]",
                         ),
-                    // One-off technologies only name themselves when lit.
-                    node.kind === "tech" &&
-                      node.degree < 2 &&
-                      "opacity-0 group-data-lit/node:opacity-100",
                   )}
                 >
                   {node.label}

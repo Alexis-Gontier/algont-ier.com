@@ -1,3 +1,5 @@
+/// <reference types="react/canary" />
+
 import type { routing } from "@/i18n/routing";
 import type messages from "@/messages/fr.json";
 

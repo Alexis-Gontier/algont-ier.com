@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Reveal } from "@/components/shared/reveal";
 import { Section } from "@/components/shared/section";
 import { siteConfig } from "@/config/site";
+import { PortraitReveal } from "./portrait-reveal";
 
 export function About() {
   const t = useTranslations("About");
@@ -9,78 +11,90 @@ export function About() {
   return (
     <Section id="about" container={false} padded={false}>
       <h2 className="sr-only">{t("title")}</h2>
-      <div className="-mx-4 grid items-stretch gap-10 sm:-mx-8 md:grid-cols-2">
-        {/* Portrait */}
-        <div className="relative aspect-square w-full overflow-hidden md:aspect-auto md:h-full">
-          <Image
-            alt={t("portraitAlt")}
-            className="object-cover"
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            src="/pp.png"
+      <div className="-mx-4 grid items-stretch sm:-mx-8 md:grid-cols-2">
+        {/*
+         * Portrait — always on a dark panel (`dark` scopes the dark tokens to
+         * this block): the ASCII art is light characters on transparency and
+         * vanished on the light theme's white ground.
+         */}
+        <div className="dark relative aspect-square w-full overflow-hidden bg-background md:aspect-auto md:min-h-120">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,color-mix(in_oklch,var(--primary)_22%,transparent),transparent_65%)]"
           />
+          <PortraitReveal>
+            <Image
+              alt={t("portraitAlt")}
+              className="object-cover"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              src="/pp.png"
+            />
+          </PortraitReveal>
         </div>
 
         {/* Description — rendered as an about.md editor window */}
-        <div className="flex h-full w-full flex-col border-border border-t pt-10 font-mono text-sm md:border-t-0 md:border-l md:pt-0">
-          {/* Window chrome */}
-          <div className="flex items-center justify-between border-b px-4 py-3">
-            <div aria-hidden="true" className="flex gap-2">
+        <div className="flex h-full w-full flex-col border-t font-mono text-sm md:border-t-0 md:border-l">
+          {/* Window chrome: traffic lights and the open file's tab. */}
+          <div className="flex items-stretch justify-between border-b pl-4">
+            <div aria-hidden="true" className="flex items-center gap-2 py-3">
               <span className="size-3 rounded-full border border-muted-foreground/40" />
               <span className="size-3 rounded-full border border-muted-foreground/40" />
               <span className="size-3 rounded-full border border-muted-foreground/40" />
             </div>
-            <span className="text-muted-foreground text-xs">
-              [ {t("fileName")} ]
+            <span className="flex items-center border-primary border-b-2 border-l bg-card px-4 text-foreground text-xs">
+              {t("fileName")}
             </span>
           </div>
 
-          {/* Editor body */}
-          <div className="flex flex-col gap-1 p-4 leading-relaxed">
+          {/* Editor body: lines come in one by one, like a file being written. */}
+          <Reveal stagger={0.06} className="flex flex-col py-4 leading-relaxed">
             <Line n={1}>
-              <span className="text-muted-foreground/50">{"# "}</span>
-              <span className="font-medium text-foreground">
+              <span className="text-muted-foreground">{"# "}</span>
+              <span className="font-semibold text-foreground">
                 {siteConfig.name}
               </span>
             </Line>
             <Line n={2}>
-              <span className="text-muted-foreground/50">{"> "}</span>
-              <span className="text-muted-foreground italic">
-                {t("blockquote")}
-              </span>
+              <span className="text-muted-foreground">{"> "}</span>
+              <span className="text-primary italic">{t("blockquote")}</span>
             </Line>
             <Line n={3}>
-              <span className="text-muted-foreground">{t("p1")}</span>
+              <span className="text-foreground/85">{t("p1")}</span>
             </Line>
             <Line n={4}>
-              <span className="text-muted-foreground">{t("p2")}</span>
+              <span className="text-foreground/85">{t("p2")}</span>
             </Line>
             <Line n={5}>
-              <span className="text-muted-foreground/40">---</span>
+              <span className="text-muted-foreground">---</span>
             </Line>
             <Line n={6}>
-              <span className="text-muted-foreground/40">```</span>
+              <span className="text-muted-foreground">```yaml</span>
             </Line>
             <Line n={7}>
               <span className="text-primary">{t("stackLabel")}: </span>
-              <span className="text-muted-foreground">{t("stack")}</span>
+              <span className="text-foreground/85">{t("stack")}</span>
             </Line>
             <Line n={8}>
               <span className="text-primary">{t("formationLabel")}: </span>
-              <span className="text-muted-foreground">{t("formation")}</span>
+              <span className="text-foreground/85">{t("formation")}</span>
             </Line>
             <Line n={9}>
               <span className="text-primary">{t("rechercheLabel")}: </span>
-              <span className="text-muted-foreground">{t("recherche")}</span>
+              <span className="text-foreground/85">{t("recherche")}</span>
             </Line>
             <Line n={10}>
               <span className="text-primary">{t("dispoLabel")}: </span>
-              <span className="text-muted-foreground">{t("dispo")}</span>
+              <span className="text-foreground/85">{t("dispo")}</span>
             </Line>
             <Line n={11}>
-              <span className="text-muted-foreground/40">```</span>
+              <span className="text-muted-foreground">```</span>
+              <span
+                aria-hidden
+                className="ml-0.5 inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-primary motion-safe:animate-pulse"
+              />
             </Line>
-          </div>
+          </Reveal>
         </div>
       </div>
     </Section>
@@ -89,7 +103,10 @@ export function About() {
 
 function Line({ n, children }: { n: number; children: React.ReactNode }) {
   return (
-    <div className="flex gap-4">
+    <div
+      data-reveal-item
+      className="flex gap-4 px-4 py-0.5 transition-colors hover:bg-muted/60"
+    >
       {/* Editor gutter: pure decoration, and never read out with the prose. */}
       <span
         aria-hidden

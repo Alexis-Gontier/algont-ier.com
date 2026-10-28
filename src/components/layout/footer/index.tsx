@@ -64,7 +64,7 @@ export function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="-my-1 flex min-h-6 w-fit items-center py-1 text-muted-foreground transition-colors hover:text-foreground"
+                className="-my-1 flex min-h-6 w-fit items-center py-1 text-muted-foreground transition-colors hover:text-primary"
               >
                 {tNav(labelKey)}
               </Link>
@@ -84,7 +84,7 @@ export function Footer() {
                 href={href}
                 target={key === "email" ? undefined : "_blank"}
                 rel={key === "email" ? undefined : "noreferrer"}
-                className="-my-1 flex min-h-6 w-fit items-center gap-2 py-1 text-muted-foreground transition-colors hover:text-foreground"
+                className="-my-1 flex min-h-6 w-fit items-center gap-2 py-1 text-muted-foreground transition-colors hover:text-primary"
               >
                 <Icon className="size-4" />
                 {label}
@@ -102,7 +102,7 @@ export function Footer() {
           </p>
           <Link
             href="/mentions-legales"
-            className="-my-1 flex min-h-6 items-center py-1 transition-colors hover:text-foreground"
+            className="-my-1 flex min-h-6 items-center py-1 transition-colors hover:text-primary"
           >
             {tFooter("legal")}
           </Link>

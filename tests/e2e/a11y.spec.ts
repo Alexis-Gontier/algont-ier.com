@@ -22,6 +22,15 @@ for (const colorScheme of ["light", "dark"] as const) {
         await page.goto(path);
         // The graph mounts client-side; scan the settled tree, not the placeholder.
         await page.waitForLoadState("networkidle");
+        // Sections fade in as they scroll into view: walk the page so every
+        // reveal has played, otherwise axe measures text still at opacity 0.
+        await page.evaluate(async () => {
+          for (let y = 0; y < document.body.scrollHeight; y += 400) {
+            window.scrollTo(0, y);
+            await new Promise((resolve) => setTimeout(resolve, 50));
+          }
+        });
+        await page.waitForTimeout(1500);
 
         const { violations } = await new AxeBuilder({ page })
           .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
