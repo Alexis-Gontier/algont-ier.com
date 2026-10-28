@@ -69,7 +69,9 @@
     "label": "~/stack"
   },
   "Trust": {
-    "title": "Ils m'ont fait confiance"
+    "title": "Ils m'ont fait confiance",
+    "pause": "Mettre en pause le défilement",
+    "resume": "Reprendre le défilement"
   },
   "Contact": {
     "title": "Travaillons ensemble",
@@ -77,7 +79,8 @@
     "cta": "M'envoyer un email",
     "copy": "Copier l'adresse email",
     "copied": "Adresse copiée",
-    "label": "~/contact"
+    "label": "~/contact",
+    "copyFailed": "Copie impossible, l'adresse est affichée ci-dessus"
   },
   "AvailabilityBanner": {
     "text": "Disponible en alternance · dès maintenant",

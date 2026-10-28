@@ -52,7 +52,7 @@ export function Skills() {
                 {t(category.labelKey)}
                 <span aria-hidden className="h-px flex-1 bg-border" />
               </h3>
-              <ul className="flex flex-wrap gap-2">
+              <ul translate="no" className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => {
                   const count = projectCountBySkill.get(skill) ?? 0;
                   return (

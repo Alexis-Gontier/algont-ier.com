@@ -207,7 +207,29 @@ body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
+  }
+  /*
+   * Full-strength ring for focus: at 50% the violet measured under 3:1 against
+   * the near-black ground (WCAG 2.4.11). shadcn controls draw their own ring.
+   */
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+  html {
+    -webkit-tap-highlight-color: color-mix(
+      in oklch,
+      var(--primary) 20%,
+      transparent
+    );
   }
   body {
     @apply bg-background text-foreground;

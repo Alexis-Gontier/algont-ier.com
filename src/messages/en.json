@@ -69,7 +69,9 @@
     "label": "~/stack"
   },
   "Trust": {
-    "title": "They trusted me"
+    "title": "They trusted me",
+    "pause": "Pause the scrolling names",
+    "resume": "Resume the scrolling names"
   },
   "Contact": {
     "title": "Let's work together",
@@ -77,7 +79,8 @@
     "cta": "Send me an email",
     "copy": "Copy email address",
     "copied": "Address copied",
-    "label": "~/contact"
+    "label": "~/contact",
+    "copyFailed": "Couldn't copy, the address is shown above"
   },
   "AvailabilityBanner": {
     "text": "Open to apprenticeship · available now",

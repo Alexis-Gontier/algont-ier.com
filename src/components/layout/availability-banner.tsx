@@ -15,7 +15,7 @@ export function AvailabilityBanner() {
       className="group flex items-center justify-center gap-2 border-b bg-primary/10 px-4 py-2 text-center font-medium text-sm transition-colors hover:bg-primary/15"
     >
       <span aria-hidden="true" className="relative flex size-2">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 motion-safe:animate-ping" />
+        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 motion-safe:animate-ping motion-safe:[animation-iteration-count:4]" />
         <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
       </span>
       <span>{t("text")}</span>

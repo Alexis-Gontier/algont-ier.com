@@ -8,13 +8,13 @@ import { Button } from "@/components/shadcn-ui/button";
 /** Copies the address, confirming in place (and to screen readers). */
 export function CopyEmailButton({ email }: { email: string }) {
   const t = useTranslations("Contact");
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
 
   useEffect(() => {
-    if (!copied) return;
-    const timer = window.setTimeout(() => setCopied(false), 2000);
+    if (status === "idle") return;
+    const timer = window.setTimeout(() => setStatus("idle"), 2500);
     return () => window.clearTimeout(timer);
-  }, [copied]);
+  }, [status]);
 
   return (
     <Button
@@ -22,12 +22,27 @@ export function CopyEmailButton({ email }: { email: string }) {
       variant="outline"
       size="xl"
       onClick={async () => {
-        await navigator.clipboard.writeText(email);
-        setCopied(true);
+        // Clipboard access can be refused (permissions, insecure context).
+        try {
+          await navigator.clipboard.writeText(email);
+          setStatus("copied");
+        } catch {
+          setStatus("failed");
+        }
       }}
     >
-      {copied ? <CheckIcon className="text-primary" /> : <CopyIcon />}
-      <span aria-live="polite">{copied ? t("copied") : t("copy")}</span>
+      {status === "copied" ? (
+        <CheckIcon className="text-primary" />
+      ) : (
+        <CopyIcon />
+      )}
+      <span aria-live="polite">
+        {status === "copied"
+          ? t("copied")
+          : status === "failed"
+            ? t("copyFailed")
+            : t("copy")}
+      </span>
     </Button>
   );
 }

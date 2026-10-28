@@ -12,6 +12,7 @@ export function Header() {
         <div className="flex items-center gap-8">
           <Link
             href="/"
+            translate="no"
             className="group text-xl font-extrabold tracking-tight"
           >
             <RollText>

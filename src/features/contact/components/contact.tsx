@@ -42,7 +42,7 @@ export function Contact() {
         </p>
         <h2
           data-reveal-item
-          className="font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-6xl"
+          className="text-balance font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-6xl"
         >
           {t("title")}
         </h2>

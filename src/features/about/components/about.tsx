@@ -91,7 +91,7 @@ export function About() {
               <span className="text-muted-foreground">```</span>
               <span
                 aria-hidden
-                className="ml-0.5 inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-primary motion-safe:animate-pulse"
+                className="ml-0.5 inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-primary motion-safe:animate-pulse motion-safe:[animation-iteration-count:2]"
               />
             </Line>
           </Reveal>

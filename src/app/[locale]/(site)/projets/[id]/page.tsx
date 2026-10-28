@@ -94,7 +94,7 @@ export default async function ProjectPage({ params }: Props) {
             </p>
             <h1
               data-reveal-item
-              className="max-w-4xl font-extrabold text-5xl leading-[0.98] tracking-[-0.04em] sm:text-7xl"
+              className="max-w-4xl text-balance font-extrabold text-5xl leading-[0.98] tracking-[-0.04em] sm:text-7xl"
             >
               {title}
             </h1>
@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: Props) {
                 {t("stack")}
               </dt>
               <dd>
-                <ul className="flex flex-wrap gap-1.5">
+                <ul translate="no" className="flex flex-wrap gap-1.5">
                   {tags.map((tag) => (
                     <li
                       key={tag}

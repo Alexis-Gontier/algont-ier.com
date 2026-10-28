@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/magic-ui/marquee";
 import { Section } from "@/components/shared/section";
 import { trustedCompanies } from "../data";
+import { MarqueePause } from "./marquee-pause";
 
 export function Trust() {
   const t = useTranslations("Trust");
@@ -18,22 +19,24 @@ export function Trust() {
             the whole document wider than the viewport on mobile. */}
         <div className="relative flex min-w-0 flex-col justify-center overflow-hidden border-border border-t pt-8 md:-my-12 md:border-t-0 md:border-l md:py-12 md:pl-8">
           {/* Decorative, duplicated marquee — hidden from assistive tech. */}
-          <div aria-hidden="true">
-            <Marquee pauseOnHover className="[--duration:20s]">
-              {trustedCompanies.map((company) => (
-                <a
-                  key={company.name}
-                  href={company.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                  className="px-8 font-bold text-2xl text-muted-foreground tracking-tight transition-colors hover:text-primary"
-                >
-                  {company.name}
-                </a>
-              ))}
-            </Marquee>
-          </div>
+          <MarqueePause>
+            <div aria-hidden="true">
+              <Marquee pauseOnHover className="[--duration:20s]">
+                {trustedCompanies.map((company) => (
+                  <a
+                    key={company.name}
+                    href={company.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={-1}
+                    className="px-8 font-bold text-2xl text-muted-foreground tracking-tight transition-colors hover:text-primary"
+                  >
+                    {company.name}
+                  </a>
+                ))}
+              </Marquee>
+            </div>
+          </MarqueePause>
 
           {/* Edge fades */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-linear-to-r from-background" />

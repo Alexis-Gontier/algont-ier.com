@@ -20,7 +20,11 @@ export function ProjectTags({ tags }: { tags: readonly string[] }) {
     // this block's scrollable overflow area (`invisible` hides painting, not the
     // box), which would widen the document. Safe: the visible row is already
     // clipped to one line and the sr-only row has no layout size.
-    <div ref={wrapperRef} className="relative mt-1 overflow-hidden">
+    <div
+      ref={wrapperRef}
+      translate="no"
+      className="relative mt-1 overflow-hidden"
+    >
       {/* Visible single-line row (decorative; real list is the sr-only one). */}
       <ul aria-hidden className="flex gap-1.5 overflow-hidden">
         {tags.slice(0, visibleCount).map((tag) => (

@@ -40,7 +40,7 @@ export function SectionHeader({
         )}
         <Heading
           data-reveal-item
-          className="font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-5xl"
+          className="text-balance font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-5xl"
         >
           {title}
         </Heading>
