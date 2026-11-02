@@ -271,24 +271,6 @@ body {
 }
 
 /*
- * React Flow's attribution link ships at 4.3:1 on our dark surface, just under
- * WCAG 1.4.3. We can't touch its markup — and hiding it needs a Pro licence —
- * but restyling it is fair game, and our own tokens pass in both themes.
- *
- * Deliberately outside `@layer base`: React Flow's stylesheet is unlayered, and
- * unlayered rules beat every layered one regardless of specificity. The extra
- * `.react-flow` in the selector then wins on specificity within that same
- * unlayered origin.
- */
-.react-flow .react-flow__attribution {
-  background-color: var(--background);
-}
-
-.react-flow .react-flow__attribution a {
-  color: var(--muted-foreground);
-}
-
-/*
  * Page transitions (React <ViewTransition>, see (site)/template.tsx): the old
  * page leaves fast so it doesn't compete, the new one rises in gently. The
  * project visual morphs between card and page (`.morph`).

@@ -4,7 +4,7 @@ import { ArrowRightIcon, PauseIcon, PlayIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { LiveGraph } from "@/features/graph";
-import { projects } from "@/features/projects";
+import { featuredProjects, projects } from "@/features/projects";
 import { Link } from "@/i18n/navigation";
 import { motionQueries } from "@/lib/gsap";
 
@@ -12,6 +12,14 @@ import { motionQueries } from "@/lib/gsap";
 const TOUR_STEP_MS = 3200;
 /** Let the hero's entrance finish before the tour starts. */
 const TOUR_DELAY_MS = 2600;
+/** More than this and the hero card's labels pile up; /graph shows them all. */
+const HERO_PROJECT_COUNT = 10;
+
+/** Featured projects first (the tour opens on them), then the newest ones. */
+const heroProjects = [
+  ...featuredProjects,
+  ...projects.filter((project) => !project.featured),
+].slice(0, HERO_PROJECT_COUNT);
 
 /**
  * The hero's graph card contents: the live graph, a guided tour that lights
@@ -72,21 +80,26 @@ export function HeroGraph() {
   const startedRef = useRef(false);
   useEffect(() => {
     if (!touring) return;
-    const advance = () => setStep((s) => (s + 1) % projects.length);
+    const advance = () => setStep((s) => (s + 1) % heroProjects.length);
+    // The interval starts with the first step, not alongside its delay, so
+    // the first project stays lit as long as the others.
+    let interval: number | undefined;
     const first = window.setTimeout(
-      advance,
+      () => {
+        advance();
+        interval = window.setInterval(advance, TOUR_STEP_MS);
+      },
       startedRef.current ? 0 : TOUR_DELAY_MS,
     );
     startedRef.current = true;
-    const interval = window.setInterval(advance, TOUR_STEP_MS);
     return () => {
       window.clearTimeout(first);
       window.clearInterval(interval);
     };
   }, [touring]);
 
-  const tourProject = !reduced && step >= 0 ? projects[step] : undefined;
-  const hoveredProject = projects.find((p) => `p:${p.slug}` === hovered);
+  const tourProject = !reduced && step >= 0 ? heroProjects[step] : undefined;
+  const hoveredProject = heroProjects.find((p) => `p:${p.slug}` === hovered);
   const project = hoveredProject ?? tourProject;
 
   return (
@@ -94,6 +107,7 @@ export function HeroGraph() {
       {/* Kept clear of the controls (top) and the caption (bottom). */}
       <div className="absolute inset-x-3 top-14 bottom-20">
         <LiveGraph
+          projects={heroProjects}
           activeId={project ? `p:${project.slug}` : null}
           onHoverChange={setHovered}
           paused={paused}

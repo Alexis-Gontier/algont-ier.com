@@ -42,7 +42,7 @@ export function About() {
               <span className="size-3 rounded-full border border-muted-foreground/40" />
               <span className="size-3 rounded-full border border-muted-foreground/40" />
             </div>
-            <span className="flex items-center border-primary border-b-2 border-l bg-card px-4 text-foreground text-xs">
+            <span className="flex items-center border-l bg-card px-4 text-foreground text-xs">
               {t("fileName")}
             </span>
           </div>
@@ -72,22 +72,18 @@ export function About() {
               <span className="text-muted-foreground">```yaml</span>
             </Line>
             <Line n={7}>
-              <span className="text-primary">{t("stackLabel")}: </span>
-              <span className="text-foreground/85">{t("stack")}</span>
-            </Line>
-            <Line n={8}>
               <span className="text-primary">{t("formationLabel")}: </span>
               <span className="text-foreground/85">{t("formation")}</span>
             </Line>
-            <Line n={9}>
+            <Line n={8}>
               <span className="text-primary">{t("rechercheLabel")}: </span>
               <span className="text-foreground/85">{t("recherche")}</span>
             </Line>
-            <Line n={10}>
+            <Line n={9}>
               <span className="text-primary">{t("dispoLabel")}: </span>
               <span className="text-foreground/85">{t("dispo")}</span>
             </Line>
-            <Line n={11}>
+            <Line n={10}>
               <span className="text-muted-foreground">```</span>
               <span
                 aria-hidden

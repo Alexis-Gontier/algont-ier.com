@@ -1,4 +1,5 @@
 import { MailIcon } from "lucide-react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn-ui/button";
 import { Reveal } from "@/components/shared/reveal";
@@ -6,7 +7,6 @@ import { RollText } from "@/components/shared/roll-text";
 import { Section } from "@/components/shared/section";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/config/site";
-import { CopyEmailButton } from "./copy-email-button";
 
 const socials = [
   { label: "GitHub", href: siteConfig.socials.github, icon: GithubIcon },
@@ -14,9 +14,8 @@ const socials = [
 ];
 
 /**
- * The closing call to action, on a dark violet-lit panel in both themes
- * (`dark` scopes the dark tokens): the address itself is the headline link,
- * with a one-click copy for visitors whose mail client isn't set up.
+ * The closing call to action, over a darkened photo in both themes
+ * (`dark` scopes the dark tokens).
  */
 export function Contact() {
   const t = useTranslations("Contact");
@@ -27,22 +26,28 @@ export function Contact() {
       id="contact"
       className="dark relative overflow-hidden bg-background text-foreground"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--border)_1px,transparent_1px)] bg-size-[22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
-      />
-      <div
-        aria-hidden
-        className="-translate-x-1/2 pointer-events-none absolute top-1/2 left-1/2 size-[36rem] -translate-y-1/2 rounded-full bg-primary/20 blur-3xl"
-      />
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src="/contact-background.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Scrim: a solid dark floor keeps the light text above AA over any
+            region of the image; the radial vignette deepens contrast behind
+            the text block without flattening the whole photo. */}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-radial from-black/45 to-transparent" />
+      </div>
 
-      <Reveal className="relative flex flex-col items-center gap-6 py-8 text-center">
+      <Reveal className="relative flex flex-col items-center gap-6 py-4 text-center">
         <p data-reveal-item className="font-mono text-primary text-sm">
           {t("label")}
         </p>
         <h2
           data-reveal-item
-          className="text-balance font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-6xl"
+          className="text-balance font-bold text-4xl leading-[1.05] tracking-[-0.03em] sm:text-5xl"
         >
           {t("title")}
         </h2>
@@ -57,7 +62,7 @@ export function Contact() {
         <a
           data-reveal-item
           href={`mailto:${email}`}
-          className="group relative max-w-full break-all font-semibold text-2xl tracking-tight sm:text-4xl"
+          className="group relative max-w-full break-all font-medium text-xl tracking-tight sm:text-2xl"
         >
           <RollText>{email}</RollText>
           <span
@@ -66,17 +71,15 @@ export function Contact() {
           />
         </a>
 
-        <div
-          data-reveal-item
-          className="flex flex-wrap items-center justify-center gap-3"
-        >
-          <Button asChild size="xl">
+        {/* Wrapped: the button's own `transition-all` would fight the
+            reveal's per-frame inline styles. */}
+        <div data-reveal-item>
+          <Button asChild size="lg">
             <a href={`mailto:${email}`}>
               <MailIcon />
               {t("cta")}
             </a>
           </Button>
-          <CopyEmailButton email={email} />
         </div>
 
         <ul data-reveal-item className="flex items-center gap-1">
@@ -87,7 +90,7 @@ export function Contact() {
                 variant="ghost"
                 size="icon-lg"
                 aria-label={label}
-                className="hover:-translate-y-0.5 hover:text-primary"
+                className="hover:text-primary"
               >
                 <a href={href} target="_blank" rel="noopener noreferrer">
                   <Icon />

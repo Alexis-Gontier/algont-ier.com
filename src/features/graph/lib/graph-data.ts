@@ -1,6 +1,6 @@
-import { projects } from "@/features/projects";
+import { projects as allProjects, type Project } from "@/features/projects";
 
-export type GraphKind = "project" | "tech";
+type GraphKind = "project" | "tech";
 
 export type GraphNode = {
   /** `p:<slug>` for projects, `t:<tag>` for technologies. */
@@ -24,9 +24,12 @@ export type GraphData = {
 /**
  * The project↔technology graph, derived from `features/projects` data. Shared
  * by the hero's live graph and the interactive `/graph` page so both always
- * show the same relationships.
+ * show the same relationships. The hero passes a subset of `projects`: its
+ * small frame can't hold every project legibly.
  */
-export function buildGraphData(): GraphData {
+export function buildGraphData(
+  projects: readonly Project[] = allProjects,
+): GraphData {
   const nodes: GraphNode[] = [];
   const links: GraphLink[] = [];
   const techSeen = new Set<string>();

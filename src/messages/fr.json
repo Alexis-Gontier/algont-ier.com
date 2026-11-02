@@ -2,7 +2,7 @@
   "Metadata": {
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Développeur full-stack en recherche d'alternance",
-    "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Mastère Ingénierie Web à l'IIM, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
+    "description": "Portfolio d'Alexis Gontier, développeur full-stack et étudiant en Mastère CTO & Tech Lead à HETIC, en recherche d'alternance de 2 ans. Projets Next.js, TypeScript & React, CV à télécharger.",
     "ogTagline": "Développeur full-stack · En recherche d'alternance",
     "jobTitle": "Développeur full-stack"
   },
@@ -29,30 +29,49 @@
   },
   "Graph": {
     "title": "Graphe de compétences",
-    "subtitle": "Chaque projet est relié aux technologies qu'il utilise. Survolez un nœud pour voir ses connexions, déplacez-le, zoomez.",
+    "subtitle": "Chaque projet est relié aux technologies qu'il utilise. Survolez un nœud pour voir ses liens, faites-le glisser, cliquez pour ouvrir sa fiche, et ajustez l'affichage et les forces dans les réglages.",
     "legendProject": "Projet",
     "legendTech": "Technologie",
     "srListTitle": "Projets et technologies associées",
-    "canvasLabel": "Graphe interactif",
     "zoomIn": "Zoom avant",
     "zoomOut": "Zoom arrière",
     "fitView": "Ajuster la vue",
-    "minimapLabel": "Vue d'ensemble du graphe",
+    "searchLabel": "Rechercher un projet ou une technologie",
+    "searchPlaceholder": "Rechercher un projet, une techno…",
+    "searchResults": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}",
+    "stats": "{projects, plural, one {# projet} other {# projets}} · {techs, plural, one {# technologie} other {# technologies}}",
+    "filterLabel": "Filtrer par catégorie",
+    "categoryOther": "Autres",
+    "close": "Fermer la fiche",
+    "usedIn": "{count, plural, one {Utilisée dans # projet} other {Utilisée dans # projets}}",
+    "settings": "Réglages du graphe",
+    "reset": "Réinitialiser",
+    "sectionFilters": "Filtres",
+    "sectionGroups": "Groupes",
+    "sectionDisplay": "Affichage",
+    "sectionForces": "Forces",
+    "oneOff": "Technologies propres à un seul projet",
+    "colorGroups": "Couleur par catégorie",
+    "textFade": "Seuil d'affichage du texte",
+    "nodeSize": "Taille des nœuds",
+    "linkThickness": "Épaisseur des liens",
+    "centerForce": "Force de centrage",
+    "repelForce": "Force de répulsion",
+    "linkForce": "Force des liens",
+    "linkDistance": "Longueur des liens",
     "label": "~/graph"
   },
   "About": {
     "title": "À propos",
     "portraitAlt": "Portrait d'Alexis Gontier en art ASCII",
     "fileName": "about.md",
-    "blockquote": "Développeur full-stack — en Mastère Ingénierie Web à l'IIM.",
-    "p1": "Je transforme des idées en produits web concrets, de la maquette au déploiement. Un an d'alternance en agence chez Plume, et lauréat du hackathon HETIC × Publicis.",
-    "p2": "Ce qui me motive : des interfaces soignées, du code lisible et des projets utiles.",
-    "stackLabel": "stack",
-    "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
+    "blockquote": "Développeur full-stack, en Mastère CTO & Tech Lead à HETIC.",
+    "p1": "Je développe des applications web de bout en bout : base de données, API, interface et mise en ligne. Un an d'alternance en agence chez Plume, de nombreux projets d'équipe à HETIC et la première place au hackathon HETIC × Publicis.",
+    "p2": "À côté, je construis mes propres outils, que j'utilise avec mes proches : un tracker de musculation web et mobile, un catalogue d'animes et de mangas, une app de suivi de course à pied.",
     "formationLabel": "formation",
-    "formation": "Bachelor HETIC (2023–2026) · Mastère Ingénierie Web IIM (2026–2028)",
+    "formation": "Bachelor Développeur Web HETIC (2023–2026) · Mastère CTO & Tech Lead HETIC (2026–2028)",
     "rechercheLabel": "recherche",
-    "recherche": "alternance développeur full-stack · 2 ans",
+    "recherche": "alternance développement web ou mobile · 2 ans",
     "dispoLabel": "dispo",
     "dispo": "dès maintenant · 3 semaines en entreprise / 1 semaine à l'école"
   },
@@ -69,18 +88,13 @@
     "label": "~/stack"
   },
   "Trust": {
-    "title": "Ils m'ont fait confiance",
-    "pause": "Mettre en pause le défilement",
-    "resume": "Reprendre le défilement"
+    "title": "Ils m'ont fait confiance"
   },
   "Contact": {
     "title": "Travaillons ensemble",
     "subtitle": "Vous recrutez un alternant développeur full-stack, ou vous avez simplement une question ? Écrivez-moi, je serai ravi d'en discuter.",
     "cta": "M'envoyer un email",
-    "copy": "Copier l'adresse email",
-    "copied": "Adresse copiée",
-    "label": "~/contact",
-    "copyFailed": "Copie impossible, l'adresse est affichée ci-dessus"
+    "label": "~/contact"
   },
   "AvailabilityBanner": {
     "text": "Disponible en alternance · dès maintenant",
@@ -88,11 +102,11 @@
   },
   "Hero": {
     "greeting": "Salut, je suis —",
-    "tagline": "Développeur full-stack en Mastère Ingénierie Web à l'IIM. Je construis des applications web rapides et fiables avec Next.js et TypeScript, et je cherche une alternance de 2 ans pour le faire au sein de votre équipe.",
+    "tagline": "Développeur full-stack en Mastère CTO & Tech Lead à HETIC. Je construis des applications web rapides et fiables avec Next.js et TypeScript, et je cherche une alternance de 2 ans pour le faire au sein de votre équipe.",
     "viewProjects": "Voir mes projets",
     "downloadCv": "Télécharger mon CV",
     "viewGraph": "Explorer le graphe de compétences",
-    "graphHint": "Mes projets, reliés aux technologies qu'ils utilisent.",
+    "graphHint": "Une sélection de mes projets, reliés aux technologies qu'ils utilisent.",
     "graphOpen": "Voir le projet",
     "graphPause": "Mettre l'animation du graphe en pause",
     "graphPlay": "Relancer l'animation du graphe"

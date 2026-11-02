@@ -1,6 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AvailabilityBanner } from "@/components/layout/availability-banner";
-import { Cursor } from "@/components/layout/cursor";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { toLocale } from "@/i18n/locale";
@@ -43,7 +42,6 @@ export default async function SiteLayout({
           <Footer />
         </div>
       </div>
-      <Cursor />
     </>
   );
 }

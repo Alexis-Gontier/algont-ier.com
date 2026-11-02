@@ -49,7 +49,7 @@ export function Hero() {
             <h1
               data-reveal
               data-hero-name
-              className="font-extrabold text-6xl leading-[0.95] tracking-[-0.04em] sm:text-7xl lg:text-8xl"
+              className="whitespace-nowrap font-extrabold text-4xl leading-[0.95] tracking-[-0.04em] min-[360px]:text-5xl sm:text-7xl md:text-[2.875rem] lg:text-6xl xl:text-7xl"
             >
               {siteConfig.name}
             </h1>

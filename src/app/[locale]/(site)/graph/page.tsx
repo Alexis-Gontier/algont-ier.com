@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Reveal } from "@/components/shared/reveal";
-import { Section } from "@/components/shared/section";
-import { SectionHeader } from "@/components/shared/section-header";
-import { GraphCard, SkillsGraph } from "@/features/graph";
+import { SkillsGraph } from "@/features/graph";
 import { projects } from "@/features/projects";
 import { toLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
@@ -30,35 +27,33 @@ export default async function GraphPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "Graph" });
 
   return (
-    <Section>
-      <div className="flex flex-col gap-10">
-        <Reveal>
-          <SectionHeader
-            as="h1"
-            label={t("label")}
-            title={t("title")}
-            subtitle={t("subtitle")}
-          />
-        </Reveal>
+    /*
+     * The graph is the page: it fills the layout's column edge to edge and the
+     * viewport under the sticky header (`h-20`) and the availability banner
+     * above it (37px), so it fits the screen on arrival — like a full-screen
+     * graph view. The footer stays below it, reached by scrolling the page.
+     */
+    <section className="relative h-[calc(100dvh-5rem-37px)] min-h-120 overflow-hidden border-b bg-[radial-gradient(var(--border)_1px,transparent_1px)] bg-size-[22px_22px]">
+      <SkillsGraph />
 
-        {/* Shorter on phones: at 70vh the canvas left only a thin strip of page
-            to scroll past it. */}
-        <GraphCard className="h-[60vh] min-h-80 md:h-[72vh] md:min-h-120">
-          <SkillsGraph />
-        </GraphCard>
-
-        {/* Text alternative to the visual graph — read once by screen readers. */}
-        <div className="sr-only">
-          <h2>{t("srListTitle")}</h2>
-          <ul>
-            {projects.map((project) => (
-              <li key={project.slug}>
-                {project.title} — {project.tags.join(", ")}
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Title in the one corner the graph's controls leave free. */}
+      <div className="pointer-events-none absolute right-3 bottom-3 max-w-sm rounded-lg bg-background/70 px-3 py-2 text-right backdrop-blur-sm max-md:sr-only">
+        <p className="font-mono text-primary text-xs">{t("label")}</p>
+        <h1 className="font-bold text-2xl tracking-tight">{t("title")}</h1>
+        <p className="mt-1 text-muted-foreground text-xs">{t("subtitle")}</p>
       </div>
-    </Section>
+
+      {/* Text alternative to the visual graph — read once by screen readers. */}
+      <div className="sr-only">
+        <h2>{t("srListTitle")}</h2>
+        <ul>
+          {projects.map((project) => (
+            <li key={project.slug}>
+              {project.title} — {project.tags.join(", ")}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

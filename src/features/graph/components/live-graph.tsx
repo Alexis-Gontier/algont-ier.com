@@ -11,6 +11,7 @@ import {
   type SimulationNodeDatum,
 } from "d3-force";
 import { useEffect, useRef, useState } from "react";
+import type { Project } from "@/features/projects";
 import { useRouter } from "@/i18n/navigation";
 import { motionQueries } from "@/lib/gsap";
 import { cn } from "@/lib/utils/cn";
@@ -21,6 +22,8 @@ type SimLink = SimulationLinkDatum<SimNode> & { key: string };
 
 /** Below this width the graph keeps only projects and shared technologies. */
 const COMPACT_WIDTH = 480;
+/** In compact mode, only technologies shared by this many projects stay. */
+const COMPACT_MIN_DEGREE = 5;
 /** How close (px) the pointer must be to a project dot to light it up. */
 const HIT_RADIUS = 36;
 
@@ -103,7 +106,7 @@ function labelCollide(nodes: SimNode[], padding: number, compact: boolean) {
  * Technologies used by a single project stay hidden until that project is
  * lit, so the resting graph shows only projects and shared technologies.
  *
- * - Phone: fewer nodes (no one-off technologies), tighter forces; a tap lights
+ * - Phone: fewer nodes (only the most shared technologies), tighter forces; a tap lights
  *   up the nearest project instead of hovering.
  * - Reduced motion: the layout is computed up front and stays still; pointing
  *   still lights up connections, with no travel.
@@ -113,11 +116,14 @@ function labelCollide(nodes: SimNode[], padding: number, compact: boolean) {
  */
 export function LiveGraph({
   className,
+  projects,
   activeId,
   onHoverChange,
   paused = false,
 }: {
   className?: string;
+  /** Projects to draw (default: all of them). */
+  projects?: readonly Project[];
   /** Project node id (`p:<slug>`) to light up, in controlled mode. */
   activeId?: string | null;
   /** Reports the project under the pointer (or `null`); enables controlled mode. */
@@ -137,7 +143,7 @@ export function LiveGraph({
     onHoverRef.current = onHoverChange;
   });
   const router = useRouter();
-  const [graph] = useState(buildGraphData);
+  const [graph] = useState(() => buildGraphData(projects));
   const [size, setSize] = useState<{ width: number; height: number } | null>(
     null,
   );
@@ -164,7 +170,10 @@ export function LiveGraph({
   const compact = (size?.width ?? 0) < COMPACT_WIDTH;
   const visibleIds = new Set(
     graph.nodes
-      .filter((n) => !compact || n.kind === "project" || n.degree >= 3)
+      .filter(
+        (n) =>
+          !compact || n.kind === "project" || n.degree >= COMPACT_MIN_DEGREE,
+      )
       .map((n) => n.id),
   );
   const nodes = graph.nodes.filter((n) => visibleIds.has(n.id));
@@ -188,8 +197,8 @@ export function LiveGraph({
       linkEls.set(el.dataset.link ?? "", el);
     }
 
-    // Start as a tight knot at the centre: the first second of simulation —
-    // the cloud unfolding — is the graph's entrance.
+    // Seed as a tight knot; the layout is settled off-screen before the first
+    // paint (see below), so the knot itself is never shown.
     const simNodes: SimNode[] = nodes.map((node, i) => ({
       ...node,
       x: Math.cos(i) * 12,
@@ -203,6 +212,11 @@ export function LiveGraph({
     const halfW = width / 2 - 16;
     const halfH = height / 2 - 16;
     const pointer = { x: 0, y: 0, active: false };
+    // A label hangs to the right of its dot, so centring the dots shoves the
+    // text off the right edge and the bounds then pack everything to the left.
+    // Forces aim at the centre of the dot + label box instead.
+    const boxOffset = (n: SimNode) =>
+      (dotRadius(n) + LABEL_GAP + labelWidth(n, compact)) / 2;
 
     const sim: Simulation<SimNode, SimLink> = forceSimulation(simNodes)
       .force("charge", forceManyBody<SimNode>().strength(compact ? -150 : -340))
@@ -214,7 +228,12 @@ export function LiveGraph({
           .strength(0.6),
       )
       // Elliptical pull so the cloud takes the frame's proportions.
-      .force("x", forceX<SimNode>(0).strength(0.04 * (height / width) * 1.6))
+      .force(
+        "x",
+        forceX<SimNode>((n) => -boxOffset(n)).strength(
+          0.04 * (height / width) * 1.6,
+        ),
+      )
       .force("y", forceY<SimNode>(0).strength(compact ? 0.025 : 0.06))
       .force("collide", labelCollide(simNodes, compact ? 3 : 6, compact))
       .velocityDecay(0.35)
@@ -225,7 +244,7 @@ export function LiveGraph({
     const vortex = () => {
       for (const n of simNodes) {
         n.vx = (n.vx ?? 0) - (n.y ?? 0) * 0.00035;
-        n.vy = (n.vy ?? 0) + (n.x ?? 0) * 0.00035;
+        n.vy = (n.vy ?? 0) + ((n.x ?? 0) + boxOffset(n)) * 0.00035;
         if (pointer.active) {
           const dx = (n.x ?? 0) - pointer.x;
           const dy = (n.y ?? 0) - pointer.y;
@@ -247,15 +266,23 @@ export function LiveGraph({
         const r = dotRadius(n);
         const minX = -halfW + r;
         const maxX = halfW - r - LABEL_GAP - labelWidth(n, compact);
-        // Position only: keeping the velocity lets a collision still slide a
-        // node along the edge instead of pinning two labels on top of each other.
-        n.x = Math.min(Math.max(n.x ?? 0, minX), Math.max(minX, maxX));
-        n.y = Math.min(Math.max(n.y ?? 0, -halfH), halfH);
+        const x = Math.min(Math.max(n.x ?? 0, minX), Math.max(minX, maxX));
+        const y = Math.min(Math.max(n.y ?? 0, -halfH), halfH);
+        // Drop only the velocity pushing into the edge: the tangential part
+        // still lets a collision slide a node along it, but the vortex no
+        // longer keeps driving nodes into the wall, where they piled up.
+        if (x !== n.x) n.vx = 0;
+        if (y !== n.y) n.vy = 0;
+        n.x = x;
+        n.y = y;
       }
     };
     sim.force("bounds", bounds);
 
     const draw = () => {
+      // Velocity integration runs after the forces, so it can carry a node
+      // past the `bounds` clamp: clamp the drawn position again.
+      bounds();
       for (const n of simNodes) {
         nodeEls
           .get(n.id)
@@ -273,10 +300,12 @@ export function LiveGraph({
       }
     };
 
-    if (reduced) {
-      sim.tick(320);
-      draw();
-    } else {
+    // Settle the layout before the first paint: unfolding from the knot on
+    // screen read as a pile of overlapping labels for the first second. The
+    // SVG's fade-in is the entrance now.
+    sim.tick(320);
+    draw();
+    if (!reduced) {
       sim.force("vortex", vortex).alphaTarget(0.02).on("tick", draw).restart();
     }
 

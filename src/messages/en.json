@@ -2,7 +2,7 @@
   "Metadata": {
     "title": "Alexis Gontier",
     "titleDefault": "Alexis Gontier · Full-stack developer seeking an apprenticeship",
-    "description": "Portfolio of Alexis Gontier, full-stack developer and Web Engineering Master's student at IIM, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
+    "description": "Portfolio of Alexis Gontier, full-stack developer and CTO & Tech Lead Master's student at HETIC, looking for a 2-year apprenticeship. Next.js, TypeScript & React projects, downloadable CV.",
     "ogTagline": "Full-stack developer · Seeking an apprenticeship",
     "jobTitle": "Full-stack developer"
   },
@@ -29,30 +29,49 @@
   },
   "Graph": {
     "title": "Skills graph",
-    "subtitle": "Each project is linked to the technologies it uses. Hover a node to reveal its connections, drag it, zoom.",
+    "subtitle": "Each project is linked to the technologies it uses. Hover a node to see its links, drag it, click to open its details, and tune the display and forces in the settings.",
     "legendProject": "Project",
     "legendTech": "Technology",
-    "canvasLabel": "Interactive graph",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "fitView": "Fit view",
-    "minimapLabel": "Graph overview",
     "srListTitle": "Projects and their technologies",
+    "searchLabel": "Search a project or technology",
+    "searchPlaceholder": "Search a project, a tech…",
+    "searchResults": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "stats": "{projects, plural, one {# project} other {# projects}} · {techs, plural, one {# technology} other {# technologies}}",
+    "filterLabel": "Filter by category",
+    "categoryOther": "Other",
+    "close": "Close the details",
+    "usedIn": "{count, plural, one {Used in # project} other {Used in # projects}}",
+    "settings": "Graph settings",
+    "reset": "Reset",
+    "sectionFilters": "Filters",
+    "sectionGroups": "Groups",
+    "sectionDisplay": "Display",
+    "sectionForces": "Forces",
+    "oneOff": "Technologies used by a single project",
+    "colorGroups": "Colour by category",
+    "textFade": "Text fade threshold",
+    "nodeSize": "Node size",
+    "linkThickness": "Link thickness",
+    "centerForce": "Center force",
+    "repelForce": "Repel force",
+    "linkForce": "Link force",
+    "linkDistance": "Link distance",
     "label": "~/graph"
   },
   "About": {
     "title": "About",
     "portraitAlt": "ASCII-art portrait of Alexis Gontier",
     "fileName": "about.md",
-    "blockquote": "Full-stack developer — Web Engineering Master's student at IIM.",
-    "p1": "I turn ideas into real web products, from mock-up to deployment. One year as an agency apprentice at Plume, and winner of the HETIC × Publicis hackathon.",
-    "p2": "What drives me: polished interfaces, readable code and projects that are actually useful.",
-    "stackLabel": "stack",
-    "stack": "Turborepo · Next.js · TypeScript · Tailwind · shadcn/ui · Prisma · PostgreSQL · Better Auth",
+    "blockquote": "Full-stack developer, CTO & Tech Lead Master's student at HETIC.",
+    "p1": "I build web apps end to end: database, API, interface and deployment. One year as an agency apprentice at Plume, many team projects at HETIC and first place at the HETIC × Publicis hackathon.",
+    "p2": "On the side, I build my own tools and use them with friends and family: a web and mobile strength-training tracker, an anime and manga catalogue, a running tracker.",
     "formationLabel": "education",
-    "formation": "HETIC Bachelor (2023–2026) · IIM Web Engineering Master (2026–2028)",
+    "formation": "HETIC Web Developer Bachelor (2023–2026) · HETIC CTO & Tech Lead Master's (2026–2028)",
     "rechercheLabel": "seeking",
-    "recherche": "full-stack developer apprenticeship · 2 years",
+    "recherche": "web or mobile development apprenticeship · 2 years",
     "dispoLabel": "availability",
     "dispo": "now · 3 weeks at work / 1 week at school"
   },
@@ -69,18 +88,13 @@
     "label": "~/stack"
   },
   "Trust": {
-    "title": "They trusted me",
-    "pause": "Pause the scrolling names",
-    "resume": "Resume the scrolling names"
+    "title": "They trusted me"
   },
   "Contact": {
     "title": "Let's work together",
     "subtitle": "Hiring a full-stack developer apprentice, or just have a question? Write to me, I'd be glad to talk.",
     "cta": "Send me an email",
-    "copy": "Copy email address",
-    "copied": "Address copied",
-    "label": "~/contact",
-    "copyFailed": "Couldn't copy, the address is shown above"
+    "label": "~/contact"
   },
   "AvailabilityBanner": {
     "text": "Open to apprenticeship · available now",
@@ -88,11 +102,11 @@
   },
   "Hero": {
     "greeting": "Hi, I'm —",
-    "tagline": "Full-stack developer studying for a Web Engineering Master's at IIM. I build fast, reliable web apps with Next.js and TypeScript, and I'm looking for a 2-year apprenticeship to do it on your team.",
+    "tagline": "Full-stack developer studying for a CTO & Tech Lead Master's at HETIC. I build fast, reliable web apps with Next.js and TypeScript, and I'm looking for a 2-year apprenticeship to do it on your team.",
     "viewProjects": "View my projects",
     "downloadCv": "Download my CV",
     "viewGraph": "Explore the skills graph",
-    "graphHint": "My projects, linked to the technologies they use.",
+    "graphHint": "A selection of my projects, linked to the technologies they use.",
     "graphOpen": "View project",
     "graphPause": "Pause the graph animation",
     "graphPlay": "Resume the graph animation"
