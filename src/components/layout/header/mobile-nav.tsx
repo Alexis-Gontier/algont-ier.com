@@ -33,7 +33,7 @@ export function MobileNav() {
           <MenuIcon />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
+      <SheetContent side="right" className="overscroll-contain">
         <SheetHeader>
           <SheetTitle>{t("menu")}</SheetTitle>
           <SheetDescription className="sr-only">

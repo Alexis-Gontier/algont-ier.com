@@ -1,4 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignore": [".claude/**", "src/components/shadcn-ui/**"]
+  "ignore": [".claude/**", "src/components/shadcn-ui/**"],
+  "ignoreDependencies": ["shadcn", "@playwright/cli"]
 }

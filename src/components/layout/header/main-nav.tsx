@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn-ui/button";
+import { RollText } from "@/components/shared/roll-text";
 import { navLinks } from "@/config/site";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils/cn";
@@ -34,7 +35,7 @@ export function MainNav({
         orientation === "vertical" && "flex-col",
       )}
     >
-      {navLinks.map(({ labelKey, href }) => {
+      {navLinks.map(({ labelKey, href }, index) => {
         const active = isActive(href, pathname);
         return (
           <Button
@@ -43,16 +44,24 @@ export function MainNav({
             variant={active ? "secondary" : "ghost"}
             size="default"
             className={cn(
+              "group",
               !active && "text-muted-foreground",
-              orientation === "vertical" && "w-full justify-start",
+              orientation === "vertical" &&
+                "h-12 w-full justify-start text-lg motion-safe:fill-mode-both motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-6 motion-safe:duration-500",
             )}
+            // Menu links slide in one after another as the sheet opens.
+            style={
+              orientation === "vertical"
+                ? { animationDelay: `${150 + index * 60}ms` }
+                : undefined
+            }
           >
             <Link
               href={href}
               onClick={onNavigate}
               aria-current={active ? "page" : undefined}
             >
-              {t(labelKey)}
+              <RollText>{t(labelKey)}</RollText>
             </Link>
           </Button>
         );

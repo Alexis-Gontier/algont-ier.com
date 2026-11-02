@@ -1,17 +1,22 @@
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
+import { toLocale } from "@/i18n/locale";
 
 export const alt = siteConfig.name;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+// Metadata routes default to on-demand rendering. Nothing here varies per
+// request, and `output: "export"` refuses anything dynamic — so pin it. Inert
+// on a server deployment, required for the static export.
+export const dynamic = "force-static";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
 export default async function OpengraphImage({ params }: Props) {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return new ImageResponse(

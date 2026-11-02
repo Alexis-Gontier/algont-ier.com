@@ -1,9 +1,9 @@
-import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { siteUrl } from "@/config/site";
+import { toLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
 import { localeAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils/cn";
@@ -16,6 +16,14 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+/** Browser chrome matches the page ground in each theme. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0f" },
+  ],
+};
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -23,7 +31,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: Omit<Props, "children">): Promise<Metadata> {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
@@ -59,15 +67,23 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      className={cn(
-        fontVariables,
-        "h-full scroll-pt-20 scroll-smooth antialiased",
-      )}
+      className={cn(fontVariables, "h-full scroll-pt-20 antialiased")}
     >
+      <head>
+        {/*
+         * Flags that scripts run, before first paint, so entrance animations
+         * can hide their targets without a flash — and content stays visible
+         * when JavaScript doesn't run at all (see `[data-reveal]` in globals.css).
+         */}
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static one-liner, no user input
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
-        <Analytics />
       </body>
     </html>
   );

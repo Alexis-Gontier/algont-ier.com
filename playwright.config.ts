@@ -19,7 +19,12 @@ export default defineConfig({
     baseURL,
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    // Mobile is the majority of the traffic and the layout bugs that matter
+    // (horizontal overflow, touch targets) are invisible at desktop widths.
+    { name: "mobile", use: { ...devices["Pixel 7"] } },
+  ],
   // Start the app before running tests. Uses the production build in CI for
   // realistic results, and the dev server locally for speed.
   webServer: {

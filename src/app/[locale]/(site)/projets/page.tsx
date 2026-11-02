@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Separator } from "@/components/shadcn-ui/separator";
+import { Reveal } from "@/components/shared/reveal";
 import { Section } from "@/components/shared/section";
+import { SectionHeader } from "@/components/shared/section-header";
 import { ProjectCard, projects } from "@/features/projects";
+import { toLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = {
@@ -10,7 +12,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "Projects" });
 
   return pageMetadata({
@@ -22,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectsPage({ params }: Props) {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Projects" });
 
@@ -36,37 +38,32 @@ export default async function ProjectsPage({ params }: Props) {
   );
 
   return (
-    <Section padded={false}>
-      <div className="flex items-stretch">
-        <Separator orientation="vertical" />
+    <Section>
+      <div className="flex flex-col gap-12">
+        <Reveal>
+          <SectionHeader
+            as="h1"
+            label={t("label")}
+            title={t("title")}
+            subtitle={t("subtitle")}
+            action={
+              <p className="font-mono text-muted-foreground text-sm">
+                {t("count", { count: projects.length })}
+              </p>
+            }
+          />
+        </Reveal>
 
-        <div className="flex flex-1 flex-col gap-10 py-8">
-          <div className="flex flex-col gap-2 px-4 sm:px-8">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              {t("title")}
-            </h1>
-            <p className="text-muted-foreground">{t("subtitle")}</p>
-          </div>
-
-          <Separator />
-
-          <div className="grid gap-6 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                priority={eagerSlugs.has(project.slug)}
-              />
-            ))}
-          </div>
-
-          <Separator />
-
-          {/* Espace réservé, symétrique du bouton « voir tout » de la home. */}
-          <div aria-hidden className="h-5 px-4 sm:px-8" />
-        </div>
-
-        <Separator orientation="vertical" />
+        <Reveal stagger={0.1} className="grid gap-6 lg:grid-cols-2">
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              priority={eagerSlugs.has(project.slug)}
+              wide={index === 0}
+            />
+          ))}
+        </Reveal>
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "./shadcn-variants.css";
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -51,6 +52,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* Motion tokens — shared by CSS transitions and the GSAP defaults. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   @keyframes marquee {
@@ -83,73 +86,87 @@ body {
   --vite-yellow: oklch(0.93 0.11 100);
 
   color-scheme: light;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.32 0.024 256);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.32 0.024 256);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.32 0.024 256);
-  --primary: oklch(0.585 0.228 277);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0.005 270);
-  --secondary-foreground: oklch(0.32 0.024 256);
-  --muted: oklch(0.97 0.005 270);
-  --muted-foreground: oklch(0.52 0.018 264);
-  --accent: oklch(0.96 0.025 277);
-  --accent-foreground: oklch(0.42 0.16 277);
+  /*
+   * Black + violet identity. Light theme: violet #7c3aed carries white text at
+   * 5.7:1 and reads as text on white at 5.5:1 (WCAG 1.4.3). The Vite brand
+   * palette above stays exact for decorative use (graph, charts).
+   */
+  --background: #ffffff;
+  --foreground: #0a0a0f;
+  --card: #ffffff;
+  --card-foreground: #0a0a0f;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0f;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f3f8;
+  --secondary-foreground: #0a0a0f;
+  --muted: #f4f3f8;
+  --muted-foreground: #63626f;
+  --accent: #f1edff;
+  --accent-foreground: #5b21b6;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.006 264);
-  --input: oklch(0.92 0.006 264);
-  --ring: oklch(0.585 0.228 277);
+  --border: #e7e5ef;
+  --input: #e7e5ef;
+  --ring: #7c3aed;
   --chart-1: var(--vite-cyan);
   --chart-2: var(--vite-indigo);
   --chart-3: var(--vite-purple);
   --chart-4: var(--vite-yellow);
   --chart-5: oklch(0.7 0.15 162);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0.003 270);
-  --sidebar-foreground: oklch(0.32 0.024 256);
-  --sidebar-primary: oklch(0.585 0.228 277);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.025 277);
-  --sidebar-accent-foreground: oklch(0.42 0.16 277);
-  --sidebar-border: oklch(0.92 0.006 264);
-  --sidebar-ring: oklch(0.585 0.228 277);
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0f;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1edff;
+  --sidebar-accent-foreground: #5b21b6;
+  --sidebar-border: #e7e5ef;
+  --sidebar-ring: #7c3aed;
 }
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.19 0.006 285);
-  --foreground: oklch(0.93 0.005 270);
-  --card: oklch(0.23 0.007 285);
-  --card-foreground: oklch(0.93 0.005 270);
-  --popover: oklch(0.23 0.007 285);
-  --popover-foreground: oklch(0.93 0.005 270);
-  --primary: oklch(0.64 0.196 277);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.27 0.006 285);
-  --secondary-foreground: oklch(0.93 0.005 270);
-  --muted: oklch(0.27 0.006 285);
-  --muted-foreground: oklch(0.7 0.012 270);
-  --accent: oklch(0.29 0.03 277);
-  --accent-foreground: oklch(0.9 0.04 277);
+  --background: #0a0a0f;
+  --foreground: #f4f3f8;
+  --card: #121218;
+  --card-foreground: #f4f3f8;
+  --popover: #121218;
+  --popover-foreground: #f4f3f8;
+  /*
+   * Dark mode flips the pairing. `--primary` serves two roles that pull apart:
+   * a button background and a text colour via `text-primary`. On near-black the
+   * text role wins — so the violet is lifted (#9d7bff, 6.4:1 on the ground) and
+   * `--primary-foreground` becomes near-black (6.4:1 on the violet). White text
+   * on it would only reach 3.1:1.
+   */
+  --primary: #9d7bff;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1b1a23;
+  --secondary-foreground: #f4f3f8;
+  --muted: #1b1a23;
+  --muted-foreground: #a1a1aa;
+  --accent: #221d38;
+  --accent-foreground: #e4dcff;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.64 0.196 277);
+  /* 13% on near-black: below ~10% the card/header borders that carry the
+     layout's structure disappear against the ground. */
+  --border: rgb(255 255 255 / 13%);
+  --input: rgb(255 255 255 / 16%);
+  --ring: #9d7bff;
   --chart-1: var(--vite-cyan);
   --chart-2: var(--vite-indigo);
   --chart-3: var(--vite-purple);
   --chart-4: var(--vite-yellow);
   --chart-5: oklch(0.7 0.15 162);
-  --sidebar: oklch(0.23 0.007 285);
-  --sidebar-foreground: oklch(0.93 0.005 270);
-  --sidebar-primary: oklch(0.64 0.196 277);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.29 0.03 277);
-  --sidebar-accent-foreground: oklch(0.9 0.04 277);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.64 0.196 277);
+  --sidebar: #121218;
+  --sidebar-foreground: #f4f3f8;
+  --sidebar-primary: #9d7bff;
+  --sidebar-primary-foreground: #0a0a0f;
+  --sidebar-accent: #221d38;
+  --sidebar-accent-foreground: #e4dcff;
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #9d7bff;
 }
 
 /*
@@ -159,43 +176,138 @@ body {
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not(.dark) {
     color-scheme: dark;
-    --background: oklch(0.19 0.006 285);
-    --foreground: oklch(0.93 0.005 270);
-    --card: oklch(0.23 0.007 285);
-    --card-foreground: oklch(0.93 0.005 270);
-    --popover: oklch(0.23 0.007 285);
-    --popover-foreground: oklch(0.93 0.005 270);
-    --primary: oklch(0.64 0.196 277);
-    --primary-foreground: oklch(0.98 0 0);
-    --secondary: oklch(0.27 0.006 285);
-    --secondary-foreground: oklch(0.93 0.005 270);
-    --muted: oklch(0.27 0.006 285);
-    --muted-foreground: oklch(0.7 0.012 270);
-    --accent: oklch(0.29 0.03 277);
-    --accent-foreground: oklch(0.9 0.04 277);
+    --background: #0a0a0f;
+    --foreground: #f4f3f8;
+    --card: #121218;
+    --card-foreground: #f4f3f8;
+    --popover: #121218;
+    --popover-foreground: #f4f3f8;
+    --primary: #9d7bff;
+    --primary-foreground: #0a0a0f;
+    --secondary: #1b1a23;
+    --secondary-foreground: #f4f3f8;
+    --muted: #1b1a23;
+    --muted-foreground: #a1a1aa;
+    --accent: #221d38;
+    --accent-foreground: #e4dcff;
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 12%);
-    --ring: oklch(0.64 0.196 277);
-    --sidebar: oklch(0.23 0.007 285);
-    --sidebar-foreground: oklch(0.93 0.005 270);
-    --sidebar-primary: oklch(0.64 0.196 277);
-    --sidebar-primary-foreground: oklch(0.98 0 0);
-    --sidebar-accent: oklch(0.29 0.03 277);
-    --sidebar-accent-foreground: oklch(0.9 0.04 277);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.64 0.196 277);
+    --border: rgb(255 255 255 / 13%);
+    --input: rgb(255 255 255 / 16%);
+    --ring: #9d7bff;
+    --sidebar: #121218;
+    --sidebar-foreground: #f4f3f8;
+    --sidebar-primary: #9d7bff;
+    --sidebar-primary-foreground: #0a0a0f;
+    --sidebar-accent: #221d38;
+    --sidebar-accent-foreground: #e4dcff;
+    --sidebar-border: rgb(255 255 255 / 10%);
+    --sidebar-ring: #9d7bff;
   }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
+  }
+  /*
+   * Full-strength ring for focus: at 50% the violet measured under 3:1 against
+   * the near-black ground (WCAG 2.4.11). shadcn controls draw their own ring.
+   */
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+  html {
+    -webkit-tap-highlight-color: color-mix(
+      in oklch,
+      var(--primary) 20%,
+      transparent
+    );
   }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
+  }
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  /*
+   * Safety net against horizontal overflow: `clip` (not `hidden`) because it
+   * doesn't create a scroll container, so `position: sticky` and scroll anchors
+   * keep working. Individual leaks are still fixed at their source.
+   */
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/*
+ * Entrance targets: hidden before first paint only when scripts run and motion
+ * is allowed, so GSAP can reveal them without a flash. If the animation never
+ * starts, the timed fallback shows them anyway — content is never lost.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    visibility: hidden;
+    animation: reveal-fallback 0s 2.5s forwards;
+  }
+}
+
+@keyframes reveal-fallback {
+  to {
+    visibility: visible;
+  }
+}
+
+/*
+ * Page transitions (React <ViewTransition>, see (site)/template.tsx): the old
+ * page leaves fast so it doesn't compete, the new one rises in gently. The
+ * project visual morphs between card and page (`.morph`).
+ */
+::view-transition-old(.page-exit) {
+  animation: 160ms ease-in both vt-fade reverse;
+}
+
+::view-transition-new(.page-enter) {
+  animation:
+    260ms ease-out 120ms both vt-fade,
+    600ms var(--ease-out-expo) 120ms both vt-rise;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 500ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    transform: translateY(24px);
+  }
+}
+
+/* The calm version: a short cross-fade, nothing travels or morphs slowly. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(.page-enter) {
+    animation: 160ms ease-out both vt-fade;
+  }
+  ::view-transition-group(.morph) {
+    animation-duration: 1ms;
   }
 }

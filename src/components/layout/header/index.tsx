@@ -1,5 +1,6 @@
 import { LocaleSwitcher } from "@/components/controls/locale-switcher";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
+import { RollText } from "@/components/shared/roll-text";
 import { Link } from "@/i18n/navigation";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
@@ -9,8 +10,16 @@ export function Header() {
     <header className="sticky top-0 z-50 flex h-20 items-center border-b bg-background/80 backdrop-blur-sm">
       <div className="flex w-full items-center justify-between gap-4 px-4 sm:px-8">
         <div className="flex items-center gap-8">
-          <Link href="/" className="text-xl font-extrabold tracking-tight">
-            Algont<span className="text-primary">-</span>ier
+          <Link
+            href="/"
+            translate="no"
+            className="group text-xl font-extrabold tracking-tight"
+          >
+            <RollText>
+              <span>
+                Algont<span className="text-primary">-</span>ier
+              </span>
+            </RollText>
           </Link>
 
           <div className="hidden md:block">

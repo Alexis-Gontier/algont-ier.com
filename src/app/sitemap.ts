@@ -3,6 +3,9 @@ import { absoluteUrl } from "@/config/site";
 import { projects } from "@/features/projects";
 import { routing } from "@/i18n/routing";
 
+// Required by `output: "export"`, inert otherwise — see opengraph-image.tsx.
+export const dynamic = "force-static";
+
 /** Locale-relative paths to index ("" = home) with their crawl priority. */
 const paths: { path: string; priority: number }[] = [
   { path: "", priority: 1 },

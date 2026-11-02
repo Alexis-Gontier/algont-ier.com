@@ -6,13 +6,14 @@ import { Hero } from "@/features/hero";
 import { FeaturedProjects } from "@/features/projects";
 import { Skills } from "@/features/skills";
 import { Trust } from "@/features/trust";
+import { toLocale } from "@/i18n/locale";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
 export default async function Home({ params }: Props) {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
