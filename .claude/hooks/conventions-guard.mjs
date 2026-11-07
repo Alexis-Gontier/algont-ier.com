@@ -63,14 +63,6 @@ A new plugin is registered there, not in the component.`;
   }
 
   if (
-    path.startsWith("src/app/") &&
-    /from\s+["']next\/headers["']/.test(content)
-  ) {
-    return `\`next/headers\` (cookies, headers, draftMode) is request-time: production is a static export,
-so every route must stay statically renderable.`;
-  }
-
-  if (
     /^src\/app\/.*\/(page|layout|template)\.tsx$/.test(path) &&
     /^\s*["']use client["']/m.test(content)
   ) {

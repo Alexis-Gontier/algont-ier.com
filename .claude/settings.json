@@ -30,8 +30,7 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm remove:*)",
       "Bash(git push:*)",
-      "Bash(git checkout static-export-ftp:*)",
-      "Bash(git switch static-export-ftp:*)"
+      "Bash(gh pr merge:*)"
     ]
   },
   "hooks": {
