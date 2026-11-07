@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml/badge.svg)](https://github.com/Alexis-Gontier/algont-ier.com/actions/workflows/ci.yml)
 
-Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed as a
-**static export** over **FTP** to OVH shared hosting.
+Personal portfolio built with **Next.js 16** (App Router) and **React 19**, deployed on
+**Vercel** at [algont-ier.com](https://algont-ier.com).
 
 ## Stack
 
@@ -109,21 +109,16 @@ or default locale.
 
 ## Deployment
 
-Production is a **static export** hosted on **OVH shared hosting**, served over FTP — there is
-no Node server in production. The build and upload live on the dedicated
-[`static-export-ftp`](https://github.com/Alexis-Gontier/algont-ier.com/tree/static-export-ftp)
-branch, which sets `output: "export"` in [`next.config.ts`](next.config.ts) so `pnpm build`
-emits a fully static `out/` directory. See [`DEPLOY-FTP.md`](DEPLOY-FTP.md) on that branch for
-the full procedure (WinSCP/FTP upload, `.htaccess` headers, root locale redirect).
+Production runs on **Vercel** through its GitHub integration ([`vercel.json`](vercel.json)):
 
-- **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs lint, type-check, unit
-  and E2E tests on every push and PR.
-- **Deploy** ([`.github/workflows/deploy-ftp.yml`](.github/workflows/deploy-ftp.yml) on the
-  `static-export-ftp` branch) builds the static export and uploads `out/` to OVH via FTP on
-  every push to that branch.
+- every push to `main` deploys production on [algont-ier.com](https://algont-ier.com)
+  (`www` 308-redirects to the apex);
+- every other branch and PR gets a preview deployment.
 
-Because the export is static, the i18n middleware ([`src/proxy.ts`](src/proxy.ts)) is dropped
-in favour of static `[locale]` segments plus a root redirect, and security headers move from
-`next.config.ts` to `.htaccess`. Set `NEXT_PUBLIC_SITE_URL` (build-time) to your production
-domain so absolute URLs in the sitemap, robots and Open Graph tags are correct — it is read
-from the `SITE_URL` repository secret in the deploy workflow.
+- **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs lint, type-check, knip,
+  unit and E2E tests and a build on every push and PR. It doesn't deploy.
+
+Pages are prerendered at build time (SSG); the i18n proxy ([`src/proxy.ts`](src/proxy.ts)) and
+the security headers in [`next.config.ts`](next.config.ts) run on Vercel. Set
+`NEXT_PUBLIC_SITE_URL=https://algont-ier.com` in the Vercel project's environment variables so
+absolute URLs in the sitemap, robots and Open Graph tags are correct.

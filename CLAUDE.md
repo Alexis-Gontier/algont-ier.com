@@ -6,14 +6,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Portfolio — project guide
 
-Personal portfolio built with Next.js 16 (App Router) + React 19. Production is a
-**static export** deployed over FTP to OVH shared hosting (see `README.md`), so every
-route must stay statically renderable — no request-time APIs in the `(site)` subtree.
-
-**Branches:** `main` is the source of truth (no `output: "export"`; `vercel.json` deploys
-it to Vercel). `static-export-ftp` = `main` + the export config (`output: "export"`,
-`images.unoptimized`, `public/.htaccess`, FTP deploy workflow). Keep them separate and
-never touch `static-export-ftp` unless asked.
+Personal portfolio built with Next.js 16 (App Router) + React 19, hosted on **Vercel** at
+https://algont-ier.com. A push to `main` deploys production; every other branch and PR gets
+a preview deployment. Pages are prerendered (SSG) — keep them that way unless a feature
+really needs request-time rendering, and make that a deliberate choice.
 
 ## Stack
 
@@ -77,7 +73,7 @@ docs/             dated audits (e.g. audit-2026-07-27.md)
 ```
 
 - **Zone rules load with their files** from `.claude/rules/`: `app-routing` (route groups,
-  static export, typegen), `components` (where a component lives, shadcn devDependency),
+  SSG, typegen), `components` (where a component lives, shadcn devDependency),
   `i18n` (message parity, locale-aware navigation).
 - **Placement in one line:** `app/` routes, `features/<name>/` owns domain UI + data (imported
   through its `index.ts`), `components/shared/` only from the second real caller.
@@ -111,17 +107,16 @@ both themes and with reduced motion.
 
 - Imports use the `@/*` alias (→ `src/*`).
 - Git hooks via Lefthook: pre-commit formats staged files; pre-push runs typecheck + tests.
-- Security headers live in `next.config.ts` (live on `main`/Vercel) and, on
-  `static-export-ftp`, in `public/.htaccess` — `headers()` is inert under
-  `output: "export"`, so a header change must be made in both places.
-- Production is deployed by FTP from the `static-export-ftp` branch; CI
-  (`.github/workflows/ci.yml`) only runs quality checks.
+- Security headers live in `next.config.ts` (`headers()`).
+- Vercel deploys through its GitHub integration (`vercel.json`); CI
+  (`.github/workflows/ci.yml`) only runs quality checks. Production env vars
+  (`NEXT_PUBLIC_SITE_URL`…) are set in the Vercel project, not in the repo.
 
 ## Claude Code tooling
 
 - **Hooks** (`.claude/settings.json`): `conventions-guard.mjs` runs before every Edit/Write
   and refuses the regex-checkable rules (`process.env` outside `src/env.ts`, manual memo,
-  `gsap` not from `@/lib/gsap`, `next/link`, `next/headers` in `app/`, deep feature imports,
+  `gsap` not from `@/lib/gsap`, `next/link`, deep feature imports,
   `"use client"` on page/layout, `../../`). If it blocks, fix the code, not the hook.
   `format.mjs` runs Biome `check --write` after every edit — no manual formatting.
 - **Agents:** `next-docs` answers Next 16 questions from `node_modules/next/dist/docs/`

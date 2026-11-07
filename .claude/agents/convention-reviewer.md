@@ -1,6 +1,6 @@
 ---
 name: convention-reviewer
-description: Reviews a diff against the written conventions of CLAUDE.md and .claude/rules/ (file placement, static-export safety, i18n, motion, shadcn). Run before a commit or PR, or when asked "review my changes", "does this follow the architecture?". Doesn't hunt bugs — that's /code-review.
+description: Reviews a diff against the written conventions of CLAUDE.md and .claude/rules/ (file placement, SSG, i18n, motion, shadcn). Run before a commit or PR, or when asked "review my changes", "does this follow the architecture?". Doesn't hunt bugs — that's /code-review.
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -28,9 +28,10 @@ focus on what needs reading context.
   second real caller. Domain UI lives in `features/<name>/components/`, global chrome in
   `components/layout/`, reusable controls in `components/controls/`.
 
-**Static export**
-- Nothing request-time under `src/app/[locale]/(site)/`: no cookies/headers, no dynamic route
-  without `generateStaticParams`, no reliance on image optimization or the proxy at runtime.
+**SSG**
+- Pages under `src/app/[locale]/(site)/` stay prerendered: dynamic segments list their params
+  in `generateStaticParams`. A page turned dynamic (cookies, headers, uncached fetch) without
+  the PR saying why is a finding.
 
 **i18n**
 - Every UI string is in `src/messages/fr.json` **and** `en.json`, same keys
@@ -55,5 +56,5 @@ What's written: <factual finding>
 Fix: <the precise action>
 ```
 
-Order by severity: static-export breakage and i18n gaps first, placement next, naming last.
+Order by severity: unintended dynamic rendering and i18n gaps first, placement next, naming last.
 Never modify files — you review, you don't fix.

@@ -12,9 +12,10 @@ paths:
   segment. `(site)/layout.tsx` mounts Header + Footer; `(site)/template.tsx` remounts on every
   navigation to play the page `<ViewTransition>` (styles in `globals.css`). `(home)/` keeps `/`
   apart from sibling sections — page-only parts go in its `_components/`.
-- **Static export**: every route under `(site)/` must render at build time. Dynamic segments
-  (`projets/[id]`) need `generateStaticParams`; no `next/headers`, no ISR, no runtime proxy
-  logic (the export drops `src/proxy.ts`). The guard hook blocks `next/headers` here.
+- **SSG by default**: every route under `(site)/` is prerendered at build time; dynamic segments
+  (`projets/[id]`) list their params in `generateStaticParams`. Reaching for `next/headers`,
+  `cookies()` or ISR turns a page dynamic on Vercel — fine if a feature needs it, but decide it
+  explicitly rather than by accident.
 - No `"use client"` on a page, layout or template (the hook refuses) — put it on the leaf.
 - Page metadata: canonical + hreflang come from `localeAlternates()` (`@/lib/seo`).
 - **Adding, moving or deleting a route** makes `.next/types` stale and `pnpm typecheck` fail:

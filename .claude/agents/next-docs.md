@@ -1,6 +1,6 @@
 ---
 name: next-docs
-description: Answers a Next.js 16 question by reading the docs shipped in node_modules/next/dist/docs/ instead of trusting model memory. Use whenever a Next API is uncertain — static export constraints, generateStaticParams, metadata / opengraph-image / sitemap, proxy (ex-middleware), ViewTransition, next.config options, images, React Compiler.
+description: Answers a Next.js 16 question by reading the docs shipped in node_modules/next/dist/docs/ instead of trusting model memory. Use whenever a Next API is uncertain — static vs dynamic rendering, generateStaticParams, metadata / opengraph-image / sitemap, proxy (ex-middleware), ViewTransition, next.config options, images, React Compiler.
 tools: Read, Grep, Glob
 ---
 
@@ -26,15 +26,14 @@ full** before concluding — deprecation notes and constraints often sit in a ca
 - Next 16, App Router, React 19, React Compiler on, `experimental.viewTransition: true`.
 - next-intl with `[locale]` segments; locale routing in `src/proxy.ts` (Next 16 renamed
   `middleware` → `proxy`).
-- Production is a **static export** (`output: "export"`, on the `static-export-ftp` branch):
-  flag anything that needs a server at request time (cookies, headers, ISR, route handlers
-  with dynamic behaviour, image optimization, proxy).
+- Hosted on **Vercel**; pages are prerendered (SSG). Flag anything that would quietly turn a
+  page dynamic (cookies, headers, uncached fetches, ISR) so the choice stays deliberate.
 
 ## Answer
 
 1. The direct answer, with the exact API signature or shape.
 2. The doc file path that establishes it.
-3. Any warnings or deprecations met on the way — and whether it survives `output: "export"`.
+3. Any warnings or deprecations met on the way — and whether it keeps the page static.
 
 If the local docs don't cover it, say so ("the local docs don't cover this") rather than filling
 in from memory. Never modify project files.
