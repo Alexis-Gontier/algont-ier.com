@@ -12,3 +12,6 @@
 *.pdf binary
 *.woff binary
 *.woff2 binary
+
+# Vendored Claude Code skills — exclude from GitHub language stats.
+.claude/** linguist-vendored
